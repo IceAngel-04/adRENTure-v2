@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:adrenture/pages/home/home.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -39,19 +40,6 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
       ),
     );
-  }fl
-}
-
-class HomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Home Page'),
-      ),
-      body: Center(
-        child: Text('Bem-vindo à Home Page!'),
-      ),
-    );
   }
 }
+
