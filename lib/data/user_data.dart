@@ -13,7 +13,7 @@ abstract class UserData {
         'Content-Type': 'application/json',
       },
       body: jsonEncode(<String, String>{
-        'username': user.username,
+        'username': user.name,
         'password': user.password,
         'email': user.email,
       }),

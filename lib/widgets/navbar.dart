@@ -1,47 +1,75 @@
-import 'package:adrenture/main.dart';
 import 'package:flutter/material.dart';
 
-class BottomNavBar extends StatelessWidget {
-  final int selectedIndex;
-  final Function(int) onItemTapped;
+import 'package:adrenture/pages/home/profile.dart';
+import 'package:adrenture/pages/home/wallet.dart';
+import 'package:adrenture/pages/home/home.dart';
+import 'package:adrenture/pages/home/carpage.dart';
 
-  const BottomNavBar({super.key, 
-    required this.selectedIndex,
-    required this.onItemTapped,
-  });
+class BottomNavBarPage extends StatefulWidget {
+  @override
+  _BottomNavBarPageState createState() => _BottomNavBarPageState();
+}
+
+class _BottomNavBarPageState extends State<BottomNavBarPage> {
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  Widget _getPage(int index) {
+    switch (index) {
+      case 0:
+        return HomePage();
+      case 1:
+        return CarPage();
+      case 2:
+        return WalletPage();
+      case 3:
+        return ProfilePage();
+      default:
+        return HomePage();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      type: BottomNavigationBarType.fixed,
-      showSelectedLabels: true,
-      showUnselectedLabels: true,
-      items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Início',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.directions_car),
-          label: 'Carros Ativos',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.pie_chart),
-          label: 'Estatísticas',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          label: 'Perfil',
-        ),
-      ],
-      currentIndex: selectedIndex,
-      selectedItemColor: Colors.lightBlue,
-      onTap: onItemTapped,
+    return Scaffold(
+      body: _getPage(_selectedIndex),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        showSelectedLabels: true,
+        showUnselectedLabels: true,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Início',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.directions_car),
+            label: 'Carros Ativos',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.pie_chart),
+            label: 'Estatísticas',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Perfil',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.lightBlue,
+        onTap: _onItemTapped,
+      ),
     );
   }
 }
 
-// Função para chamar MainPage de outra página
-void goToMainPage(BuildContext context) {
-  Navigator.of(context).push(MaterialPageRoute(builder: (context) => MainPage()));
+void main() {
+  runApp(MaterialApp(
+    home: BottomNavBarPage(),
+  ));
 }
