@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:adrenture/pages/home/profile.dart';
 import 'package:adrenture/pages/home/wallet.dart';
 import 'package:adrenture/pages/home/home.dart';
-import 'package:adrenture/pages/home/carpage.dart';
+import 'package:adrenture/pages/home/activecarspage.dart';
 
 class BottomNavBarPage extends StatefulWidget {
   @override
@@ -22,15 +22,15 @@ class _BottomNavBarPageState extends State<BottomNavBarPage> {
   Widget _getPage(int index) {
     switch (index) {
       case 0:
-        return HomePage();
+        return const HomePage();
       case 1:
-        return CarPage();
+        return const ActiveCarsPage();
       case 2:
-        return WalletPage();
+        return const WalletPage();
       case 3:
-        return ProfilePage();
+        return const ProfilePage();
       default:
-        return HomePage();
+        return const HomePage();
     }
   }
 

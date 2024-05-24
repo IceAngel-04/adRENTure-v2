@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-
+import 'package:adrenture/pages/home/carpage.dart';
+import 'package:adrenture/pages/home/rentyourcar.dart';
+import 'package:adrenture/models/car.dart';
 import 'package:adrenture/widgets/smallCard.dart';
 
 void main() => runApp(const MyApp());
@@ -54,13 +56,61 @@ class HomePageContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Car> carList = [
+      carro1,
+      carro2,
+      carro3,
+      carro4,
+      carro5,
+      carro6,
+      carro7,
+      carro8,
+      carro9,
+      carro10
+    ];
+
+    List<Widget> items = [
+      GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const RentYourCarPage(),
+            ),
+          );
+        },
+        child: SmallCustomCard(
+          title: 'Alugue já o seu Carro',
+          subtitle: 'Alugue já o seu Carro para ganhar um dinheiro extra!!!',
+          image: Image.asset('assets/images/car.png'),
+        ),
+      ),
+      ...carList.map((car) {
+        return GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => CarPage(carId: car.id),
+              ),
+            );
+          },
+          child: SmallCustomCard(
+            title: '${car.marca} ${car.modelo}',
+            subtitle: car.descricao,
+            image: Image.asset(car.imagemPrincipal),
+          ),
+        );
+      }),
+    ];
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
           title,
-          textAlign: TextAlign.center, // Texto centralizado
+          textAlign: TextAlign.center,
         ),
-        centerTitle: true, // Centraliza o título
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -87,24 +137,14 @@ class HomePageContent extends StatelessWidget {
                 ],
               ),
             ),
+            const SizedBox(height: 20),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.7,
-              child: ListView.builder(
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return SmallCustomCard(
-                    title: 'Carro $index',
-                    subtitle: 'Descrição do carro $index',
-                    onBuyTicketsPressed: () {
-                      Navigator.pushNamed(context, '/car_page');
-                    },
-                    onListenPressed: () {
-                      // Implemente a ação do botão 'LISTEN' aqui
-                    },
-                  );
-                },
+              height: MediaQuery.of(context).size.height * 0.9,
+              child: ListView(
+                children: items,
               ),
             ),
+            const SizedBox(height: 50),
           ],
         ),
       ),
