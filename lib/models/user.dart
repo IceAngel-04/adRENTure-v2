@@ -1,14 +1,16 @@
 class User {
   int id;
   String userType;
-  late String userImage; // Alterado para String para representar o caminho da imagem
+  late String
+      userImage; // Alterado para String para representar o caminho da imagem
   String? username;
   String name;
   String email;
   int? telefone;
   String password;
   int nif;
-  DateTime datanascimento; // Alterado para DateTime para representar uma data de nascimento
+  DateTime
+      datanascimento; // Alterado para DateTime para representar uma data de nascimento
   bool cartaConducao = true;
   String? morada;
   String? moradaAntiga;
@@ -21,6 +23,7 @@ class User {
   DateTime dataUltimaAtualizacao = DateTime.now();
   int notaApp = 0;
   bool ativo = true;
+  double nota = 0;
 
   User({
     required this.id,
@@ -30,13 +33,19 @@ class User {
     required this.password,
     required this.nif,
     required this.datanascimento,
-  }) {
-    // Definindo os valores padrão
-    notificacoes = true;
-    cartaConducao = true;
-    verificado = false;
-    ativo = true;
-    notaApp = 0;
-    userImage = 'lib/assets/images/user.png';
-  }
+    this.notificacoes = true,
+    this.cartaConducao = true,
+    this.verificado = false,
+    this.ativo = true,
+    this.notaApp = 0,
+    this.userImage = 'assets/images/user.png',
+    this.nota = 0,
+    this.username = '',
+    this.telefone = 0,
+    this.morada = '',
+    this.moradaAntiga = '',
+    this.lastPassword = '',
+    this.localizacao = 'Braga centro',
+  });
 }
+
