@@ -1,75 +1,114 @@
+import 'dart:js';
+
 import 'package:adrenture/components/button.dart';
 import 'package:adrenture/components/textfield.dart';
+import 'package:adrenture/pages/login/register.dart';
+import 'package:adrenture/pages/login/resetPasswordEmail.dart';
+import 'package:adrenture/widgets/navbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class Login extends StatelessWidget {
   Login({super.key});
 
   //text editing controllers
-  final usernameController = TextEditingController();
+  final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
   //sign user in method
-  void signUserIn(){
+  void loginUser(){
 
   }
 
+    void loginUser2(BuildContext context){
+      Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => BottomNavBarPage()));
+    }
+
+    void forgotPassword(BuildContext context){
+      Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => resetPasswordEmail()));
+    }
+
+    void registerUser(BuildContext context){
+      Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => Register()));
+    }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
       body: SafeArea(
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(height: 50),
-            //logo
-             const Icon(
-              Icons.lock,
-              size: 100,
-              ),
-          
-              const SizedBox(height: 50),
-
-            //welcome back, you ve been missed!
-
               Text(
-                'Welcome back',
+                'Bem-Vindo!',
                 style: TextStyle(
-                  color: Colors.grey[700],
-                  fontSize: 16,
+                  color: Colors.black,
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-
               const SizedBox(height: 25),
-          
+
             //username textfield
             MyTextField(
-              controller: usernameController,
-              hintText: 'Username',
+              controller: emailController,
+              hintText: 'Email',
+
               obscureText: false,
             ),
 
             const SizedBox(height: 10),
             //password textfield
-            MyTextField(
+            /*MyTextField(
               controller: passwordController,
               hintText: 'Password',
               obscureText: true,
+            ),*/
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              child: TextField(
+                decoration: InputDecoration(
+                  suffixIcon: Icon(Icons.remove_red_eye_outlined),
+                  enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.grey
+                  ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey.shade900)
+                  ),
+                  hintText: "Palavra-passe",
+                  hintStyle: TextStyle(color: Colors.grey[500]),
+                ),
+              ),
             ),
 
             const SizedBox(height: 25),
-            //forgot password?
+            //Esqueceu-se da palavra-passe?
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(
-                    'Forgot Password?',
-                    style: TextStyle(color: Colors.grey[600]),
+                  GestureDetector(
+                    onTap: () => forgotPassword(context),
+                  child: Text(
+                    'Esqueceu-se da palavra-passe?',
+                    style: TextStyle(
+                      color: Colors.grey[700],
+                      fontWeight: FontWeight.bold,
+                      decoration: TextDecoration.underline,
+                      ),
+                  
+                    //Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Login()));
+                  ),
                   ),
                 ],
               ),
@@ -77,31 +116,32 @@ class Login extends StatelessWidget {
 
             const SizedBox(height: 25),
 
-
-            //sign in button
+            //Iniciar sessao button
             MyButton(
-              onTap: signUserIn,
+              //onTap: loginUser,
+              onTap: () => loginUser2(context),
+              text: "Iniciar Sessão",
             ),
 
             const SizedBox(height: 50),
-          
-            //not a member? register now
 
+            //Crie uma conta
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  'Not a member?',
-                  style: TextStyle(color: Colors.grey[700]),
-                  ),
-                const SizedBox(width: 4),
-                const Text(
-                  'Register Now?',
-                  style: TextStyle(
-                    color: Colors.blue,
-                    fontWeight: FontWeight.bold
+                GestureDetector(
+                  onTap: () => registerUser(context),
+                  child: Text(
+                    'Crie uma conta',
+                    style: TextStyle(
+                      color: Colors.grey[700],
+                      fontWeight: FontWeight.bold,
+                      decoration:TextDecoration.underline
+                      ),
+                    
                     ),
                 ),
+                const SizedBox(width: 4),
               ],
             )
           ],),

@@ -1,4 +1,4 @@
-import 'package:adrenture/models/user.dart';
+/*import 'package:adrenture/models/user.dart';
 import 'package:flutter/material.dart';
 
 class MyWidget extends StatelessWidget {
@@ -12,4 +12,4 @@ class MyWidget extends StatelessWidget {
         builder: (context, snapshot) ,),
     );
   }
-}
+}*/

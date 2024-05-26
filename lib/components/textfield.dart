@@ -9,7 +9,7 @@ class MyTextField extends StatelessWidget {
     super.key,
     required this.controller,
     required this.hintText,
-    required this.obscureText,
+    required this.obscureText
     });
 
   @override
@@ -20,16 +20,14 @@ class MyTextField extends StatelessWidget {
                 controller: controller,
                 obscureText: obscureText,
                 decoration: InputDecoration(
-                  enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.white
+                  enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.grey
                   ),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey.shade400)
+                    borderSide: BorderSide(color: Colors.grey.shade900)
                   ),
-                  fillColor: Colors.grey.shade200,
-                  filled: true,
                   hintText: hintText,
-                  hintStyle: TextStyle(color: Colors.grey[500])
+                  hintStyle: TextStyle(color: Colors.grey[500]),
                 ),
               ),
             );

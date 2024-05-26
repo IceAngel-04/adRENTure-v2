@@ -1,3 +1,5 @@
+import 'package:adrenture/pages/login/login.dart';
+import 'package:adrenture/pages/login/register.dart';
 import 'package:flutter/material.dart';
 
 import 'package:adrenture/pages/home/profile.dart';
@@ -26,9 +28,9 @@ class _BottomNavBarPageState extends State<BottomNavBarPage> {
       case 1:
         return const ActiveCarsPage();
       case 2:
-        return const WalletPage();
+        return WalletPage();
       case 3:
-        return const ProfilePage();
+        return ProfilePage();
       default:
         return const HomePage();
     }

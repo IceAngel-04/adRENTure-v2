@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:adrenture/pages/login/login.dart';
 import 'package:flutter/material.dart';
 
 import 'package:adrenture/widgets/navbar.dart';
@@ -29,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Timer(const Duration(milliseconds: 2000), () {
       // Navegar para a HomePage após 3 segundos
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BottomNavBarPage()));
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Login()));
     });
   }
 
