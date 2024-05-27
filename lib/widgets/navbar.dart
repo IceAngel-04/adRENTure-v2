@@ -1,5 +1,3 @@
-import 'package:adrenture/pages/login/login.dart';
-import 'package:adrenture/pages/login/register.dart';
 import 'package:flutter/material.dart';
 
 import 'package:adrenture/pages/home/profile.dart';
