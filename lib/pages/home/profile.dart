@@ -22,6 +22,7 @@ class ProfilePage extends StatelessWidget {
         child: Column(
           children: [
             const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 CircleAvatar(
                   radius: 40,
@@ -29,7 +30,6 @@ class ProfilePage extends StatelessWidget {
                 ),
                 SizedBox(width: 16),
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       'Perfil Nome',
