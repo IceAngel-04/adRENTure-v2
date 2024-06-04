@@ -1,23 +1,24 @@
+import 'package:adrenture/pages/profile/profileEdit.dart';
 import 'package:adrenture/widgets/button.dart';
 import 'package:adrenture/widgets/textfield.dart';
 import 'package:adrenture/pages/login/login.dart';
 import 'package:flutter/material.dart';
 
-class resetPasswordNew extends StatelessWidget {
-  resetPasswordNew({super.key});
+class UpdatePassword extends StatelessWidget {
+  UpdatePassword({super.key});
 
   final passwordController = TextEditingController();
 
   void goBack(BuildContext context){
     Navigator.push(
     context,
-    MaterialPageRoute(builder: (context) => Login()));
+    MaterialPageRoute(builder: (context) => ProfileEditPage()));
   }
 
   void confirmar(BuildContext context){
     Navigator.push(
     context,
-    MaterialPageRoute(builder: (context) => Login()));
+    MaterialPageRoute(builder: (context) => ProfileEditPage()));
   }
 
   @override
@@ -40,7 +41,7 @@ class resetPasswordNew extends StatelessWidget {
                     ),
                     Expanded(
                       child: Text(
-                        'Insira a nova palavra-passe',
+                        'Alterar a palavra-passe',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.black,
@@ -58,7 +59,7 @@ class resetPasswordNew extends StatelessWidget {
             //username textfield
             MyTextField(
               controller: passwordController,
-              hintText: 'Insira a palavra-passe',
+              hintText: 'Insira a palavra-passe atual',
               obscureText: true,
             ),
 
@@ -66,13 +67,21 @@ class resetPasswordNew extends StatelessWidget {
 
               MyTextField(
               controller: passwordController,
-              hintText: 'Insira novamente a palavra-passe',
+              hintText: 'Insira a palavra-passe nova',
+              obscureText: true,
+            ),
+
+
+            const SizedBox(height: 30),
+
+              MyTextField(
+              controller: passwordController,
+              hintText: 'Insira novamente a palavra-passe nova',
               obscureText: true,
             ),
 
             const SizedBox(height: 50),
 
-            //Registar button
             MyButton(
               onTap:() => confirmar(context),
               text: "Confirmar",

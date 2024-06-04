@@ -1,23 +1,27 @@
+import 'package:adrenture/pages/profile/profileEdit.dart';
 import 'package:adrenture/widgets/button.dart';
 import 'package:adrenture/widgets/textfield.dart';
 import 'package:adrenture/pages/login/login.dart';
+import 'package:adrenture/pages/login/resetPasswordNew.dart';
 import 'package:flutter/material.dart';
 
-class resetPasswordNew extends StatelessWidget {
-  resetPasswordNew({super.key});
+class UpdateNumber extends StatelessWidget {
 
-  final passwordController = TextEditingController();
+  UpdateNumber({super.key});
 
-  void goBack(BuildContext context){
+    final numberController = TextEditingController();
+  
+
+   void goBack(BuildContext context){
     Navigator.push(
     context,
-    MaterialPageRoute(builder: (context) => Login()));
+    MaterialPageRoute(builder: (context) => ProfileEditPage()));
   }
 
-  void confirmar(BuildContext context){
+    void confirmar(BuildContext context){
     Navigator.push(
     context,
-    MaterialPageRoute(builder: (context) => Login()));
+    MaterialPageRoute(builder: (context) => ProfileEditPage()));
   }
 
   @override
@@ -40,7 +44,7 @@ class resetPasswordNew extends StatelessWidget {
                     ),
                     Expanded(
                       child: Text(
-                        'Insira a nova palavra-passe',
+                        'Alterar número de telemmóvel',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.black,
@@ -53,24 +57,16 @@ class resetPasswordNew extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(height: 100),
+              const SizedBox(height: 200),
 
             //username textfield
             MyTextField(
-              controller: passwordController,
-              hintText: 'Insira a palavra-passe',
-              obscureText: true,
+              controller: numberController,
+              hintText: 'Número de telemóvel',
+              obscureText: false,
             ),
 
-            const SizedBox(height: 30),
-
-              MyTextField(
-              controller: passwordController,
-              hintText: 'Insira novamente a palavra-passe',
-              obscureText: true,
-            ),
-
-            const SizedBox(height: 50),
+            const SizedBox(height: 150),
 
             //Registar button
             MyButton(

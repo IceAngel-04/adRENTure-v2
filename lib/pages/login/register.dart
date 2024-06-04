@@ -1,5 +1,5 @@
-import 'package:adrenture/components/button.dart';
-import 'package:adrenture/components/textfield.dart';
+import 'package:adrenture/widgets/button.dart';
+import 'package:adrenture/widgets/textfield.dart';
 import 'package:adrenture/pages/login/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

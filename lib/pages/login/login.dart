@@ -1,7 +1,7 @@
 // import 'dart:js';
 
-import 'package:adrenture/components/button.dart';
-import 'package:adrenture/components/textfield.dart';
+import 'package:adrenture/widgets/button.dart';
+import 'package:adrenture/widgets/textfield.dart';
 import 'package:adrenture/pages/login/register.dart';
 import 'package:adrenture/pages/login/resetPasswordEmail.dart';
 import 'package:adrenture/widgets/navbar.dart';
