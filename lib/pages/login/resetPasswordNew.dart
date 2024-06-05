@@ -23,6 +23,17 @@ class resetPasswordNew extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(onPressed: () => goBack(context) , icon: Icon(Icons.arrow_back, color:Color(0xFF3C9096))),
+        title: const Text(
+            'Insira a nova palavra-passe',
+            style: TextStyle(
+              color: Color(0xFF059D02),
+              fontSize: 25,
+              fontWeight: FontWeight.bold
+          ),
+        ),
+      ),
       body: SafeArea(
         child: Center(
           child: Column(
@@ -30,28 +41,6 @@ class resetPasswordNew extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 28),
-                child: Row(     
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    GestureDetector(
-                      onTap: () => goBack(context),
-                      child: Icon(Icons.arrow_circle_left),
-                    ),
-                    Expanded(
-                      child: Text(
-                        'Insira a nova palavra-passe',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                        
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
               ),
               const SizedBox(height: 100),
 

@@ -41,6 +41,7 @@ class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       body: SafeArea(
         child: Center(
           child: Column(
@@ -50,7 +51,7 @@ class Login extends StatelessWidget {
               Text(
                 'Bem-Vindo!',
                 style: TextStyle(
-                  color: Colors.black,
+                  color: Color(0xFF059D02),
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
                 ),
@@ -77,7 +78,7 @@ class Login extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: TextField(
                 decoration: InputDecoration(
-                  suffixIcon: Icon(Icons.remove_red_eye_outlined),
+                  suffixIcon: Icon(Icons.remove_red_eye_outlined, color:Color(0xFF3C9096)),
                   enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.grey
                   ),
                   ),
@@ -102,12 +103,11 @@ class Login extends StatelessWidget {
                   child: Text(
                     'Esqueceu-se da palavra-passe?',
                     style: TextStyle(
-                      color: Colors.grey[700],
+                      color: Color(0xFF3C9096),
                       fontWeight: FontWeight.bold,
                       decoration: TextDecoration.underline,
-                      ),
-                  
-                    //Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Login()));
+                      decorationColor: Color(0xFF3C9096),
+                    ),
                   ),
                   ),
                 ],
@@ -116,9 +116,7 @@ class Login extends StatelessWidget {
 
             const SizedBox(height: 25),
 
-            //Iniciar sessao button
             MyButton(
-              //onTap: loginUser,
               onTap: () => loginUser2(context),
               text: "Iniciar Sessão",
             ),
@@ -134,12 +132,12 @@ class Login extends StatelessWidget {
                   child: Text(
                     'Crie uma conta',
                     style: TextStyle(
-                      color: Colors.grey[700],
+                      color: Color(0xFF3C9096),
                       fontWeight: FontWeight.bold,
-                      decoration:TextDecoration.underline
-                      ),
-                    
+                      decoration:TextDecoration.underline,
+                     decorationColor: Color(0xFF3C9096),
                     ),
+                  ),
                 ),
                 const SizedBox(width: 4),
               ],

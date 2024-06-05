@@ -33,6 +33,17 @@ class Register extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(onPressed: () => goBack(context) , icon: Icon(Icons.arrow_back, color:Color(0xFF3C9096))),
+        title: const Text(
+            'Crie uma nova conta',
+            style: TextStyle(
+              color: Color(0xFF059D02),
+              fontSize: 25,
+              fontWeight: FontWeight.bold
+            ),
+        ),
+      ),
       body: SafeArea(
         child: Center(
           child: Column(
@@ -40,28 +51,6 @@ class Register extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 28),
-                child: Row(     
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    GestureDetector(
-                      onTap: () => goBack(context),
-                      child: Icon(Icons.arrow_circle_left),
-                    ),
-                    Expanded(
-                      child: Text(
-                        'Crie uma conta',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                        
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
               ),
               const SizedBox(height: 25),
 
@@ -95,7 +84,7 @@ class Register extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: TextField(
                 decoration: InputDecoration(
-                  suffixIcon: Icon(Icons.remove_red_eye_outlined),
+                  suffixIcon: Icon(Icons.remove_red_eye_outlined, color:Color(0xFF3C9096)),
                   enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.grey
                   ),
                   ),
@@ -114,7 +103,7 @@ class Register extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: TextField(
                 decoration: InputDecoration(
-                  suffixIcon: Icon(Icons.date_range_outlined),
+                  suffixIcon: Icon(Icons.date_range_outlined, color:Color(0xFF3C9096)),
                   enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.grey
                   ),
                   ),

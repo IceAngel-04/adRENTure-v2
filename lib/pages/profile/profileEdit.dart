@@ -1,10 +1,16 @@
-import 'package:adrenture/pages/login/resetPasswordEmail.dart';
+import 'package:adrenture/pages/home/profile.dart';
 import 'package:adrenture/pages/profile/updateAddress.dart';
 import 'package:adrenture/pages/profile/updateEmail.dart';
 import 'package:adrenture/pages/profile/updateNumber.dart';
 import 'package:adrenture/pages/profile/updatePassword.dart';
 import 'package:flutter/material.dart';
 
+
+ void goBack(BuildContext context){
+    Navigator.push(
+      context, 
+      MaterialPageRoute(builder: (context) => ProfilePage()));
+ }
 
  void updatePassword(BuildContext context){
       Navigator.push(
@@ -36,13 +42,19 @@ class ProfileEditPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profile Page'),
+        leading: IconButton(onPressed: () => goBack(context) , icon: Icon(Icons.arrow_back,color: Color(0xFF3C9096))),
+        title: const Text('Profile Page',
+        style: TextStyle(
+          color: Color(0xFF059D02),
+          fontWeight: FontWeight.bold
+        ),),
       ),
         body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 CircleAvatar(
                   radius: 40,
@@ -66,22 +78,22 @@ class ProfileEditPage extends StatelessWidget {
             ),
             SizedBox(height: 32),
             ListTile(
-              leading: Icon(Icons.settings_outlined),
+              leading: Icon(Icons.settings_outlined,color: Color(0xFF3C9096)),
               title: Text('Alterar palavra-passe'),
               onTap: () => updatePassword(context),
             ),
             ListTile(
-              leading: Icon(Icons.settings_outlined),
+              leading: Icon(Icons.settings_outlined,color: Color(0xFF3C9096)),
               title: Text('Alterar email'),
               onTap: () => updateEmail(context),
             ),
             ListTile(
-              leading: Icon(Icons.settings_outlined),
+              leading: Icon(Icons.settings_outlined,color: Color(0xFF3C9096)),
               title: Text('Alterar número de telemóvel'),
               onTap: () => updateNumber(context),
             ),
             ListTile(
-              leading: Icon(Icons.settings_outlined),
+              leading: Icon(Icons.settings_outlined,color: Color(0xFF3C9096)),
               title: Text('Alterar morada'),
               onTap: () => updateAddress(context),
             ),
