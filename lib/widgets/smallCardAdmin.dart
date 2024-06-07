@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 class SmallCustomCardAdmin extends StatelessWidget {
   final String title;
   final String subtitle;
-  final Image image; 
+  final Image image;
+  final Color backgroundColor;
   final Icon icon;
   final Icon icon2;
 
@@ -13,6 +14,7 @@ class SmallCustomCardAdmin extends StatelessWidget {
     required this.title,
     required this.subtitle,
     required this.image,
+    required this.backgroundColor,
     required this.icon,
     required this.icon2,
   });
@@ -20,12 +22,14 @@ class SmallCustomCardAdmin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: backgroundColor,
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          SizedBox(
+          Container(
             width: MediaQuery.of(context).size.width * 0.4,
-            child: image, // Using the provided car image
+            alignment: Alignment.center,
+            child: image,
           ),
           Expanded(
             child: Padding(
@@ -34,8 +38,7 @@ class SmallCustomCardAdmin extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 20),
-                   Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       icon,
@@ -44,13 +47,17 @@ class SmallCustomCardAdmin extends StatelessWidget {
                   Text(
                     title,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
                   ),
                   const SizedBox(height: 8),
                   Text(
                     subtitle,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: 16),
+                    style: const TextStyle(fontSize: 16, color: Colors.white),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
                   ),
                   const SizedBox(height: 20),
                   Row(

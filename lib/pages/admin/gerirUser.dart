@@ -96,10 +96,11 @@ class GerirUserContent extends StatelessWidget {
         child: SmallCustomCardAdmin
         (
           title: user.name,
-          subtitle: '',
-          image: Image.asset(user.userImage),
-          icon: const Icon(Icons.edit),
-          icon2: const Icon(Icons.delete)
+          subtitle: user.dataAdesao.toString(),
+          image: Image.asset(user.userImage, height: 120,),
+          backgroundColor: const Color.fromRGBO(5, 157, 2, 70),
+          icon: const Icon(Icons.edit, color: Colors.white,),
+          icon2: const Icon(Icons.delete, color: Colors.white,)
         ),
       );
     }).toList();

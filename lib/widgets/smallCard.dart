@@ -20,10 +20,11 @@ class SmallCustomCard extends StatelessWidget {
     return Card(
       color: backgroundColor,
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          SizedBox(
+          Container(
             width: MediaQuery.of(context).size.width * 0.4,
+            alignment: Alignment.center,
             child: image, // Using the provided car image
           ),
           Expanded(
@@ -33,7 +34,6 @@ class SmallCustomCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 20),
                   Text(
                     title,
                     textAlign: TextAlign.center,
@@ -49,7 +49,6 @@ class SmallCustomCard extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                   ),
-                  const SizedBox(height: 20),
                 ],
               ),
             ),
