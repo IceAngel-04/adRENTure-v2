@@ -3,8 +3,8 @@ import 'package:adrenture/widgets/textfield.dart';
 import 'package:adrenture/pages/login/login.dart';
 import 'package:flutter/material.dart';
 
-class resetPasswordNew extends StatelessWidget {
-  resetPasswordNew({super.key});
+class ResetPasswordNew extends StatelessWidget {
+  ResetPasswordNew({super.key});
 
   final passwordController = TextEditingController();
 
@@ -24,7 +24,7 @@ class resetPasswordNew extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(onPressed: () => goBack(context) , icon: Icon(Icons.arrow_back, color:Color(0xFF3C9096))),
+        leading: IconButton(onPressed: () => goBack(context) , icon: const Icon(Icons.arrow_back, color:Color(0xFF3C9096))),
         title: const Text(
             'Insira a nova palavra-passe',
             style: TextStyle(
@@ -39,7 +39,7 @@ class resetPasswordNew extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Padding(
+              const Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 28),
               ),
               const SizedBox(height: 100),

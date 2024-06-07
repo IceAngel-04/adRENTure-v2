@@ -6,11 +6,11 @@ class SmallCustomCard extends StatelessWidget {
   final Image image; // New parameter for the car image
 
   const SmallCustomCard({
-    Key? key,
+    super.key,
     required this.title,
     required this.subtitle,
     required this.image, // Required car image
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

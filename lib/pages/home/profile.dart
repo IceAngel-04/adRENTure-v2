@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
  void forgotPassword(BuildContext context){
       Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => ProfileEditPage()));
+      MaterialPageRoute(builder: (context) => const ProfileEditPage()));
     }
     
     void logout(BuildContext context){
@@ -24,13 +24,13 @@ import 'package:flutter/material.dart';
     }
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  const ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(       
-        leading: IconButton(onPressed: () => goBack(context) , icon: Icon(Icons.arrow_back,color: Color(0xFF3C9096))),
+        leading: IconButton(onPressed: () => goBack(context) , icon: const Icon(Icons.arrow_back,color: Color(0xFF3C9096))),
         title: const Text('Profile Page',
           style: TextStyle(
             color: Color(0xFF059D02),
@@ -63,52 +63,52 @@ class ProfilePage extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 32),
+            const SizedBox(height: 32),
             ListTile(
-              leading: Icon(Icons.settings_outlined,color: Color(0xFF3C9096)),
-              title: Text('Alterar informações pessoais'),
+              leading: const Icon(Icons.settings_outlined,color: Color(0xFF3C9096)),
+              title: const Text('Alterar informações pessoais'),
               onTap: () => forgotPassword(context),
             ),
             SwitchListTile(
-              title: Text('Notificações'),
-              secondary: Icon(Icons.notifications_outlined,color: Color(0xFF3C9096)),
+              title: const Text('Notificações'),
+              secondary: const Icon(Icons.notifications_outlined,color: Color(0xFF3C9096)),
               value: true,
               onChanged: (bool value) {
                 // Ação ao alternar
               },
             ),
             SwitchListTile(
-              title: Text('Modo escuro'),
-              secondary: Icon(Icons.dark_mode_outlined,color: Color(0xFF3C9096)),
+              title: const Text('Modo escuro'),
+              secondary: const Icon(Icons.dark_mode_outlined,color: Color(0xFF3C9096)),
               value: true,
               onChanged: (bool value) {
                 // Ação ao alternar
               },
             ),
             ListTile(
-              leading: Icon(Icons.info_outline,color: Color(0xFF3C9096)),
-              title: Text('Sobre nós'),
+              leading: const Icon(Icons.info_outline,color: Color(0xFF3C9096)),
+              title: const Text('Sobre nós'),
               onTap: () {
                 // Ação ao clicar
               },
             ),
             ListTile(
-              leading: Icon(Icons.info_outline,color: Color(0xFF3C9096)),
-              title: Text('Política de privacidade'),
+              leading: const Icon(Icons.info_outline,color: Color(0xFF3C9096)),
+              title: const Text('Política de privacidade'),
               onTap: () {
                 // Ação ao clicar
               },
             ),
             ListTile(
-              leading: Icon(Icons.info_outline,color: Color(0xFF3C9096)),
-              title: Text('Termos de serviço'),
+              leading: const Icon(Icons.info_outline,color: Color(0xFF3C9096)),
+              title: const Text('Termos de serviço'),
               onTap: () {
                 // Ação ao clicar
               },
             ),
             ListTile(
-              leading: Icon(Icons.logout,color: Color(0xFF3C9096)),
-              title: Text('Sair'),
+              leading: const Icon(Icons.logout,color: Color(0xFF3C9096)),
+              title: const Text('Sair'),
               onTap: () => logout(context), 
             ),
           ],

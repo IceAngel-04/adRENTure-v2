@@ -7,7 +7,7 @@ import 'package:adrenture/widgets/smallCard.dart';
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -32,11 +32,6 @@ class _HomePageState extends State<HomePage> {
     HomePageContent(title: 'Carros em Destaque'),
   ];
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +44,7 @@ class _HomePageState extends State<HomePage> {
 class HomePageContent extends StatelessWidget {
   final String title;
 
-  const HomePageContent({Key? key, required this.title}) : super(key: key);
+  const HomePageContent({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +74,7 @@ class HomePageContent extends StatelessWidget {
         child: SmallCustomCard(
           title: 'Alugue já o seu Carro',
           subtitle: 'Alugue já o seu Carro para ganhar um dinheiro extra!!!',
-          image: Image.asset('assets/images/car.png'),
+          image: Image.asset('assets/images/car.png', height: 100,),
         ),
       ),
       ...carList.map((car) {
@@ -88,14 +83,14 @@ class HomePageContent extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => CarPage(carId: car.id),
+                builder: (context) => CarPage(carId: car.id, car: car,),
               ),
             );
           },
           child: SmallCustomCard(
             title: '${car.marca} ${car.modelo}',
             subtitle: car.descricao,
-            image: Image.asset(car.imagemPrincipal),
+            image: Image.asset(car.imagemPrincipal, height: 100,),
           ),
         );
       }),

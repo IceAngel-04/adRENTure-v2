@@ -4,9 +4,9 @@ import 'package:adrenture/pages/login/login.dart';
 import 'package:adrenture/pages/login/resetPasswordNew.dart';
 import 'package:flutter/material.dart';
 
-class resetPasswordEmail extends StatelessWidget {
+class ResetPasswordEmail extends StatelessWidget {
 
-  resetPasswordEmail({super.key});
+  ResetPasswordEmail({super.key});
 
     final emailController = TextEditingController();
   
@@ -20,14 +20,14 @@ class resetPasswordEmail extends StatelessWidget {
     void confirmar(BuildContext context){
     Navigator.push(
     context,
-    MaterialPageRoute(builder: (context) => resetPasswordNew()));
+    MaterialPageRoute(builder: (context) => ResetPasswordNew()));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(onPressed: () => goBack(context) , icon: Icon(Icons.arrow_back, color:Color(0xFF3C9096))),
+        leading: IconButton(onPressed: () => goBack(context) , icon: const Icon(Icons.arrow_back, color:Color(0xFF3C9096))),
         title: const Text(
             'Insira o email',
             style: TextStyle(
@@ -42,8 +42,8 @@ class resetPasswordEmail extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 28),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 28),
               ),
               const SizedBox(height: 200),
 

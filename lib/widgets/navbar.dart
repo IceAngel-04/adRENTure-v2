@@ -6,6 +6,8 @@ import 'package:adrenture/pages/home/home.dart';
 import 'package:adrenture/pages/home/activecarspage.dart';
 
 class BottomNavBarPage extends StatefulWidget {
+  const BottomNavBarPage({super.key});
+
   @override
   _BottomNavBarPageState createState() => _BottomNavBarPageState();
 }
@@ -26,9 +28,9 @@ class _BottomNavBarPageState extends State<BottomNavBarPage> {
       case 1:
         return const ActiveCarsPage();
       case 2:
-        return WalletPage();
+        return const WalletPage();
       case 3:
-        return ProfilePage();
+        return const ProfilePage();
       default:
         return const HomePage();
     }
@@ -69,7 +71,7 @@ class _BottomNavBarPageState extends State<BottomNavBarPage> {
 }
 
 void main() {
-  runApp(MaterialApp(
+  runApp(const MaterialApp(
     home: BottomNavBarPage(),
   ));
 }

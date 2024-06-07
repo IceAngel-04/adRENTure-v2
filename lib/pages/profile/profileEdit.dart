@@ -44,13 +44,13 @@ import 'package:flutter/material.dart';
     }    
 
 class ProfileEditPage extends StatelessWidget {
-  const ProfileEditPage({Key? key}) : super(key: key);
+  const ProfileEditPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(onPressed: () => goBack(context) , icon: Icon(Icons.arrow_back,color: Color(0xFF3C9096))),
+        leading: IconButton(onPressed: () => goBack(context) , icon: const Icon(Icons.arrow_back,color: Color(0xFF3C9096))),
         title: const Text('Profile Page',
         style: TextStyle(
           color: Color(0xFF059D02),
@@ -84,7 +84,7 @@ class ProfileEditPage extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 32),
+            const SizedBox(height: 32),
             ListTile(
               leading: Icon(Icons.settings_outlined,color: Color(0xFF3C9096)),
               title: Text('Admin TEST'),
@@ -96,18 +96,18 @@ class ProfileEditPage extends StatelessWidget {
               onTap: () => updatePassword(context),
             ),
             ListTile(
-              leading: Icon(Icons.settings_outlined,color: Color(0xFF3C9096)),
-              title: Text('Alterar email'),
+              leading: const Icon(Icons.settings_outlined,color: Color(0xFF3C9096)),
+              title: const Text('Alterar email'),
               onTap: () => updateEmail(context),
             ),
             ListTile(
-              leading: Icon(Icons.settings_outlined,color: Color(0xFF3C9096)),
-              title: Text('Alterar número de telemóvel'),
+              leading: const Icon(Icons.settings_outlined,color: Color(0xFF3C9096)),
+              title: const Text('Alterar número de telemóvel'),
               onTap: () => updateNumber(context),
             ),
             ListTile(
-              leading: Icon(Icons.settings_outlined,color: Color(0xFF3C9096)),
-              title: Text('Alterar morada'),
+              leading: const Icon(Icons.settings_outlined,color: Color(0xFF3C9096)),
+              title: const Text('Alterar morada'),
               onTap: () => updateAddress(context),
             ),
           ],
