@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ActiveCarsPage extends StatelessWidget {
-  const ActiveCarsPage({Key? key}) : super(key: key);
+  const ActiveCarsPage({super.key});
 
   @override
   Widget build(BuildContext context) {

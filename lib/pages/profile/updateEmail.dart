@@ -13,13 +13,13 @@ class UpdateEmail extends StatelessWidget {
    void goBack(BuildContext context){
     Navigator.push(
     context,
-    MaterialPageRoute(builder: (context) => ProfileEditPage()));
+    MaterialPageRoute(builder: (context) => const ProfileEditPage()));
   }
 
     void confirmar(BuildContext context){
     Navigator.push(
     context,
-    MaterialPageRoute(builder: (context) => ProfileEditPage()));
+    MaterialPageRoute(builder: (context) => const ProfileEditPage()));
   }
 
   @override
@@ -28,7 +28,7 @@ class UpdateEmail extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () => goBack(context),
-          icon: Icon(Icons.arrow_back, color: Color(0xFF3C9096)),
+          icon: const Icon(Icons.arrow_back, color: Color(0xFF3C9096)),
         ),
         backgroundColor: Colors.white,
         elevation: 0,
@@ -37,8 +37,8 @@ class UpdateEmail extends StatelessWidget {
         child: Column(
           children: [
             // Title
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16.0),
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 16.0),
               child: Text(
                 'Alterar o email',
                 style: TextStyle(
@@ -55,8 +55,8 @@ class UpdateEmail extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 28),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 28),
                     ),
                     const SizedBox(height: 150),
 

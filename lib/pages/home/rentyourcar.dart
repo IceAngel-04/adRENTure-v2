@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class RentYourCarPage extends StatelessWidget {
-  const RentYourCarPage({Key? key}) : super(key: key);
+  const RentYourCarPage({super.key});
 
   @override
   Widget build(BuildContext context) {

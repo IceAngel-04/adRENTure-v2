@@ -1,9 +1,7 @@
 import 'package:adrenture/widgets/button.dart';
 import 'package:adrenture/widgets/textfield.dart';
 import 'package:adrenture/pages/login/login.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class Register extends StatelessWidget {
   Register({super.key});
@@ -34,7 +32,7 @@ class Register extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(onPressed: () => goBack(context) , icon: Icon(Icons.arrow_back, color:Color(0xFF3C9096))),
+        leading: IconButton(onPressed: () => goBack(context) , icon: const Icon(Icons.arrow_back, color:Color(0xFF3C9096))),
         title: const Text(
             'Crie uma nova conta',
             style: TextStyle(
@@ -49,8 +47,8 @@ class Register extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 28),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 28),
               ),
               const SizedBox(height: 25),
 
@@ -84,7 +82,7 @@ class Register extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: TextField(
                 decoration: InputDecoration(
-                  suffixIcon: Icon(Icons.remove_red_eye_outlined, color:Color(0xFF3C9096)),
+                  suffixIcon: const Icon(Icons.remove_red_eye_outlined, color:Color(0xFF3C9096)),
                   enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.grey
                   ),
                   ),
@@ -103,7 +101,7 @@ class Register extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: TextField(
                 decoration: InputDecoration(
-                  suffixIcon: Icon(Icons.date_range_outlined, color:Color(0xFF3C9096)),
+                  suffixIcon: const Icon(Icons.date_range_outlined, color:Color(0xFF3C9096)),
                   enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.grey
                   ),
                   ),

@@ -1,12 +1,10 @@
 // import 'dart:js';
-
 import 'package:adrenture/widgets/button.dart';
 import 'package:adrenture/widgets/textfield.dart';
 import 'package:adrenture/pages/login/register.dart';
 import 'package:adrenture/pages/login/resetPasswordEmail.dart';
 import 'package:adrenture/widgets/navbar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class Login extends StatelessWidget {
   Login({super.key});
@@ -21,7 +19,7 @@ class Login extends StatelessWidget {
   }
 
     void loginUser2(BuildContext context){
-      Navigator.push(
+      Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => BottomNavBarPage()));
     }
@@ -29,7 +27,7 @@ class Login extends StatelessWidget {
     void forgotPassword(BuildContext context){
       Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => resetPasswordEmail()));
+      MaterialPageRoute(builder: (context) => ResetPasswordEmail()));
     }
 
     void registerUser(BuildContext context){
@@ -48,7 +46,7 @@ class Login extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(height: 50),
-              Text(
+              const Text(
                 'Bem-Vindo!',
                 style: TextStyle(
                   color: Color(0xFF059D02),
@@ -78,7 +76,7 @@ class Login extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: TextField(
                 decoration: InputDecoration(
-                  suffixIcon: Icon(Icons.remove_red_eye_outlined, color:Color(0xFF3C9096)),
+                  suffixIcon: const Icon(Icons.remove_red_eye_outlined, color:Color(0xFF3C9096)),
                   enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.grey
                   ),
                   ),
@@ -100,7 +98,7 @@ class Login extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () => forgotPassword(context),
-                  child: Text(
+                  child: const Text(
                     'Esqueceu-se da palavra-passe?',
                     style: TextStyle(
                       color: Color(0xFF3C9096),
@@ -129,7 +127,7 @@ class Login extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () => registerUser(context),
-                  child: Text(
+                  child: const Text(
                     'Crie uma conta',
                     style: TextStyle(
                       color: Color(0xFF3C9096),

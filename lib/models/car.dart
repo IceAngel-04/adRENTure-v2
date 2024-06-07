@@ -107,6 +107,7 @@ Car carro1 = Car(
   disponivel: true,
   ativo: true,
   nota: 4.9,
+  imagens: ['assets/images/car.png', 'assets/images/car.png', 'assets/images/car.png', 'assets/images/car.png', 'assets/images/car.png', 'assets/images/car.png', 'assets/images/car.png']
 );
 
 Car carro2 = Car(
