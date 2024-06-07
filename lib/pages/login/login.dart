@@ -21,7 +21,7 @@ class Login extends StatelessWidget {
   }
 
     void loginUser2(BuildContext context){
-      Navigator.push(
+      Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => BottomNavBarPage()));
     }

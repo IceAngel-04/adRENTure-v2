@@ -1,13 +1,19 @@
-import 'package:flutter/material.dart';
-import 'package:adrenture/pages/home/carpage.dart';
-import 'package:adrenture/pages/home/rentyourcar.dart';
-import 'package:adrenture/models/car.dart';
+import 'package:adrenture/models/user.dart';
+import 'package:adrenture/pages/home/home.dart';
+import 'package:adrenture/pages/home/userPage.dart';
+import 'package:adrenture/widgets/navbar.dart';
 import 'package:adrenture/widgets/smallCard.dart';
+import 'package:flutter/material.dart';
 
-void main() => runApp(const MyApp());
+class GerirUserPage extends StatelessWidget {
+  const GerirUserPage({super.key});
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  void goBack(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => BottomNavBarPage()),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,18 +24,18 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class GerirUsersPage extends StatefulWidget {
+  const GerirUsersPage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _GerirUsersPageState createState() => _GerirUsersPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _GerirUsersPageState extends State<GerirUsersPage> {
   int _selectedIndex = 0;
 
   static const List<Widget> _widgetOptions = <Widget>[
-    HomePageContent(title: 'Carros em Destaque'),
+    GerirUserContent(title: 'Gerir Users'),
   ];
 
   void _onItemTapped(int index) {
@@ -38,77 +44,68 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  void goBack(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => BottomNavBarPage()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () => goBack(context),
+          icon: Icon(Icons.arrow_back, color: Color(0xFF3C9096)),
+        ),
+        title: const Text(
+          'GERIR User',
+          style: TextStyle(
+            color: Color(0xFF059D02),
+            fontWeight: FontWeight.bold,
+          ),
+          textAlign: TextAlign.center,
+        ),
+      ),
       body: _widgetOptions.elementAt(_selectedIndex),
     );
   }
 }
 
-class HomePageContent extends StatelessWidget {
+class GerirUserContent extends StatelessWidget {
   final String title;
 
-  const HomePageContent({Key? key, required this.title}) : super(key: key);
+  const GerirUserContent({Key? key, required this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    List<Car> carList = [
-      carro1,
-      carro2,
-      carro3,
-      carro4,
-      carro5,
-      carro6,
-      carro7,
-      carro8,
-      carro9,
-      carro10
+    List<User> userList = [
+      user1,
+      user2,
+      user3,
+      user4,
+      user5,
     ];
-
-    List<Widget> items = [
-      GestureDetector(
+    List<Widget> items = userList.map((user) {
+      return GestureDetector(
         onTap: () {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const RentYourCarPage(),
+              builder: (context) => UserPage(userID: user.id),
             ),
           );
         },
         child: SmallCustomCard(
-          title: 'Alugue já o seu Carro',
-          subtitle: 'Alugue já o seu Carro para ganhar um dinheiro extra!!!',
-          image: Image.asset('assets/images/car.png'),
+          title: user.name,
+          subtitle: '',
+          image: Image.asset(user.userImage),
         ),
-      ),
-      ...carList.map((car) {
-        return GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => CarPage(carId: car.id),
-              ),
-            );
-          },
-          child: SmallCustomCard(
-            title: '${car.marca} ${car.modelo}',
-            subtitle: car.descricao,
-            image: Image.asset(car.imagemPrincipal),
-          ),
-        );
-      }),
-    ];
+      );
+    }).toList();
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          title,
-          textAlign: TextAlign.center,
-        ),
-        centerTitle: true,
-      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

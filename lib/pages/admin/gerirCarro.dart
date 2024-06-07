@@ -1,13 +1,19 @@
-import 'package:flutter/material.dart';
-import 'package:adrenture/pages/home/carpage.dart';
-import 'package:adrenture/pages/home/rentyourcar.dart';
 import 'package:adrenture/models/car.dart';
+import 'package:adrenture/pages/home/carpage.dart';
+import 'package:adrenture/pages/home/profile.dart';
+import 'package:adrenture/widgets/navbar.dart';
 import 'package:adrenture/widgets/smallCard.dart';
+import 'package:flutter/material.dart';
 
-void main() => runApp(const MyApp());
+class GerirCarroPage extends StatelessWidget {
+  const GerirCarroPage({super.key});
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+
+   void goBack(BuildContext context){
+      Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => BottomNavBarPage()));
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +35,7 @@ class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
 
   static const List<Widget> _widgetOptions = <Widget>[
-    HomePageContent(title: 'Carros em Destaque'),
+    GerirCarrosContent(title: 'Gerir Carros'),
   ];
 
   void _onItemTapped(int index) {
@@ -41,15 +47,23 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(       
+        leading: IconButton(onPressed: () => goBack(context) , icon: Icon(Icons.arrow_back,color: Color(0xFF3C9096))),
+        title: const Text('GERIR CARROS',
+          style: TextStyle(
+            color: Color(0xFF059D02),
+            fontWeight: FontWeight.bold),
+          ),
+      ),
       body: _widgetOptions.elementAt(_selectedIndex),
     );
   }
 }
 
-class HomePageContent extends StatelessWidget {
+class GerirCarrosContent extends StatelessWidget {
   final String title;
 
-  const HomePageContent({Key? key, required this.title}) : super(key: key);
+  const GerirCarrosContent({Key? key, required this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -67,21 +81,6 @@ class HomePageContent extends StatelessWidget {
     ];
 
     List<Widget> items = [
-      GestureDetector(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const RentYourCarPage(),
-            ),
-          );
-        },
-        child: SmallCustomCard(
-          title: 'Alugue já o seu Carro',
-          subtitle: 'Alugue já o seu Carro para ganhar um dinheiro extra!!!',
-          image: Image.asset('assets/images/car.png'),
-        ),
-      ),
       ...carList.map((car) {
         return GestureDetector(
           onTap: () {
