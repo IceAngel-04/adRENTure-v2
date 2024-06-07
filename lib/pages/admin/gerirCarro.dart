@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 import 'package:adrenture/models/car.dart';
 import 'package:adrenture/pages/home/carpage.dart';
 import 'package:adrenture/pages/home/profile.dart';
@@ -12,7 +13,7 @@ class GerirCarroPage extends StatelessWidget {
    void goBack(BuildContext context){
       Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => BottomNavBarPage()));
+      MaterialPageRoute(builder: (context) => const BottomNavBarPage()));
     }
 
   @override
@@ -25,30 +26,26 @@ class GerirCarroPage extends StatelessWidget {
 }
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
+  final int _selectedIndex = 0;
 
   static const List<Widget> _widgetOptions = <Widget>[
     GerirCarrosContent(title: 'Gerir Carros'),
   ];
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(       
-        leading: IconButton(onPressed: () => goBack(context) , icon: Icon(Icons.arrow_back,color: Color(0xFF3C9096))),
+        leading: IconButton(onPressed: () => goBack(context) , icon: const Icon(Icons.arrow_back,color: Color(0xFF3C9096))),
         title: const Text('GERIR CARROS',
           style: TextStyle(
             color: Color(0xFF059D02),
@@ -63,7 +60,7 @@ class _HomePageState extends State<HomePage> {
 class GerirCarrosContent extends StatelessWidget {
   final String title;
 
-  const GerirCarrosContent({Key? key, required this.title}) : super(key: key);
+  const GerirCarrosContent({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +84,7 @@ class GerirCarrosContent extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => CarPage(carId: car.id),
+                builder: (context) => CarPage(carId: car.id, car: car,),
               ),
             );
           },

@@ -21,7 +21,7 @@ class Login extends StatelessWidget {
     void loginUser2(BuildContext context){
       Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => BottomNavBarPage()));
+      MaterialPageRoute(builder: (context) => const BottomNavBarPage()));
     }
 
     void forgotPassword(BuildContext context){

@@ -9,19 +9,19 @@ import 'package:flutter/material.dart';
  void gerirCarro(BuildContext context){
       Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => GerirCarroPage()));
+      MaterialPageRoute(builder: (context) => const GerirCarroPage()));
     }
 
    void gerirUsers(BuildContext context){
       Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => GerirUsersPage()));
+      MaterialPageRoute(builder: (context) => const GerirUsersPage()));
     }
 
     void verStats(BuildContext context){
       Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => StatsPage()));
+      MaterialPageRoute(builder: (context) => const StatsPage()));
     }
     
     void logout(BuildContext context){
@@ -34,17 +34,17 @@ import 'package:flutter/material.dart';
    void goBack(BuildContext context){
       Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => BottomNavBarPage()));
+      MaterialPageRoute(builder: (context) => const BottomNavBarPage()));
     }
 
 class DashboardPage extends StatelessWidget {
-  const DashboardPage({Key? key}) : super(key: key);
+  const DashboardPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(       
-        leading: IconButton(onPressed: () => goBack(context) , icon: Icon(Icons.arrow_back,color: Color(0xFF3C9096))),
+        leading: IconButton(onPressed: () => goBack(context) , icon: const Icon(Icons.arrow_back,color: Color(0xFF3C9096))),
         title: const Text('ADMIN DASHBOARD',
           style: TextStyle(
             color: Color(0xFF059D02),
@@ -76,25 +76,25 @@ class DashboardPage extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 32),
+            const SizedBox(height: 32),
             ListTile(
-              leading: Icon(Icons.directions_car_outlined,color: Color(0xFF3C9096)),
-              title: Text('Gerir Carros'),
+              leading: const Icon(Icons.directions_car_outlined,color: Color(0xFF3C9096)),
+              title: const Text('Gerir Carros'),
               onTap: () => gerirCarro(context),
             ),
             ListTile(
-              leading: Icon(Icons.account_circle_outlined,color: Color(0xFF3C9096)),
-              title: Text('Gerir Utilizadores'),
+              leading: const Icon(Icons.account_circle_outlined,color: Color(0xFF3C9096)),
+              title: const Text('Gerir Utilizadores'),
               onTap:  () => gerirUsers(context),
             ),
             ListTile(
-              leading: Icon(Icons.query_stats_outlined,color: Color(0xFF3C9096)),
-              title: Text('Ver estatisticas'),
+              leading: const Icon(Icons.query_stats_outlined,color: Color(0xFF3C9096)),
+              title: const Text('Ver estatisticas'),
               onTap: () => verStats(context),
             ),
             ListTile(
-              leading: Icon(Icons.logout,color: Color(0xFF3C9096)),
-              title: Text('Sair'),
+              leading: const Icon(Icons.logout,color: Color(0xFF3C9096)),
+              title: const Text('Sair'),
               onTap: () => logout(context), 
             ),
           ],

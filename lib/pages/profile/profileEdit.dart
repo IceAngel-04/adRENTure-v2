@@ -1,5 +1,5 @@
+// ignore_for_file: file_names
 import 'package:adrenture/pages/admin/dashboard.dart';
-import 'package:adrenture/pages/home/profile.dart';
 import 'package:adrenture/pages/profile/updateAddress.dart';
 import 'package:adrenture/pages/profile/updateEmail.dart';
 import 'package:adrenture/pages/profile/updateNumber.dart';
@@ -11,13 +11,13 @@ import 'package:flutter/material.dart';
  void goBack(BuildContext context){
     Navigator.pushReplacement(
       context, 
-      MaterialPageRoute(builder: (context) => BottomNavBarPage()));
+      MaterialPageRoute(builder: (context) => const BottomNavBarPage()));
  }
 
  void adminTest(BuildContext context){
     Navigator.push(
       context, 
-      MaterialPageRoute(builder: (context) => DashboardPage()));
+      MaterialPageRoute(builder: (context) => const DashboardPage()));
  }
 
  void updatePassword(BuildContext context){
@@ -86,13 +86,13 @@ class ProfileEditPage extends StatelessWidget {
             ),
             const SizedBox(height: 32),
             ListTile(
-              leading: Icon(Icons.settings_outlined,color: Color(0xFF3C9096)),
-              title: Text('Admin TEST'),
+              leading: const Icon(Icons.settings_outlined,color: Color(0xFF3C9096)),
+              title: const Text('Admin TEST'),
               onTap: () => adminTest(context),
             ),
             ListTile(
-              leading: Icon(Icons.settings_outlined,color: Color(0xFF3C9096)),
-              title: Text('Alterar palavra-passe'),
+              leading: const Icon(Icons.settings_outlined,color: Color(0xFF3C9096)),
+              title: const Text('Alterar palavra-passe'),
               onTap: () => updatePassword(context),
             ),
             ListTile(

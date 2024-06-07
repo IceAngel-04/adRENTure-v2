@@ -22,11 +22,12 @@ class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
+  final int _selectedIndex = 0;
 
   static const List<Widget> _widgetOptions = <Widget>[
     HomePageContent(title: 'Carros em Destaque'),

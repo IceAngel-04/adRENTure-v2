@@ -1,9 +1,10 @@
+// ignore_for_file: file_names
 import 'package:flutter/material.dart';
 
 class UserPage extends StatelessWidget {
   final int userID;
 
-  const UserPage({Key? key, required this.userID}) : super(key: key);
+  const UserPage({super.key, required this.userID});
 
   @override
   Widget build(BuildContext context) {

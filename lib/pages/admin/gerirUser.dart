@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 import 'package:adrenture/models/user.dart';
 import 'package:adrenture/pages/home/home.dart';
 import 'package:adrenture/pages/home/userPage.dart';
@@ -11,7 +12,7 @@ class GerirUserPage extends StatelessWidget {
   void goBack(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => BottomNavBarPage()),
+      MaterialPageRoute(builder: (context) => const BottomNavBarPage()),
     );
   }
 
@@ -25,29 +26,24 @@ class GerirUserPage extends StatelessWidget {
 }
 
 class GerirUsersPage extends StatefulWidget {
-  const GerirUsersPage({Key? key}) : super(key: key);
+  const GerirUsersPage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _GerirUsersPageState createState() => _GerirUsersPageState();
 }
 
 class _GerirUsersPageState extends State<GerirUsersPage> {
-  int _selectedIndex = 0;
+  final int _selectedIndex = 0;
 
   static const List<Widget> _widgetOptions = <Widget>[
     GerirUserContent(title: 'Gerir Users'),
   ];
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   void goBack(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => BottomNavBarPage()),
+      MaterialPageRoute(builder: (context) => const BottomNavBarPage()),
     );
   }
 
@@ -57,7 +53,7 @@ class _GerirUsersPageState extends State<GerirUsersPage> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () => goBack(context),
-          icon: Icon(Icons.arrow_back, color: Color(0xFF3C9096)),
+          icon: const Icon(Icons.arrow_back, color: Color(0xFF3C9096)),
         ),
         title: const Text(
           'GERIR User',
@@ -76,7 +72,7 @@ class _GerirUsersPageState extends State<GerirUsersPage> {
 class GerirUserContent extends StatelessWidget {
   final String title;
 
-  const GerirUserContent({Key? key, required this.title}) : super(key: key);
+  const GerirUserContent({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {

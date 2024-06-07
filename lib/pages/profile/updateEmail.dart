@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 import 'package:adrenture/pages/profile/profileEdit.dart';
 import 'package:adrenture/widgets/button.dart';
 import 'package:adrenture/widgets/textfield.dart';

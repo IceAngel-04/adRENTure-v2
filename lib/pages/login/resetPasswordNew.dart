@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 import 'package:adrenture/widgets/button.dart';
 import 'package:adrenture/widgets/textfield.dart';
 import 'package:adrenture/pages/login/login.dart';
@@ -40,7 +41,7 @@ class ResetPasswordNew extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 28),
+                padding: EdgeInsets.symmetric(horizontal: 28),
               ),
               const SizedBox(height: 100),
 

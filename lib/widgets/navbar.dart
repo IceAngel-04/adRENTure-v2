@@ -9,6 +9,7 @@ class BottomNavBarPage extends StatefulWidget {
   const BottomNavBarPage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _BottomNavBarPageState createState() => _BottomNavBarPageState();
 }
 
