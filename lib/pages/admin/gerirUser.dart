@@ -3,7 +3,7 @@ import 'package:adrenture/models/user.dart';
 import 'package:adrenture/pages/home/home.dart';
 import 'package:adrenture/pages/home/userPage.dart';
 import 'package:adrenture/widgets/navbar.dart';
-import 'package:adrenture/widgets/smallCard.dart';
+import 'package:adrenture/widgets/smallCardAdmin.dart';
 import 'package:flutter/material.dart';
 
 class GerirUserPage extends StatelessWidget {
@@ -93,10 +93,13 @@ class GerirUserContent extends StatelessWidget {
             ),
           );
         },
-        child: SmallCustomCard(
+        child: SmallCustomCardAdmin
+        (
           title: user.name,
           subtitle: '',
           image: Image.asset(user.userImage),
+          icon: const Icon(Icons.edit),
+          icon2: const Icon(Icons.delete)
         ),
       );
     }).toList();
