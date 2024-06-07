@@ -91,7 +91,8 @@ class GerirCarrosContent extends StatelessWidget {
           child: SmallCustomCard(
             title: '${car.marca} ${car.modelo}',
             subtitle: car.descricao,
-            image: Image.asset(car.imagemPrincipal),
+            image: Image.asset(car.imagemPrincipal, height: 120,),
+            backgroundColor: const Color.fromRGBO(5, 157, 2, 70),
           ),
         );
       }),

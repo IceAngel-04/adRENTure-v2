@@ -96,7 +96,8 @@ class GerirUserContent extends StatelessWidget {
         child: SmallCustomCard(
           title: user.name,
           subtitle: '',
-          image: Image.asset(user.userImage),
+          image: Image.asset(user.userImage, height: 120,),
+          backgroundColor: const Color.fromRGBO(5, 157, 2, 70),
         ),
       );
     }).toList();

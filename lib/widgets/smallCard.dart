@@ -5,17 +5,20 @@ class SmallCustomCard extends StatelessWidget {
   final String title;
   final String subtitle;
   final Image image; // New parameter for the car image
+  final Color backgroundColor; // New parameter for background color 
 
   const SmallCustomCard({
     super.key,
     required this.title,
     required this.subtitle,
     required this.image, // Required car image
+    required this.backgroundColor,
   });
 
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: backgroundColor,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -34,13 +37,13 @@ class SmallCustomCard extends StatelessWidget {
                   Text(
                     title,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
                   ),
                   const SizedBox(height: 8),
                   Text(
                     subtitle,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: 16),
+                    style: const TextStyle(fontSize: 16, color: Colors.white),
                   ),
                   const SizedBox(height: 20),
                 ],

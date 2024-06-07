@@ -75,7 +75,8 @@ class HomePageContent extends StatelessWidget {
         child: SmallCustomCard(
           title: 'Alugue já o seu Carro',
           subtitle: 'Alugue já o seu Carro para ganhar um dinheiro extra!!!',
-          image: Image.asset('assets/images/car.png', height: 100,),
+          image: Image.asset('assets/images/car.png', height: 120,),
+          backgroundColor: const Color(0xFF3C9096),
         ),
       ),
       ...carList.map((car) {
@@ -91,7 +92,8 @@ class HomePageContent extends StatelessWidget {
           child: SmallCustomCard(
             title: '${car.marca} ${car.modelo}',
             subtitle: car.descricao,
-            image: Image.asset(car.imagemPrincipal, height: 100,),
+            image: Image.asset(car.imagemPrincipal, height: 120,),
+            backgroundColor: const Color.fromRGBO(5, 157, 2, 70),
           ),
         );
       }),
