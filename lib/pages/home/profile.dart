@@ -18,7 +18,7 @@ import 'package:flutter/material.dart';
 
 
    void goBack(BuildContext context){
-      Navigator.push(
+      Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => const BottomNavBarPage()));
     }

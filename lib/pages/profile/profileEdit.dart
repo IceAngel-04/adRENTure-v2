@@ -1,17 +1,17 @@
 // ignore_for_file: file_names
 import 'package:adrenture/pages/admin/dashboard.dart';
+import 'package:adrenture/pages/home/profile.dart';
 import 'package:adrenture/pages/profile/updateAddress.dart';
 import 'package:adrenture/pages/profile/updateEmail.dart';
 import 'package:adrenture/pages/profile/updateNumber.dart';
 import 'package:adrenture/pages/profile/updatePassword.dart';
-import 'package:adrenture/widgets/navbar.dart';
 import 'package:flutter/material.dart';
 
 
  void goBack(BuildContext context){
     Navigator.pushReplacement(
       context, 
-      MaterialPageRoute(builder: (context) => const BottomNavBarPage()));
+      MaterialPageRoute(builder: (context) => const ProfilePage()));
  }
 
  void adminTest(BuildContext context){
