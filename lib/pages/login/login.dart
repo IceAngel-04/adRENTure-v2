@@ -6,19 +6,30 @@ import 'package:adrenture/pages/login/resetPasswordEmail.dart';
 import 'package:adrenture/widgets/navbar.dart';
 import 'package:flutter/material.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   Login({super.key});
+
+  @override
+  _LoginState createState() => _LoginState();
+}
+
+ class _LoginState extends State<Login> {
 
   //text editing controllers
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  //sign user in method
-  void loginUser(){
+    
+  bool _passwordObscured = true;
 
+  void togglePasswordVisibility() {
+    setState(() {
+      _passwordObscured = !_passwordObscured;
+    });
   }
 
-    void loginUser2(BuildContext context){
+
+    void loginUser(BuildContext context){
       Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => const BottomNavBarPage()));
@@ -35,11 +46,11 @@ class Login extends StatelessWidget {
       context,
       MaterialPageRoute(builder: (context) => Register()));
     }
+    
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       body: SafeArea(
         child: Center(
           child: Column(
@@ -65,18 +76,18 @@ class Login extends StatelessWidget {
             ),
 
             const SizedBox(height: 10),
-            //password textfield
-            /*MyTextField(
-              controller: passwordController,
-              hintText: 'Password',
-              obscureText: true,
-            ),*/
-
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: TextField(
+                obscureText: _passwordObscured,
                 decoration: InputDecoration(
-                  suffixIcon: const Icon(Icons.remove_red_eye_outlined, color:Color(0xFF3C9096)),
+                  suffixIcon: IconButton(
+                      icon : Icon(_passwordObscured 
+                      ? Icons.visibility_outlined 
+                      : Icons.visibility_off_outlined)
+                      , color: Color(0xFF3C9096),
+                      onPressed: togglePasswordVisibility,
+                    ),
                   enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.grey
                   ),
                   ),
@@ -115,7 +126,7 @@ class Login extends StatelessWidget {
             const SizedBox(height: 25),
 
             MyButton(
-              onTap: () => loginUser2(context),
+              onTap: () => loginUser(context),
               text: "Iniciar Sessão",
             ),
 

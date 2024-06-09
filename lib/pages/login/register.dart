@@ -3,43 +3,73 @@ import 'package:adrenture/widgets/textfield.dart';
 import 'package:adrenture/pages/login/login.dart';
 import 'package:flutter/material.dart';
 
-class Register extends StatelessWidget {
+class Register extends StatefulWidget {
   Register({super.key});
 
+  @override
+  _RegisterState createState() => _RegisterState();
+}
+
+class _RegisterState extends State<Register> {
   final userController = TextEditingController();
   final nifController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  final dobController = TextEditingController(); //Trocar para date
+  final dobController = TextEditingController();
 
-    void registarUser(){
-
-  }
-
-  void registarUser2(BuildContext context){
+  void registarUser(BuildContext context) {
     Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => Login()));
+      context,
+      MaterialPageRoute(builder: (context) => Login()),
+    );
   }
-  
-  void goBack(BuildContext context){
+
+  void goBack(BuildContext context) {
     Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => Login()));
+      context,
+      MaterialPageRoute(builder: (context) => Login()),
+    );
   }
+
+   bool _passwordObscured = true;
+
+  void togglePasswordVisibility() {
+    setState(() {
+      _passwordObscured = !_passwordObscured;
+    });
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+    );
+
+    if (picked != null) {
+      setState(() {
+        dobController.text = "${picked.toLocal()}".split(' ')[0];
+      });
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(onPressed: () => goBack(context) , icon: const Icon(Icons.arrow_back, color:Color(0xFF3C9096))),
+        leading: IconButton(
+          onPressed: () => goBack(context),
+          icon: const Icon(Icons.arrow_back, color: Color(0xFF3C9096)),
+        ),
         title: const Text(
-            'Crie uma nova conta',
-            style: TextStyle(
-              color: Color(0xFF059D02),
-              fontSize: 25,
-              fontWeight: FontWeight.bold
-            ),
+          'Crie uma nova conta',
+          style: TextStyle(
+            color: Color(0xFF059D02),
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
       body: SafeArea(
@@ -52,80 +82,95 @@ class Register extends StatelessWidget {
               ),
               const SizedBox(height: 25),
 
-            //username textfield
-            MyTextField(
-              controller: userController,
-              hintText: 'Nome do utilizador',
-              obscureText: false,
-            ),
+              // Username textfield
+              MyTextField(
+                controller: userController,
+                hintText: 'Nome do utilizador',
+                obscureText: false,
+              ),
 
-            const SizedBox(height: 10),
+              const SizedBox(height: 10),
 
+              // NIF textfield
+              MyTextField(
+                controller: nifController,
+                hintText: 'NIF',
+                obscureText: false,
+              ),
 
-            MyTextField(
-              controller: nifController,
-              hintText: 'NIF',
-              obscureText: false,
-            ),
+              const SizedBox(height: 10),
 
-            const SizedBox(height: 10),
+              // Email textfield
+              MyTextField(
+                controller: emailController,
+                hintText: 'Email',
+                obscureText: false,
+              ),
 
-            MyTextField(
-              controller: emailController,
-              hintText: 'Email',
-              obscureText: false,
-            ),
+              const SizedBox(height: 10),
 
-            const SizedBox(height: 10),
-
-             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0),
-              child: TextField(
-                decoration: InputDecoration(
-                  suffixIcon: const Icon(Icons.remove_red_eye_outlined, color:Color(0xFF3C9096)),
-                  enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.grey
+              // Password textfield
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                child: TextField(
+                  controller: passwordController,
+                  obscureText: _passwordObscured,
+                  decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                      icon : Icon(_passwordObscured 
+                      ? Icons.visibility_outlined 
+                      : Icons.visibility_off_outlined)
+                      , color: Color(0xFF3C9096),
+                      onPressed: togglePasswordVisibility,
+                    ),
+                    enabledBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey.shade900),
+                    ),
+                    hintText: "Palavra-passe",
+                    hintStyle: TextStyle(color: Colors.grey[500]),
                   ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey.shade900)
-                  ),
-                  hintText: "Palavra-passe",
-                  hintStyle: TextStyle(color: Colors.grey[500]),
                 ),
               ),
-            ),
 
-            const SizedBox(height: 10),
+              const SizedBox(height: 10),
 
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0),
-              child: TextField(
-                decoration: InputDecoration(
-                  suffixIcon: const Icon(Icons.date_range_outlined, color:Color(0xFF3C9096)),
-                  enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.grey
+              // Date of birth textfield with date picker
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                child: TextField(
+                  controller: dobController,
+                  readOnly: true,
+                  onTap: () => _selectDate(context),
+                  decoration: InputDecoration(
+                    suffixIcon: const Icon(Icons.date_range_outlined, color: Color(0xFF3C9096)),
+                    enabledBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey.shade900),
+                    ),
+                    hintText: "Data de nascimento",
+                    hintStyle: TextStyle(color: Colors.grey[500]),
                   ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey.shade900)
-                  ),
-                  hintText: "Data de nascimento",
-                  hintStyle: TextStyle(color: Colors.grey[500]),
                 ),
               ),
-            ),
 
-            const SizedBox(height: 10),
+              const SizedBox(height: 10),
 
-            //Registar button
-            MyButton(
-              onTap:() => registarUser2(context),
-              text: "Criar",
-            ),
+              // Register button
+              MyButton(
+                onTap: () => registarUser(context),
+                text: "Criar",
+              ),
 
-            const SizedBox(height: 25),
-          ],),
+              const SizedBox(height: 25),
+            ],
+          ),
         ),
-      )
+      ),
     );
   }
 }

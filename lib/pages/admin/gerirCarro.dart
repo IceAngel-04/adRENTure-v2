@@ -2,6 +2,7 @@
 import 'package:adrenture/models/car.dart';
 import 'package:adrenture/pages/home/carpage.dart';
 import 'package:adrenture/pages/home/profile.dart';
+import 'package:adrenture/pages/home/rentyourcar.dart';
 import 'package:adrenture/widgets/navbar.dart';
 import 'package:adrenture/widgets/smallCardAdmin.dart';
 import 'package:flutter/material.dart';
@@ -60,6 +61,13 @@ class _HomePageState extends State<HomePage> {
 class GerirCarrosContent extends StatelessWidget {
   final String title;
 
+
+     void editCar(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const RentYourCarPage()),
+    );
+  }
   const GerirCarrosContent({super.key, required this.title});
 
   @override
@@ -93,8 +101,8 @@ class GerirCarrosContent extends StatelessWidget {
             subtitle: car.descricao,
             image: Image.asset(car.imagemPrincipal, height: 120,),
             backgroundColor: const Color.fromRGBO(5, 157, 2, 70),
-            icon: const Icon(Icons.edit, color: Colors.white,),
-            icon2: const Icon(Icons.delete, color: Colors.white,),
+            icon: IconButton(icon: Icon(Icons.edit), color: Colors.white, onPressed: () => editCar(context)), 
+            icon2: IconButton(icon: Icon(Icons.delete), color: Colors.white, onPressed: () {})
           ),
         );
       }),

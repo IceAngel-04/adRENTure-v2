@@ -6,8 +6,8 @@ class SmallCustomCardAdmin extends StatelessWidget {
   final String subtitle;
   final Image image;
   final Color backgroundColor;
-  final Icon icon;
-  final Icon icon2;
+  final IconButton icon;
+  final IconButton icon2;
 
   const SmallCustomCardAdmin({
     super.key,
