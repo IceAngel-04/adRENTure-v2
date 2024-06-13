@@ -1,30 +1,14 @@
 // ignore_for_file: file_names
 import 'package:adrenture/models/user.dart';
+import 'package:adrenture/pages/admin/gerirUser2.dart';
 import 'package:adrenture/pages/home/home.dart';
 import 'package:adrenture/pages/home/userPage.dart';
-import 'package:adrenture/pages/profile/profileEdit.dart';
 import 'package:adrenture/widgets/navbar.dart';
 import 'package:adrenture/widgets/smallCardAdmin.dart';
 import 'package:flutter/material.dart';
 
 class GerirUserPage extends StatelessWidget {
   const GerirUserPage({super.key});
-
-  void goBack(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const BottomNavBarPage()),
-    );
-  }
-
-  
-    void editUser(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const ProfileEditPage()),
-    );
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -82,11 +66,10 @@ class _GerirUsersPageState extends State<GerirUsersPage> {
 class GerirUserContent extends StatelessWidget {
   final String title;
 
-
-    void editUser(BuildContext context) {
+  void editUser(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const ProfileEditPage()),
+      MaterialPageRoute(builder: (context) => GerirUser2()),
     );
   }
 
@@ -111,15 +94,22 @@ class GerirUserContent extends StatelessWidget {
             ),
           );
         },
-        child: SmallCustomCardAdmin
-        (
-          title: user.name,
-          subtitle: user.dataAdesao.toString(),
-          image: Image.asset(user.userImage, height: 120,),
-          backgroundColor: const Color.fromRGBO(5, 157, 2, 70),
-          icon: IconButton(icon: Icon(Icons.edit), color: Colors.white, onPressed: () => editUser(context)), 
-          icon2: IconButton(icon: Icon(Icons.delete), color: Colors.white, onPressed: () {})
-        ),
+        child: SmallCustomCardAdmin(
+            title: user.name,
+            subtitle: user.dataAdesao.toString(),
+            image: Image.asset(
+              user.userImage,
+              height: 120,
+            ),
+            backgroundColor: const Color.fromRGBO(5, 157, 2, 70),
+            icon: IconButton(
+                icon: Icon(Icons.edit),
+                color: Colors.white,
+                onPressed: () => editUser(context)),
+            icon2: IconButton(
+                icon: Icon(Icons.delete),
+                color: Colors.white,
+                onPressed: () {})),
       );
     }).toList();
 

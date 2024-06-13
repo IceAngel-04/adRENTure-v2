@@ -1,10 +1,16 @@
 import 'package:adrenture/models/car.dart';
+import 'package:adrenture/widgets/navbar.dart';
 import 'package:flutter/material.dart';
 
 class CarPage extends StatelessWidget {
   final Car car;
 
   const CarPage({super.key, required this.car, required int carId});
+
+  void goBack(BuildContext context) {
+    Navigator.pushReplacement(context,
+        MaterialPageRoute(builder: (context) => const BottomNavBarPage()));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +25,13 @@ class CarPage extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
+          ),
+          Positioned(
+            child: IconButton(
+                onPressed: () => goBack(context),
+                icon: const Icon(Icons.arrow_back, color: Color(0xFF3C9096))),
+            top: 20,
+            left: 20,
           ),
           DraggableScrollableSheet(
             initialChildSize: 0.5,
@@ -88,7 +101,8 @@ class CarPage extends StatelessWidget {
                                   itemCount: car.imagens.length,
                                   itemBuilder: (context, index) {
                                     return Padding(
-                                      padding: const EdgeInsets.only(right: 8.0),
+                                      padding:
+                                          const EdgeInsets.only(right: 8.0),
                                       child: Image.asset(car.imagens[index]),
                                     );
                                   },
@@ -106,7 +120,8 @@ class CarPage extends StatelessWidget {
                         const SizedBox(height: 16.0),
                         Text(
                           'Descrição: ${car.descricao}',
-                          style: const TextStyle(fontSize: 16.0, color: Colors.white),
+                          style: const TextStyle(
+                              fontSize: 16.0, color: Colors.white),
                         ),
                         const SizedBox(height: 16.0),
                         const Text(
@@ -123,17 +138,20 @@ class CarPage extends StatelessWidget {
                           children: [
                             Text(
                               'Data',
-                              style: TextStyle(fontSize: 16.0, color: Colors.white),
+                              style: TextStyle(
+                                  fontSize: 16.0, color: Colors.white),
                             ),
                             Column(
                               children: [
                                 Text(
                                   'Dia',
-                                  style: TextStyle(fontSize: 16.0, color: Colors.white),
+                                  style: TextStyle(
+                                      fontSize: 16.0, color: Colors.white),
                                 ),
                                 Text(
                                   '29/06',
-                                  style: TextStyle(fontSize: 16.0, color: Colors.white),
+                                  style: TextStyle(
+                                      fontSize: 16.0, color: Colors.white),
                                 ),
                               ],
                             ),
@@ -141,11 +159,13 @@ class CarPage extends StatelessWidget {
                               children: [
                                 Text(
                                   'Hora',
-                                  style: TextStyle(fontSize: 16.0, color: Colors.white),
+                                  style: TextStyle(
+                                      fontSize: 16.0, color: Colors.white),
                                 ),
                                 Text(
                                   '19:23',
-                                  style: TextStyle(fontSize: 16.0, color: Colors.white),
+                                  style: TextStyle(
+                                      fontSize: 16.0, color: Colors.white),
                                 ),
                               ],
                             ),
@@ -163,52 +183,62 @@ class CarPage extends StatelessWidget {
                         const SizedBox(height: 8.0),
                         Text(
                           'Tipo de Combustível: ${car.combustivel}',
-                          style: const TextStyle(fontSize: 16.0, color: Colors.white),
+                          style: const TextStyle(
+                              fontSize: 16.0, color: Colors.white),
                         ),
                         const SizedBox(height: 8.0),
                         Text(
                           'Nº de Portas: ${car.numeroPortas}',
-                          style: const TextStyle(fontSize: 16.0, color: Colors.white),
+                          style: const TextStyle(
+                              fontSize: 16.0, color: Colors.white),
                         ),
                         const SizedBox(height: 8.0),
                         Text(
                           'Nº de Lugares: ${car.numeroLugares}',
-                          style: const TextStyle(fontSize: 16.0, color: Colors.white),
+                          style: const TextStyle(
+                              fontSize: 16.0, color: Colors.white),
                         ),
                         const SizedBox(height: 8.0),
                         Text(
                           'Categoria: ${car.categoria}',
-                          style: const TextStyle(fontSize: 16.0, color: Colors.white),
+                          style: const TextStyle(
+                              fontSize: 16.0, color: Colors.white),
                         ),
                         const SizedBox(height: 8.0),
                         Text(
                           'Velocidade Máxima: ${car.velocidadeMax} km/h',
-                          style: const TextStyle(fontSize: 16.0, color: Colors.white),
+                          style: const TextStyle(
+                              fontSize: 16.0, color: Colors.white),
                         ),
                         const SizedBox(height: 8.0),
                         Text(
                           'Transmissão: ${car.transmissao}',
-                          style: const TextStyle(fontSize: 16.0, color: Colors.white),
+                          style: const TextStyle(
+                              fontSize: 16.0, color: Colors.white),
                         ),
                         const SizedBox(height: 8.0),
                         Text(
                           'Cilindrada: ${car.cilindrada} CC',
-                          style: const TextStyle(fontSize: 16.0, color: Colors.white),
+                          style: const TextStyle(
+                              fontSize: 16.0, color: Colors.white),
                         ),
                         const SizedBox(height: 8.0),
                         Text(
                           'Ano: ${car.ano}',
-                          style: const TextStyle(fontSize: 16.0, color: Colors.white),
+                          style: const TextStyle(
+                              fontSize: 16.0, color: Colors.white),
                         ),
                         const SizedBox(height: 8.0),
                         Text(
                           'Cor: ${car.cor}',
-                          style: const TextStyle(fontSize: 16.0, color: Colors.white),
+                          style: const TextStyle(
+                              fontSize: 16.0, color: Colors.white),
                         ),
                         const SizedBox(height: 8.0),
                         Text(
                           'Total de Quilômetros: ${car.totalQuilometros} km',
-                          style: const TextStyle(fontSize: 16.0, color: Colors.white),
+                          style: const TextStyle(
+                              fontSize: 16.0, color: Colors.white),
                         ),
                         const SizedBox(height: 16.0),
                         Center(
@@ -217,13 +247,16 @@ class CarPage extends StatelessWidget {
                               // Add your rent functionality here
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF3C90C1), // Blue color
-                              padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 12.0),
+                              backgroundColor:
+                                  const Color(0xFF3C90C1), // Blue color
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 32.0, vertical: 12.0),
                               textStyle: const TextStyle(fontSize: 16.0),
                             ),
                             child: Text(
                               '${car.preco.toStringAsFixed(2)}€',
-                              style: const TextStyle(color: Colors.white), // White text
+                              style: const TextStyle(
+                                  color: Colors.white), // White text
                             ),
                           ),
                         ),
