@@ -3,14 +3,14 @@ import 'package:adrenture/widgets/textfield.dart';
 import 'package:adrenture/pages/login/login.dart';
 import 'package:flutter/material.dart';
 
-class Register extends StatefulWidget {
-  Register({super.key});
+class GerirUser2 extends StatefulWidget {
+  GerirUser2({super.key});
 
   @override
-  _RegisterState createState() => _RegisterState();
+  _GerirUserState createState() => _GerirUserState();
 }
 
-class _RegisterState extends State<Register> {
+class _GerirUserState extends State<GerirUser2> {
   final userController = TextEditingController();
   final nifController = TextEditingController();
   final cartaConducaoController = TextEditingController();
@@ -64,7 +64,7 @@ class _RegisterState extends State<Register> {
           icon: const Icon(Icons.arrow_back, color: Color(0xFF3C9096)),
         ),
         title: const Text(
-          'Crie uma nova conta',
+          'Alterar utilizador',
           style: TextStyle(
             color: Color(0xFF059D02),
             fontSize: 25,
@@ -172,7 +172,7 @@ class _RegisterState extends State<Register> {
               // Register button
               MyButton(
                 onTap: () => registarUser(context),
-                text: "Criar",
+                text: "Alterar",
               ),
 
               const SizedBox(height: 25),
