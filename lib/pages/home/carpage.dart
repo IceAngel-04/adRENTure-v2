@@ -30,7 +30,7 @@ class CarPage extends StatelessWidget {
             child: IconButton(
                 onPressed: () => goBack(context),
                 icon: const Icon(Icons.arrow_back, color: Color(0xFF3C9096))),
-            top: 20,
+            top: 30,
             left: 20,
           ),
           DraggableScrollableSheet(
