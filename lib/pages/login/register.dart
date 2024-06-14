@@ -1,3 +1,5 @@
+import 'package:adrenture/data/user_data.dart';
+import 'package:adrenture/models/user.dart';
 import 'package:adrenture/widgets/button.dart';
 import 'package:adrenture/widgets/textfield.dart';
 import 'package:adrenture/pages/login/login.dart';
@@ -11,12 +13,34 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  final userController = TextEditingController();
-  final nifController = TextEditingController();
-  final cartaConducaoController = TextEditingController();
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  final dobController = TextEditingController();
+  final _nomeUtilizadorController = TextEditingController();
+  final _nifController = TextEditingController();
+  final _cartaConducaoController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _datanascimentoController = TextEditingController();
+
+   void _register() {
+    final user = User.forRegister(
+      nomeUtilizador: _nomeUtilizadorController.text,
+      password: _passwordController.text,
+      nif: int.parse(_nifController.text),
+      email: _emailController.text,
+      cartaConducao: int.parse(_cartaConducaoController.text),
+      datanascimento: DateTime.parse(_datanascimentoController.text),
+    );
+
+    UserData.registerUser(user, context).then((_) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('User registered successfully')),
+      );
+    }).catchError((error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to register user: $error')),
+      );
+    });
+  }
+
 
   void registarUser(BuildContext context) {
     Navigator.push(
@@ -50,7 +74,7 @@ class _RegisterState extends State<Register> {
 
     if (picked != null) {
       setState(() {
-        dobController.text = "${picked.toLocal()}".split(' ')[0];
+        _datanascimentoController.text = "${picked.toLocal()}".split(' ')[0];
       });
     }
   }
@@ -84,7 +108,7 @@ class _RegisterState extends State<Register> {
 
               // Username textfield
               MyTextField(
-                controller: userController,
+                controller: _nomeUtilizadorController,
                 hintText: 'Nome do utilizador',
                 obscureText: false,
               ),
@@ -93,7 +117,7 @@ class _RegisterState extends State<Register> {
 
               // NIF textfield
               MyTextField(
-                controller: nifController,
+                controller: _nifController,
                 hintText: 'NIF',
                 obscureText: false,
               ),
@@ -101,7 +125,7 @@ class _RegisterState extends State<Register> {
               const SizedBox(height: 10),
 
               MyTextField(
-                controller: cartaConducaoController,
+                controller: _cartaConducaoController,
                 hintText: 'CartaConducao',
                 obscureText: false,
               ),
@@ -110,7 +134,7 @@ class _RegisterState extends State<Register> {
 
               // Email textfield
               MyTextField(
-                controller: emailController,
+                controller: _emailController,
                 hintText: 'Email',
                 obscureText: false,
               ),
@@ -121,7 +145,7 @@ class _RegisterState extends State<Register> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: TextField(
-                  controller: passwordController,
+                  controller: _passwordController,
                   obscureText: _passwordObscured,
                   decoration: InputDecoration(
                     suffixIcon: IconButton(
@@ -149,7 +173,7 @@ class _RegisterState extends State<Register> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: TextField(
-                  controller: dobController,
+                  controller: _datanascimentoController,
                   readOnly: true,
                   onTap: () => _selectDate(context),
                   decoration: InputDecoration(
@@ -171,7 +195,9 @@ class _RegisterState extends State<Register> {
 
               // Register button
               MyButton(
-                onTap: () => registarUser(context),
+                onTap: () {
+                  _register();
+                },
                 text: "Criar",
               ),
 

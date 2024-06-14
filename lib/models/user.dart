@@ -4,14 +4,14 @@ class User {
   late String
       userImage; // Alterado para String para representar o caminho da imagem
   String? username;
-  String name;
+  String nomeUtilizador;
   String email;
   int? telefone;
   String password;
   int nif;
   DateTime
       datanascimento; // Alterado para DateTime para representar uma data de nascimento
-  bool cartaConducao = true;
+  int? cartaConducao;
   String? morada;
   String? moradaAntiga;
   String? lastPassword;
@@ -25,16 +25,51 @@ class User {
   bool ativo = true;
   double nota = 0;
 
+
+  factory User.forLogin({
+    required String email,
+    required String password,
+  }) {
+    return User(
+      id: 0,
+      email: email,
+      password: password,
+      nomeUtilizador: '', // Provide default or empty values
+      nif: 0,
+      cartaConducao: 0,
+      datanascimento: DateTime(1900)
+    );
+  }
+
+  factory User.forRegister({
+    required String email,
+    required String password,
+    required int nif,
+    required String nomeUtilizador,
+    required int cartaConducao,
+    required DateTime datanascimento,
+  }) {
+    return User(
+      id: 0,
+      email: email,
+      password: password,
+      nomeUtilizador: nomeUtilizador, // Provide default or empty values
+      nif: nif,
+      cartaConducao: cartaConducao,
+      datanascimento: datanascimento
+      );
+  }
+
   User({
     required this.id,
-    required this.userType,
-    required this.name,
+    this.userType = "utilizador",
+    required this.nomeUtilizador,
     required this.email,
     required this.password,
     required this.nif,
     required this.datanascimento,
     this.notificacoes = true,
-    this.cartaConducao = true,
+    required this.cartaConducao,
     this.verificado = false,
     this.ativo = true,
     this.notaApp = 0,
@@ -52,7 +87,7 @@ class User {
   User user1 = User(
     id: 1,
     userType: 'admin',
-    name: 'João Silva',
+    nomeUtilizador: 'João Silva',
     email: 'joao.silva@example.com',
     password: 'senha123',
     nif: 123456789,
@@ -65,7 +100,7 @@ class User {
     localizacao: 'Braga centro',
     userImage: 'assets/images/user.png',
     notificacoes: true,
-    cartaConducao: true,
+    cartaConducao: 123456726,
     verificado: false,
     ativo: true,
     notaApp: 4,
@@ -75,7 +110,7 @@ class User {
  User user2 = User(
     id: 2,
     userType: 'user',
-    name: 'Maria Oliveira',
+    nomeUtilizador: 'Maria Oliveira',
     email: 'maria.oliveira@example.com',
     password: 'senha456',
     nif: 987654321,
@@ -88,7 +123,7 @@ class User {
     localizacao: 'Porto centro',
     userImage: 'assets/images/user.png',
     notificacoes: false,
-    cartaConducao: false,
+    cartaConducao: 213425221,
     verificado: true,
     ativo: true,
     notaApp: 3,
@@ -98,7 +133,7 @@ class User {
  User user3 = User(
     id: 3,
     userType: 'user',
-    name: 'Carlos Pereira',
+    nomeUtilizador: 'Carlos Pereira',
     email: 'carlos.pereira@example.com',
     password: 'senha789',
     nif: 192837465,
@@ -111,7 +146,7 @@ class User {
     localizacao: 'Lisboa centro',
     userImage: 'assets/images/user.png',
     notificacoes: true,
-    cartaConducao: true,
+    cartaConducao: 212478312,
     verificado: false,
     ativo: true,
     notaApp: 5,
@@ -121,7 +156,7 @@ class User {
  User user4 = User(
     id: 4,
     userType: 'admin',
-    name: 'Ana Martins',
+    nomeUtilizador: 'Ana Martins',
     email: 'ana.martins@example.com',
     password: 'senha321',
     nif: 564738291,
@@ -134,7 +169,7 @@ class User {
     localizacao: 'Coimbra centro',
     userImage: 'assets/images/user.png',
     notificacoes: true,
-    cartaConducao: true,
+    cartaConducao: 734512531,
     verificado: true,
     ativo: true,
     notaApp: 4,
@@ -144,7 +179,7 @@ class User {
  User user5 = User(
     id: 5,
     userType: 'user',
-    name: 'Pedro Fernandes',
+    nomeUtilizador: 'Pedro Fernandes',
     email: 'pedro.fernandes@example.com',
     password: 'senha654',
     nif: 817263545,
@@ -157,7 +192,7 @@ class User {
     localizacao: 'Faro centro',
     userImage: 'assets/images/user.png',
     notificacoes: false,
-    cartaConducao: false,
+    cartaConducao: 128357225,
     verificado: true,
     ativo: true,
     notaApp: 2,

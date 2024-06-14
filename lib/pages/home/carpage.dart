@@ -29,7 +29,7 @@ class CarPage extends StatelessWidget {
           Positioned(
             child: IconButton(
                 onPressed: () => goBack(context),
-                icon: const Icon(Icons.arrow_back, color: Color(0xFF3C9096))),
+                icon: const Icon(Icons.arrow_back, color: Color(0xFF3C9096))), 
             top: 20,
             left: 20,
           ),

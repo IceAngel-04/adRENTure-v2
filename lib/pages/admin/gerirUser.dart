@@ -95,7 +95,7 @@ class GerirUserContent extends StatelessWidget {
           );
         },
         child: SmallCustomCardAdmin(
-            title: user.name,
+            title: user.nomeUtilizador,
             subtitle: user.dataAdesao.toString(),
             image: Image.asset(
               user.userImage,
