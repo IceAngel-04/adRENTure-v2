@@ -11,7 +11,7 @@ class User {
   int nif;
   DateTime
       datanascimento; // Alterado para DateTime para representar uma data de nascimento
-  int? cartaConducao;
+  int cartaConducao;
   String? morada;
   String? moradaAntiga;
   String? lastPassword;
@@ -198,5 +198,3 @@ class User {
     notaApp: 2,
     nota: 3.8,
 );
-
-
