@@ -1,4 +1,6 @@
 // import 'dart:js';
+import 'package:adrenture/data/user_data.dart';
+import 'package:adrenture/models/user.dart';
 import 'package:adrenture/widgets/button.dart';
 import 'package:adrenture/widgets/textfield.dart';
 import 'package:adrenture/pages/login/register.dart';
@@ -14,12 +16,26 @@ class Login extends StatefulWidget {
 }
 
  class _LoginState extends State<Login> {
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
-  //text editing controllers
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+   void _login() {
+  final user = User.forLogin(
+    password: _passwordController.text,
+    email: _emailController.text,
+  );
 
-    
+  UserData.loginUser(user, context).then((_) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('User logged successfully')),
+    );
+  }).catchError((error) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Failed to login user: $error')),
+    );
+  });
+}
+
   bool _passwordObscured = true;
 
   void togglePasswordVisibility() {
@@ -69,7 +85,7 @@ class Login extends StatefulWidget {
 
             //username textfield
             MyTextField(
-              controller: emailController,
+              controller: _emailController,
               hintText: 'Email',
 
               obscureText: false,
@@ -79,6 +95,7 @@ class Login extends StatefulWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: TextField(
+                controller: _passwordController,
                 obscureText: _passwordObscured,
                 decoration: InputDecoration(
                   suffixIcon: IconButton(
@@ -126,7 +143,9 @@ class Login extends StatefulWidget {
             const SizedBox(height: 25),
 
             MyButton(
-              onTap: () => loginUser(context),
+              onTap: () {
+                _login();
+              },
               text: "Iniciar Sessão",
             ),
 
