@@ -67,7 +67,4 @@ abstract class UserData {
       print('Failed to login user. Status code: ${login.statusCode}');
     }
   }
-
-
-
 }
