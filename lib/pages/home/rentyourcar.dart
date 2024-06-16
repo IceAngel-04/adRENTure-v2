@@ -119,7 +119,8 @@ const List<String> cores = [
   'Verde',
   'Amarelo',
   'Laranja',
-  'Roxo'
+  'Roxo',
+  'Castanho'
 ];
 const List<String> seguros = ['Fidelidade', 'Allianz'];
 const List<String> politicaCombustivel = ['Cheio', 'Vazio', 'Metade'];
