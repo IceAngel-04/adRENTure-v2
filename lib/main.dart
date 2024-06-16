@@ -1,6 +1,5 @@
-import 'package:adrenture/widgets/navbar.dart';
-import 'package:flutter/material.dart';
 import 'package:adrenture/pages/login/splashscreen.dart';
+import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
@@ -9,7 +8,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  const MaterialApp(
+    return const MaterialApp(
       home: SplashScreen(),
       debugShowCheckedModeBanner: false,
     );

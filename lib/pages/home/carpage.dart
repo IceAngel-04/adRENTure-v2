@@ -1,4 +1,5 @@
 import 'package:adrenture/models/car.dart';
+import 'package:adrenture/pages/home/payment.dart';
 import 'package:adrenture/widgets/navbar.dart';
 import 'package:flutter/material.dart';
 
@@ -244,7 +245,10 @@ class CarPage extends StatelessWidget {
                         Center(
                           child: ElevatedButton(
                             onPressed: () {
-                              // Add your rent functionality here
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => PaymentPage()),
+                              );
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor:

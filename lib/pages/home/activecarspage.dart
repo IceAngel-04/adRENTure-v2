@@ -56,7 +56,7 @@ class _ActiveCarsPageState extends State<ActiveCarsPage> {
                 'Tempo Restante: ${car.totalMudancas} Horas e ${car.totalQuilometros} minutos',
             image: Image.asset(
                 car.imagemPrincipal), // Use the car image from assets
-            backgroundColor: Colors.green,
+            backgroundColor: const Color.fromRGBO(5, 157, 2, 70),
           );
         },
       ),

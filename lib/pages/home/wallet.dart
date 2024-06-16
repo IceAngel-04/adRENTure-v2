@@ -30,15 +30,24 @@ class _WalletPageState extends State<WalletPage> {
             children: [
               TextButton(
                 onPressed: () => updateContent('totalGasto'),
-                child: const Text('Despesa Total'),
+                child: const Text(
+                  'Despesa Total',
+                  style: TextStyle(color: const Color.fromRGBO(5, 157, 2, 70)),
+                ),
               ),
               TextButton(
                 onPressed: () => updateContent('totalGanho'),
-                child: const Text('Total Ganho'),
+                child: const Text(
+                  'Total Ganho',
+                  style: TextStyle(color: const Color.fromRGBO(5, 157, 2, 70)),
+                ),
               ),
               TextButton(
                 onPressed: () => updateContent('lucro'),
-                child: const Text('Lucro'),
+                child: const Text(
+                  'Lucro',
+                  style: TextStyle(color: const Color.fromRGBO(5, 157, 2, 70)),
+                ),
               ),
             ],
           ),
