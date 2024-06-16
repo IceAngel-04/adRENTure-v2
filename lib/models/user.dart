@@ -41,6 +41,23 @@ class User {
     );
   }
 
+  factory User.forResetPassword({
+    required String email,
+    required String password,
+    required String lastPassword,
+  }) {
+    return User(
+      id: 0,
+      email: email,
+      password: password,
+      lastPassword: lastPassword,
+      nomeUtilizador: '', // Provide default or empty values
+      nif: 0,
+      cartaConducao: 0,
+      datanascimento: DateTime(1900)
+    );
+  }
+
   factory User.forRegister({
     required String email,
     required String password,

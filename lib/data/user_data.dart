@@ -14,9 +14,6 @@ abstract class UserData {
       url,
       headers: <String, String>{
         'Content-Type': 'application/json',
-        //"Access-Control-Allow-Origin": "*", // Required for CORS support to work
-        //"Access-Control-Allow-Headers": "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
-        //"Access-Control-Allow-Methods": "POST, OPTIONS"
       },
       body: jsonEncode(<String, dynamic>{
         'nomeUtilizador': user.nomeUtilizador,
@@ -29,14 +26,14 @@ abstract class UserData {
     );
     if (register.statusCode == 200) {
       // User registered successfully
-      print('User registered successfully');
+      print('Utilizador registado com sucesso!');
       Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => Login()),
     );
     } else {
       // Registration failed
-      print('Failed to register user. Status code: ${register.statusCode}');
+      print('Falha ao registar o utilizador. Status code: ${register.statusCode}');
     }
   }
 
@@ -49,22 +46,56 @@ abstract class UserData {
       url,
       headers: <String, String>{
         'Content-Type': 'application/json',
-        "Access-Control-Allow-Methods": "POST, OPTIONS"
       },
       body: jsonEncode(<String, dynamic>{
         'email': user.email,
         'password': user.password,
       }),
     );
+    
     if (login.statusCode == 200) {
       // User logged successfully
-      print('User logged successfully');
+      print('Bem-vindo à adRENTure!');
+      SnackBar(content: Text('Bem-vindo à adRENTure!'));
       Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => const BottomNavBarPage()));
     } else {
       // Login failed
-      print('Failed to login user. Status code: ${login.statusCode}');
+      print('Falha ao iniciar-sessão. Status code: ${login.statusCode}');
+      SnackBar(content: Text('Falha ao iniciar-sessão.'));
+
+    }
+  }
+
+   static Future<void> resetPasswordUser(User user,BuildContext context) async {
+    // Exemplo de função de registrar
+    final url = Uri.parse('http://localhost:5000/api/auth/resetPassword'); // O vosso url da api para registrar
+    //final url = Uri.parse('https://adrentureapi.onrender.com/api/auth/login'); // O vosso url da api para registrar
+
+    final resetPassword = await http.post(
+      url,
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode(<String, dynamic>{
+        'email': user.email,
+        'newPassword': user.password,
+        'confirmPassword': user.lastPassword
+      }),
+    );
+    
+    if (resetPassword.statusCode == 200) {
+      // User logged successfully
+      print('Palavra-passe redefinida com sucesso!');
+      SnackBar(content: Text('Palavra-passe redefinida com sucesso!'));
+      Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => Login()));
+    } else {
+      // Login failed
+      print('Falha ao redefinir a palavra-passe. Status code: ${resetPassword.statusCode}');
+      SnackBar(content: Text('Falha ao redefinir a palavra-passe.'));
     }
   }
 }

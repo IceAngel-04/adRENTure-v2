@@ -1,13 +1,41 @@
 // ignore_for_file: file_names
+import 'package:adrenture/data/user_data.dart';
+import 'package:adrenture/models/user.dart';
 import 'package:adrenture/widgets/button.dart';
 import 'package:adrenture/widgets/textfield.dart';
 import 'package:adrenture/pages/login/login.dart';
 import 'package:flutter/material.dart';
 
-class ResetPasswordNew extends StatelessWidget {
-  ResetPasswordNew({super.key});
 
-  final passwordController = TextEditingController();
+class ResetPassword extends StatefulWidget {
+  ResetPassword({super.key});
+
+  @override
+  _ResetPasswordState createState() => _ResetPasswordState();
+}
+class _ResetPasswordState extends State<ResetPassword> {
+
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _confirmPassworController = TextEditingController();
+
+    void _resetPassword() {
+    final user = User.forResetPassword(
+      email: _emailController.text ,
+      password: _passwordController.text,
+      lastPassword: _confirmPassworController.text,
+    );
+
+    UserData.resetPasswordUser(user, context).then((_) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Palavra-passe redefinida com sucesso!')),
+      );
+    }).catchError((error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Falha ao redefinir a palavra-passe. Status code: $error')),
+      );
+    });
+  }
 
   void goBack(BuildContext context){
     Navigator.push(
@@ -44,10 +72,19 @@ class ResetPasswordNew extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 28),
               ),
               const SizedBox(height: 100),
+            
+            MyTextField(
+              controller: _emailController,
+              hintText: 'Email',
+              obscureText: false,
+            ),
+
+            const SizedBox(height: 30),
+
 
             //username textfield
             MyTextField(
-              controller: passwordController,
+              controller: _passwordController,
               hintText: 'Insira a palavra-passe',
               obscureText: true,
             ),
@@ -55,7 +92,7 @@ class ResetPasswordNew extends StatelessWidget {
             const SizedBox(height: 30),
 
               MyTextField(
-              controller: passwordController,
+              controller: _confirmPassworController,
               hintText: 'Insira novamente a palavra-passe',
               obscureText: true,
             ),
@@ -64,7 +101,9 @@ class ResetPasswordNew extends StatelessWidget {
 
             //Registar button
             MyButton(
-              onTap:() => confirmar(context),
+              onTap: () {
+                  _resetPassword();
+                },
               text: "Confirmar",
             ),
 

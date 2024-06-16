@@ -21,7 +21,7 @@ class ResetPasswordEmail extends StatelessWidget {
     void confirmar(BuildContext context){
     Navigator.push(
     context,
-    MaterialPageRoute(builder: (context) => ResetPasswordNew()));
+    MaterialPageRoute(builder: (context) => ResetPassword()));
   }
 
   @override

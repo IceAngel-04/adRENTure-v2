@@ -1,4 +1,8 @@
 import 'dart:io';
+import 'package:adrenture/data/car_data.dart';
+import 'package:adrenture/models/car.dart';
+import 'package:adrenture/widgets/button.dart';
+import 'package:adrenture/widgets/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as path;
@@ -139,6 +143,10 @@ class _RentYourCarPageState extends State<RentYourCarPage> {
   int? _selectedNumeroLugares;
   String? _selectedCategoria;
   String? _selectedTransmissao;
+  int? _selectedAno;
+  String? _selectedCor;
+  String? _selectedSeguro;
+  String? _selectedPoliticaCombustivel;
 
   TextEditingController _controllerVelocidadeMaxima = TextEditingController();
   TextEditingController _controllerMatricula = TextEditingController();
@@ -174,7 +182,88 @@ class _RentYourCarPageState extends State<RentYourCarPage> {
     }
   }
 
-  @override
+  void _Alugar() {
+    if (_selectedMarca == null ||
+      _selectedCombustivel == null ||
+      _selectedNumeroPortas == null ||
+      _selectedNumeroLugares == null ||
+      _selectedCategoria == null ||
+      _selectedTransmissao == null ||
+      _selectedAno == null ||
+      _selectedCor == null ||
+      _selectedSeguro == null ||
+      _selectedPoliticaCombustivel == null ||
+      _controllerModelo.text.isEmpty ||
+      _controllerVelocidadeMaxima.text.isEmpty ||
+      _controllerCilindrada.text.isEmpty ||
+      _controllerMatricula.text.isEmpty ||
+      _controllerTotalQuilometros.text.isEmpty ||
+      _controllerPreco.text.isEmpty ||
+      _controllerDescricao.text.isEmpty) {
+    print('One or more fields are not filled:');
+    print('_selectedMarca: $_selectedMarca');
+    print('_selectedCombustivel: $_selectedCombustivel');
+    print('_selectedNumeroPortas: $_selectedNumeroPortas');
+    print('_selectedNumeroLugares: $_selectedNumeroLugares');
+    print('_selectedCategoria: $_selectedCategoria');
+    print('_selectedTransmissao: $_selectedTransmissao');
+    print('_selectedAno: $_selectedAno');
+    print('_selectedCor: $_selectedCor');
+    print('_selectedSeguro: $_selectedSeguro');
+    print('_selectedPoliticaCombustivel: $_selectedPoliticaCombustivel');
+    print('_controllerModelo: ${_controllerModelo.text}');
+    print('_controllerVelocidadeMaxima: ${_controllerVelocidadeMaxima.text}');
+    print('_controllerCilindrada: ${_controllerCilindrada.text}');
+    print('_controllerMatricula: ${_controllerMatricula.text}');
+    print('_controllerTotalQuilometros: ${_controllerTotalQuilometros.text}');
+    print('_controllerPreco: ${_controllerPreco.text}');
+    print('_controllerDescricao: ${_controllerDescricao.text}');
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Por favor, preencha todos os campos obrigatórios')),
+    );
+    return;
+  }
+
+    final car = Car.forRent(
+      marca: _selectedMarca!,
+      modelo: _controllerModelo.text,
+      combustivel: _selectedCombustivel!,
+      numeroPortas: _selectedNumeroPortas!,
+      numeroLugares: _selectedNumeroLugares!,
+      categoria: _selectedCategoria!,
+      velocidadeMax: int.parse(_controllerVelocidadeMaxima.text),
+      transmissao: _selectedTransmissao!,
+      cilindrada: int.parse(_controllerCilindrada.text),
+      ano: _selectedAno!,
+      cor: _selectedCor!,
+      matricula: _controllerMatricula.text,
+      totalQuilometros: int.parse(_controllerTotalQuilometros.text),
+      seguro: _selectedSeguro!,
+      politicaCombustivel: _selectedPoliticaCombustivel!,
+      preco: double.parse(_controllerPreco.text),
+      descricao: _controllerDescricao.text
+    );
+    
+    CarData.registerCar(car, context).then((_) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Utilizador registado com sucesso!')),
+      );
+      Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => BottomNavBarPage()), // Replace with your desired destination
+    );
+    }).catchError((error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Falha ao registar o utilizador. $error')),
+      );
+    });
+
+    
+  }
+
+
+   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -184,190 +273,211 @@ class _RentYourCarPageState extends State<RentYourCarPage> {
         padding: const EdgeInsets.all(16.0),
         child: ListView(
           children: <Widget>[
-            const Text(
-              'Carregue as fotos do carro',
-              style: TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 16),
-            Row(
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                for (var imagem in _imagens)
-                  Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
-                    child: Image.file(File(imagem), width: 80, height: 80),
+                const Text(
+                  'Carregue as fotos do carro',
+                  style: TextStyle(fontSize: 16),
+                ),
+                const SizedBox(height: 16),
+                Row(
+                  children: <Widget>[
+                    for (var imagem in _imagens)
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Image.file(File(imagem), width: 80, height: 80),
+                      ),
+                    IconButton(
+                      icon: Icon(Icons.add_a_photo, size: 80),
+                      onPressed: _adicionarImagem,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                DropdownButtonFormField<String>(
+                  decoration: const InputDecoration(labelText: 'Marca'),
+                  value: _selectedMarca,
+                  items: marcas.map((marca) {
+                    return DropdownMenuItem(
+                      value: marca.nomeMarca,
+                      child: Text(marca.nomeMarca),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedMarca = value;
+                    });
+                  },
+                ),
+                TextFormField(
+                  controller: _controllerModelo,
+                  decoration: const InputDecoration(labelText: 'Modelo'),
+                ),
+                TextFormField(
+                  controller: _controllerMatricula,
+                  decoration: const InputDecoration(labelText: 'Matrícula'),
+                ),
+                TextFormField(
+                  controller: _controllerTotalQuilometros,
+                  decoration:
+                      const InputDecoration(labelText: 'Total de Quilômetros'),
+                ),
+                TextFormField(
+                  controller: _controllerVelocidadeMaxima,
+                  decoration: const InputDecoration(labelText: 'Velocidade Máxima'),
+                ),
+                TextFormField(
+                  controller: _controllerDescricao,
+                  decoration: const InputDecoration(labelText: 'Descrição'),
+                ),
+                TextFormField(
+                  controller: _controllerPreco,
+                  decoration: const InputDecoration(labelText: 'Preço'),
+                ),
+                const SizedBox(height: 16),
+                DropdownButtonFormField<String>(
+                  decoration: const InputDecoration(labelText: 'Combustível'),
+                  value: _selectedCombustivel,
+                  items: combustiveis.map((combustivel) {
+                    return DropdownMenuItem(
+                      value: combustivel,
+                      child: Text(combustivel),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedCombustivel = value;
+                    });
+                  },
+                ),
+                DropdownButtonFormField<int>(
+                  decoration: const InputDecoration(labelText: 'Nº de portas'),
+                  value: _selectedNumeroPortas,
+                  items: numeroPortas.map((portas) {
+                    return DropdownMenuItem(
+                      value: portas,
+                      child: Text(portas.toString()),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedNumeroPortas = value;
+                    });
+                  },
+                ),
+                DropdownButtonFormField<int>(
+                  decoration: const InputDecoration(labelText: 'Nº de lugares'),
+                  value: _selectedNumeroLugares,
+                  items: numeroLugares.map((lugares) {
+                    return DropdownMenuItem(
+                      value: lugares,
+                      child: Text(lugares.toString()),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedNumeroLugares = value;
+                    });
+                  },
+                ),
+                DropdownButtonFormField<String>(
+                  decoration: const InputDecoration(labelText: 'Categoria'),
+                  value: _selectedCategoria,
+                  items: categorias.map((categoria) {
+                    return DropdownMenuItem(
+                      value: categoria,
+                      child: Text(categoria),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedCategoria = value;
+                    });
+                  },
+                ),
+                DropdownButtonFormField<String>(
+                  decoration: const InputDecoration(labelText: 'Transmissão'),
+                  value: _selectedTransmissao,
+                  items: transmissao.map((tipo) {
+                    return DropdownMenuItem(
+                      value: tipo,
+                      child: Text(tipo),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedTransmissao = value;
+                    });
+                  },
+                ),
+                const SizedBox(height: 16),
+                TextFormField(
+                  controller: _controllerCilindrada,
+                  decoration: const InputDecoration(labelText: 'Cilindrada'),
+                ),
+                DropdownButtonFormField<int>(
+                  decoration: const InputDecoration(labelText: 'Ano'),
+                  value: _selectedAno,
+                  items: anos.map((ano) {
+                    return DropdownMenuItem(
+                      value: ano,
+                      child: Text(ano.toString()),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    _selectedAno = value;
+                  },
+                ),
+                DropdownButtonFormField<String>(
+                  decoration: const InputDecoration(labelText: 'Cor'),
+                  value: _selectedCor,
+                  items: cores.map((cor) {
+                    return DropdownMenuItem(
+                      value: cor,
+                      child: Text(cor),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    _selectedCor = value;
+                  },
+                ),
+                DropdownButtonFormField<String>(
+                  decoration: const InputDecoration(labelText: 'Seguro'),
+                  value: _selectedSeguro,
+                  items: seguros.map((seguro) {
+                    return DropdownMenuItem(
+                      value: seguro,
+                      child: Text(seguro),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                     _selectedSeguro = value;
+                  },
+                ),
+                DropdownButtonFormField<String>(
+                  decoration: const InputDecoration(labelText: 'Política de Combustível'),
+                  value: _selectedPoliticaCombustivel,
+                  items: politicaCombustivel.map((politica) {
+                    return DropdownMenuItem(
+                      value: politica,
+                      child: Text(politica),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    _selectedPoliticaCombustivel = value;
+                  },
+                ),
+                const SizedBox(height: 16),
+                Center(
+                  child: MyButton(
+                   onTap: () {
+                  _Alugar();
+                  },
+                text: "Alugar",
                   ),
-                IconButton(
-                  icon: Icon(Icons.add_a_photo, size: 80),
-                  onPressed: _adicionarImagem,
                 ),
               ],
-            ),
-            const SizedBox(height: 16),
-            DropdownButtonFormField<String>(
-              decoration: const InputDecoration(labelText: 'Marca'),
-              value: _selectedMarca,
-              items: marcas.map((marca) {
-                return DropdownMenuItem(
-                  value: marca.nomeMarca,
-                  child: Text(marca.nomeMarca),
-                );
-              }).toList(),
-              onChanged: (value) {
-                setState(() {
-                  _selectedMarca = value;
-                });
-              },
-            ),
-            TextFormField(
-              controller: _controllerModelo,
-              decoration: const InputDecoration(labelText: 'Modelo'),
-            ),
-            TextFormField(
-              controller: _controllerMatricula,
-              decoration: const InputDecoration(labelText: 'Matrícula'),
-            ),
-            TextFormField(
-              controller: _controllerTotalQuilometros,
-              decoration:
-                  const InputDecoration(labelText: 'Total de Quilômetros'),
-            ),
-            TextFormField(
-              controller: _controllerVelocidadeMaxima,
-              decoration: const InputDecoration(labelText: 'Velocidade Máxima'),
-            ),
-            TextFormField(
-              controller: _controllerDescricao,
-              decoration: const InputDecoration(labelText: 'Descrição'),
-            ),
-            TextFormField(
-              controller: _controllerPreco,
-              decoration: const InputDecoration(labelText: 'Preço'),
-            ),
-            const SizedBox(height: 16),
-            DropdownButtonFormField<String>(
-              decoration: const InputDecoration(labelText: 'Combustível'),
-              value: _selectedCombustivel,
-              items: combustiveis.map((combustivel) {
-                return DropdownMenuItem(
-                  value: combustivel,
-                  child: Text(combustivel),
-                );
-              }).toList(),
-              onChanged: (value) {
-                setState(() {
-                  _selectedCombustivel = value;
-                });
-              },
-            ),
-            DropdownButtonFormField<int>(
-              decoration: const InputDecoration(labelText: 'Nº de portas'),
-              value: _selectedNumeroPortas,
-              items: numeroPortas.map((portas) {
-                return DropdownMenuItem(
-                  value: portas,
-                  child: Text(portas.toString()),
-                );
-              }).toList(),
-              onChanged: (value) {
-                setState(() {
-                  _selectedNumeroPortas = value;
-                });
-              },
-            ),
-            DropdownButtonFormField<int>(
-              decoration: const InputDecoration(labelText: 'Nº de lugares'),
-              value: _selectedNumeroLugares,
-              items: numeroLugares.map((lugares) {
-                return DropdownMenuItem(
-                  value: lugares,
-                  child: Text(lugares.toString()),
-                );
-              }).toList(),
-              onChanged: (value) {
-                setState(() {
-                  _selectedNumeroLugares = value;
-                });
-              },
-            ),
-            DropdownButtonFormField<String>(
-              decoration: const InputDecoration(labelText: 'Categoria'),
-              value: _selectedCategoria,
-              items: categorias.map((categoria) {
-                return DropdownMenuItem(
-                  value: categoria,
-                  child: Text(categoria),
-                );
-              }).toList(),
-              onChanged: (value) {
-                setState(() {
-                  _selectedCategoria = value;
-                });
-              },
-            ),
-            DropdownButtonFormField<String>(
-              decoration: const InputDecoration(labelText: 'Transmissão'),
-              value: _selectedTransmissao,
-              items: transmissao.map((tipo) {
-                return DropdownMenuItem(
-                  value: tipo,
-                  child: Text(tipo),
-                );
-              }).toList(),
-              onChanged: (value) {
-                setState(() {
-                  _selectedTransmissao = value;
-                });
-              },
-            ),
-            const SizedBox(height: 16),
-            TextFormField(
-              controller: _controllerCilindrada,
-              decoration: const InputDecoration(labelText: 'Matrícula'),
-            ),
-            DropdownButtonFormField<int>(
-              decoration: const InputDecoration(labelText: 'Ano'),
-              value: null,
-              items: anos.map((ano) {
-                return DropdownMenuItem(
-                  value: ano,
-                  child: Text(ano.toString()),
-                );
-              }).toList(),
-              onChanged: (value) {},
-            ),
-            DropdownButtonFormField<String>(
-              decoration: const InputDecoration(labelText: 'Cor'),
-              value: null,
-              items: cores.map((cor) {
-                return DropdownMenuItem(
-                  value: cor,
-                  child: Text(cor),
-                );
-              }).toList(),
-              onChanged: (value) {},
-            ),
-            DropdownButtonFormField<String>(
-              decoration: const InputDecoration(labelText: 'Seguro'),
-              value: null,
-              items: seguros.map((seguro) {
-                return DropdownMenuItem(
-                  value: seguro,
-                  child: Text(seguro),
-                );
-              }).toList(),
-              onChanged: (value) {},
-            ),
-            DropdownButtonFormField<String>(
-              decoration:
-                  const InputDecoration(labelText: 'Política de Combustível'),
-              value: null,
-              items: politicaCombustivel.map((politica) {
-                return DropdownMenuItem(
-                  value: politica,
-                  child: Text(politica),
-                );
-              }).toList(),
-              onChanged: (value) {},
             ),
           ],
         ),

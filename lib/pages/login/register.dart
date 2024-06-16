@@ -20,7 +20,7 @@ class _RegisterState extends State<Register> {
   final _passwordController = TextEditingController();
   final _datanascimentoController = TextEditingController();
 
-   void _register() {
+  void _register() {
     final user = User.forRegister(
       nomeUtilizador: _nomeUtilizadorController.text,
       password: _passwordController.text,
@@ -32,13 +32,15 @@ class _RegisterState extends State<Register> {
 
     UserData.registerUser(user, context).then((_) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('User registered successfully')),
+        SnackBar(content: Text('Utilizador registado com sucesso!')),
       );
     }).catchError((error) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to register user: $error')),
+        SnackBar(content: Text('Falha ao registar o utilizador. $error')),
       );
     });
+
+    
   }
 
 

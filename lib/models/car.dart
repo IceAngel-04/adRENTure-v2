@@ -9,9 +9,9 @@ class Car {
   late String categoria;
   late int velocidadeMax;
   int totalMudancas;
-  late bool transmissao;
+  String transmissao;
   late int cilindrada;
-  DateTime ano;
+  int ano;
   String cor;
   String matricula;
   int totalQuilometros;
@@ -45,7 +45,7 @@ class Car {
     required this.imagemPrincipal,
     this.categoria = '',
     this.velocidadeMax = 0,
-    this.transmissao = false,
+    this.transmissao = '',
     this.cilindrada = 0,
     this.politicaCombustivel =
         'O Deposito Devera estar com a mesma quantidade de combustivel ao iniciar o aluguer',
@@ -54,7 +54,54 @@ class Car {
     this.imagens = const [],
     this.nota = 0,
   });
+
+    factory Car.forRent({
+    required String marca,
+    required String modelo,
+    required String combustivel,
+    required int numeroPortas,
+    required int numeroLugares,
+    required String categoria,
+    required int velocidadeMax,
+    required String transmissao,
+    required int cilindrada,
+    required int ano,
+    required String cor,
+    required String matricula,
+    required int totalQuilometros,
+    required String seguro,
+    required String politicaCombustivel,
+    required double preco,
+    required String descricao,
+  }) {
+    return Car(
+      id: 0,
+      dono: 0,
+      totalMudancas: 0,
+      descricao: descricao,
+      imagemPrincipal: '',
+      marca: marca,
+      modelo: modelo,
+      combustivel: combustivel,
+      numeroPortas: numeroPortas,
+      numeroLugares: numeroLugares,
+      categoria: categoria,
+      velocidadeMax: velocidadeMax,
+      transmissao: transmissao,
+      cilindrada: cilindrada,
+      ano: ano,
+      cor: cor,
+      matricula: matricula,
+      totalQuilometros: totalQuilometros,
+      seguro: seguro,
+      politicaCombustivel: politicaCombustivel,
+      preco: preco,
+    );
+  }
+
 }
+
+
 
 Car alugarCarro = Car(
   id: 0,
@@ -65,7 +112,7 @@ Car alugarCarro = Car(
   numeroPortas: 0,
   numeroLugares: 0,
   totalMudancas: 0,
-  ano: DateTime(0),
+  ano: 0,
   cor: '',
   matricula: '',
   totalQuilometros: 0,
@@ -75,7 +122,7 @@ Car alugarCarro = Car(
   imagemPrincipal: 'assets/images/car.png',
   categoria: '',
   velocidadeMax: 0,
-  transmissao: false,
+  transmissao: '',
   cilindrada: 0,
   disponivel: false,
   ativo: true,
@@ -92,7 +139,7 @@ Car carro1 = Car(
   numeroPortas: 5,
   numeroLugares: 5,
   totalMudancas: 6,
-  ano: DateTime(1850),
+  ano: 1850,
   cor: 'Roxo',
   matricula: '99-PP-99',
   totalQuilometros: 10000,
@@ -102,7 +149,7 @@ Car carro1 = Car(
   imagemPrincipal: 'assets/images/car.png',
   categoria: 'classico',
   velocidadeMax: 300,
-  transmissao: true,
+  transmissao: 'Automatico',
   cilindrada: 37,
   disponivel: true,
   ativo: true,
@@ -119,7 +166,7 @@ Car carro2 = Car(
   numeroPortas: 2,
   numeroLugares: 2,
   totalMudancas: 7,
-  ano: DateTime(2023),
+  ano: 2023,
   cor: 'Vermelho',
   matricula: '12-AB-34',
   totalQuilometros: 5000,
@@ -138,7 +185,7 @@ Car carro3 = Car(
   numeroPortas: 4,
   numeroLugares: 5,
   totalMudancas: 6,
-  ano: DateTime(2020),
+  ano: 2020,
   cor: 'Prata',
   matricula: '98-CD-76',
   totalQuilometros: 20000,
@@ -157,7 +204,7 @@ Car carro4 = Car(
   numeroPortas: 4,
   numeroLugares: 5,
   totalMudancas: 6,
-  ano: DateTime(2019),
+  ano: 2019,
   cor: 'Branco',
   matricula: '00-EF-12',
   totalQuilometros: 15000,
@@ -176,7 +223,7 @@ Car carro5 = Car(
   numeroPortas: 4,
   numeroLugares: 5,
   totalMudancas: 1,
-  ano: DateTime(2022),
+  ano: 2022,
   cor: 'Azul',
   matricula: '55-GH-33',
   totalQuilometros: 10000,
@@ -196,7 +243,7 @@ Car carro6 = Car(
   numeroPortas: 5,
   numeroLugares: 5,
   totalMudancas: 7,
-  ano: DateTime(2021),
+  ano: 2021,
   cor: 'Preto',
   matricula: '78-IJ-90',
   totalQuilometros: 12000,
@@ -215,7 +262,7 @@ Car carro7 = Car(
   numeroPortas: 2,
   numeroLugares: 4,
   totalMudancas: 6,
-  ano: DateTime(2018),
+  ano: 2018,
   cor: 'Amarelo',
   matricula: '11-KL-22',
   totalQuilometros: 18000,
@@ -234,7 +281,7 @@ Car carro8 = Car(
   numeroPortas: 2,
   numeroLugares: 4,
   totalMudancas: 6,
-  ano: DateTime(2017),
+  ano: 2017,
   cor: 'Vermelho',
   matricula: '22-MN-33',
   totalQuilometros: 20000,
@@ -253,7 +300,7 @@ Car carro9 = Car(
   numeroPortas: 4,
   numeroLugares: 5,
   totalMudancas: 7,
-  ano: DateTime(2016),
+  ano: 2016,
   cor: 'Prata',
   matricula: '33-OP-44',
   totalQuilometros: 25000,
@@ -272,7 +319,7 @@ Car carro10 = Car(
   numeroPortas: 4,
   numeroLugares: 5,
   totalMudancas: 7,
-  ano: DateTime(2015),
+  ano: 2015,
   cor: 'Preto',
   matricula: '44-QR-55',
   totalQuilometros: 30000,

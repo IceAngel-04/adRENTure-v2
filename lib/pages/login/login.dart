@@ -27,11 +27,11 @@ class Login extends StatefulWidget {
 
   UserData.loginUser(user, context).then((_) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('User logged successfully')),
+      SnackBar(content: Text('Bem-vindo à adRENTure!')),
     );
   }).catchError((error) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Failed to login user: $error')),
+      SnackBar(content: Text('Falha ao iniciar-sessão. $error')),
     );
   });
 }
