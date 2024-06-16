@@ -281,17 +281,17 @@ class _RentYourCarPageState extends State<RentYourCarPage> {
                   style: TextStyle(fontSize: 16),
                 ),
                 const SizedBox(height: 16),
-                Row(
+                Wrap(
+                  spacing: 8.0,
+                  runSpacing: 8.0,
                   children: <Widget>[
                     for (var imagem in _imagens)
-                      Padding(
-                        padding: const EdgeInsets.only(right: 8.0),
-                        child: Image.file(File(imagem), width: 80, height: 80),
+                      Image.file(File(imagem), width: 80, height: 80),
+                    if (_imagens.length < 4 || _imagens.length % 4 == 0)
+                      IconButton(
+                        icon: Icon(Icons.add_a_photo, size: 80),
+                        onPressed: _adicionarImagem,
                       ),
-                    IconButton(
-                      icon: Icon(Icons.add_a_photo, size: 80),
-                      onPressed: _adicionarImagem,
-                    ),
                   ],
                 ),
                 const SizedBox(height: 16),
