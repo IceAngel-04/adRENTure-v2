@@ -55,7 +55,7 @@ class _ResetPasswordState extends State<ResetPassword> {
       appBar: AppBar(
         leading: IconButton(onPressed: () => goBack(context) , icon: const Icon(Icons.arrow_back, color:Color(0xFF3C9096))),
         title: const Text(
-            'Insira a nova palavra-passe',
+            'Redifinir a palavra-passe',
             style: TextStyle(
               color: Color(0xFF059D02),
               fontSize: 25,

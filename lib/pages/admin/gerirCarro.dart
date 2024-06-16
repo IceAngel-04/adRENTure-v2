@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
   final int _selectedIndex = 0;
 
   static const List<Widget> _widgetOptions = <Widget>[
-    GerirCarrosContent(title: 'Gerir Carros'),
+    GerirCarrosContent(title: ''),
   ];
 
 

@@ -133,8 +133,8 @@ Car alugarCarro = Car(
 Car carro1 = Car(
   id: 1,
   dono: 1,
-  marca: 'Rosroice',
-  modelo: '21 e meio',
+  marca: 'Ford',
+  modelo: 'Fiesta',
   combustivel: 'Gasolina',
   numeroPortas: 5,
   numeroLugares: 5,
