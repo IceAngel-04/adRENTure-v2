@@ -1,24 +1,26 @@
 // ignore_for_file: file_names
+import 'package:adrenture/models/user.dart';
 import 'package:adrenture/pages/profile/profileEdit.dart';
 import 'package:adrenture/widgets/button.dart';
 import 'package:adrenture/widgets/textfield.dart';
 import 'package:flutter/material.dart';
 
 class UpdatePassword extends StatelessWidget {
-  UpdatePassword({super.key});
+  final User user;
+  UpdatePassword({super.key, required this.user});
 
   final passwordController = TextEditingController();
 
-  void goBack(BuildContext context){
+  void goBack(BuildContext context, User user){
     Navigator.push(
     context,
-    MaterialPageRoute(builder: (context) => const ProfileEditPage()));
+    MaterialPageRoute(builder: (context) =>  ProfileEditPage(user: user)));
   }
 
-  void confirmar(BuildContext context){
+  void confirmar(BuildContext context, User user){
     Navigator.push(
     context,
-    MaterialPageRoute(builder: (context) => const ProfileEditPage()));
+    MaterialPageRoute(builder: (context) => ProfileEditPage(user: user)));
   }
 
   @override
@@ -26,7 +28,7 @@ class UpdatePassword extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () => goBack(context),
+          onPressed: () => goBack(context, user),
           icon: const Icon(Icons.arrow_back, color: Color(0xFF3C9096)),
         ),
         backgroundColor: Colors.white,
@@ -86,7 +88,7 @@ class UpdatePassword extends StatelessWidget {
             const SizedBox(height: 50),
 
             MyButton(
-              onTap:() => confirmar(context),
+              onTap:() => confirmar(context, user),
               text: "Confirmar",
             ),
 

@@ -26,7 +26,7 @@ class _ResetPasswordState extends State<ResetPassword> {
       lastPassword: _confirmPassworController.text,
     );
 
-    UserData.resetPasswordUser(user, context).then((_) {
+    /*UserData.resetPasswordUser(user, context).then((_) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Palavra-passe redefinida com sucesso!')),
       );
@@ -34,7 +34,7 @@ class _ResetPasswordState extends State<ResetPassword> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Falha ao redefinir a palavra-passe. Status code: $error')),
       );
-    });
+    });*/
   }
 
   void goBack(BuildContext context){

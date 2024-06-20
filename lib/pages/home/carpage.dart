@@ -1,4 +1,5 @@
 import 'package:adrenture/models/car.dart';
+import 'package:adrenture/models/user.dart';
 import 'package:adrenture/pages/home/payment.dart';
 import 'package:adrenture/widgets/navbar.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,7 @@ class CarPage extends StatelessWidget {
 
   void goBack(BuildContext context) {
     Navigator.pushReplacement(context,
-        MaterialPageRoute(builder: (context) => const BottomNavBarPage()));
+        MaterialPageRoute(builder: (context) => BottomNavBarPage(user: User.loggedUser!)));
   }
 
   @override

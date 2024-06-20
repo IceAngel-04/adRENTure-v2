@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:adrenture/models/car.dart';
+import 'package:adrenture/models/user.dart';
 import 'package:adrenture/widgets/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -41,7 +42,7 @@ abstract class CarData {
         );
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const BottomNavBarPage()), // Navigate to success page or home
+          MaterialPageRoute(builder: (context) => BottomNavBarPage(user: User.loggedUser!)), // Navigate to success page or home
         );
       } else {
         // Registration failed

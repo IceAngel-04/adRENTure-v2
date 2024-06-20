@@ -1,26 +1,51 @@
-// ignore_for_file: file_names
+import 'package:adrenture/data/profile_data.dart';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+import 'package:adrenture/models/user.dart';
 import 'package:adrenture/pages/profile/profileEdit.dart';
 import 'package:adrenture/widgets/button.dart';
 import 'package:adrenture/widgets/textfield.dart';
-import 'package:flutter/material.dart';
 
-class UpdateEmail extends StatelessWidget {
+class UpdateEmail extends StatefulWidget {
+  final User user;
 
-  UpdateEmail({super.key});
+  UpdateEmail({Key? key, required this.user}) : super(key: key);
 
-    final emailController = TextEditingController();
-  
+  @override
+  _UpdateEmailState createState() => _UpdateEmailState();
+}
 
-   void goBack(BuildContext context){
-    Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => const ProfileEditPage()));
+class _UpdateEmailState extends State<UpdateEmail> {
+  final TextEditingController _novoEmailController = TextEditingController();
+
+  void _updateEmail() {
+    User user = User.forUpdateEmail(
+      userID: widget.user.userID, // Passa o userID do usuário
+      novoEmail: _novoEmailController.text,
+    );
+
+    ProfileData.updateEmail(user, context).then((_) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Email alterado com sucesso!')),
+      );
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => ProfileEditPage(user: widget.user)),
+      );
+    }).catchError((error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Falha ao alterar o email. $error')),
+      );
+    });
   }
 
-    void confirmar(BuildContext context){
-    Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => const ProfileEditPage()));
+  void goBack(BuildContext context) {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => ProfileEditPage(user: widget.user)),
+    );
   }
 
   @override
@@ -49,7 +74,7 @@ class UpdateEmail extends StatelessWidget {
                 ),
               ),
             ),
-            
+
             // Body content
             Expanded(
               child: Center(
@@ -61,10 +86,10 @@ class UpdateEmail extends StatelessWidget {
                     ),
                     const SizedBox(height: 150),
 
-                    // Username textfield
+                    // Novo email textfield
                     MyTextField(
-                      controller: emailController,
-                      hintText: 'Email',
+                      controller: _novoEmailController,
+                      hintText: 'Novo Email',
                       obscureText: false,
                     ),
 
@@ -72,10 +97,10 @@ class UpdateEmail extends StatelessWidget {
 
                     // Confirm button
                     MyButton(
-                      onTap: () => confirmar(context),
+                      onTap: () => _updateEmail(),
                       text: "Confirmar",
                     ),
-                    
+
                     const SizedBox(height: 20),
                   ],
                 ),

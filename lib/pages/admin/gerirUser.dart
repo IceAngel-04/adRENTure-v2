@@ -37,7 +37,7 @@ class _GerirUsersPageState extends State<GerirUsersPage> {
   void goBack(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const BottomNavBarPage()),
+      MaterialPageRoute(builder: (context) => BottomNavBarPage(user: User.loggedUser!)),
     );
   }
 
@@ -90,7 +90,7 @@ class GerirUserContent extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => UserPage(userID: user.id),
+              builder: (context) => UserPage(userID: user.userID),
             ),
           );
         },

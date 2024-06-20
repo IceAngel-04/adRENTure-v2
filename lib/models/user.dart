@@ -1,5 +1,7 @@
 class User {
-  int id;
+  static User? loggedUser;
+
+  int userID;
   String userType;
   late String
       userImage; // Alterado para String para representar o caminho da imagem
@@ -7,7 +9,8 @@ class User {
   String nomeUtilizador;
   String email;
   int? telefone;
-  String password;
+  String? password;
+  String novoEmail;
   int nif;
   DateTime
       datanascimento; // Alterado para DateTime para representar uma data de nascimento
@@ -25,13 +28,45 @@ class User {
   bool ativo = true;
   double nota = 0;
 
+    factory User.currentUser({
+        required int userID,
+        required String userType,
+        required String nomeUtilizador,
+        required String email,
+        required int cartaConducao,
+        required int nif,
+        required DateTime datanascimento,
+  }) {
+    return User(
+      userID: userID,
+      userType: userType,
+      nomeUtilizador: nomeUtilizador,
+      email: email,
+      cartaConducao: cartaConducao,
+      nif: nif,
+      password: '',
+      datanascimento: datanascimento,
+    );
+  }
 
+  /*factory User.fromJson(Map<String, dynamic> json)  {
+    return User(
+        userID: json['userID'],
+        userType : json['userType'],
+        nomeUtilizador: json['nomeUtilizador'],
+        email: json['email'],
+        cartaConducao: json['cartaConducao'],
+        nif: json['nif'],
+        password: json['password'],
+        datanascimento: json['datanascimento'],
+    );
+  }*/
   factory User.forLogin({
     required String email,
     required String password,
   }) {
     return User(
-      id: 0,
+      userID: 0,
       email: email,
       password: password,
       nomeUtilizador: '', // Provide default or empty values
@@ -41,13 +76,46 @@ class User {
     );
   }
 
+  factory User.forUpdateEmail({
+    required int userID,
+    required String novoEmail,
+  }) {
+    return User(
+      userID: userID,
+      email: '',
+      novoEmail: novoEmail,
+      password: '',
+      nomeUtilizador: '', // Provide default or empty values
+      nif: 0,
+      cartaConducao: 0,
+      datanascimento: DateTime(1900)
+    );
+  }
+
+  factory User.forUpdateNumber({
+    required int userID,
+    required int telefone,
+  }) {
+    return User(
+      userID: userID,
+      email: '',
+      novoEmail: '',
+      password: '',
+      nomeUtilizador: '', // Provide default or empty values
+      nif: 0,
+      cartaConducao: 0,
+      datanascimento: DateTime(1900),
+      telefone: telefone
+    );
+  }
+
   factory User.forResetPassword({
     required String email,
     required String password,
     required String lastPassword,
   }) {
     return User(
-      id: 0,
+      userID: 0,
       email: email,
       password: password,
       lastPassword: lastPassword,
@@ -67,7 +135,7 @@ class User {
     required DateTime datanascimento,
   }) {
     return User(
-      id: 0,
+      userID: 0,
       email: email,
       password: password,
       nomeUtilizador: nomeUtilizador, // Provide default or empty values
@@ -78,7 +146,7 @@ class User {
   }
 
   User({
-    required this.id,
+    required this.userID,
     this.userType = "utilizador",
     required this.nomeUtilizador,
     required this.email,
@@ -98,11 +166,13 @@ class User {
     this.moradaAntiga = '',
     this.lastPassword = '',
     this.localizacao = '',
+    this.novoEmail = '',
   });
+
 }
 
   User user1 = User(
-    id: 1,
+    userID: 1,
     userType: 'admin',
     nomeUtilizador: 'João Silva',
     email: 'joao.silva@example.com',
@@ -125,7 +195,7 @@ class User {
 );
 
  User user2 = User(
-    id: 2,
+    userID: 2,
     userType: 'user',
     nomeUtilizador: 'Maria Oliveira',
     email: 'maria.oliveira@example.com',
@@ -148,7 +218,7 @@ class User {
 );
 
  User user3 = User(
-    id: 3,
+    userID: 3,
     userType: 'user',
     nomeUtilizador: 'Carlos Pereira',
     email: 'carlos.pereira@example.com',
@@ -171,7 +241,7 @@ class User {
 );
 
  User user4 = User(
-    id: 4,
+    userID: 4,
     userType: 'admin',
     nomeUtilizador: 'Ana Martins',
     email: 'ana.martins@example.com',
@@ -194,7 +264,7 @@ class User {
 );
 
  User user5 = User(
-    id: 5,
+    userID: 5,
     userType: 'user',
     nomeUtilizador: 'Pedro Fernandes',
     email: 'pedro.fernandes@example.com',

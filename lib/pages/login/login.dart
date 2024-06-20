@@ -1,7 +1,7 @@
-// import 'dart:js';
 import 'package:adrenture/data/user_data.dart';
 import 'package:adrenture/models/user.dart';
 import 'package:adrenture/pages/login/resetPasswordNew.dart';
+import 'package:adrenture/pages/profile/profileEdit.dart';
 import 'package:adrenture/widgets/button.dart';
 import 'package:adrenture/widgets/textfield.dart';
 import 'package:adrenture/pages/login/register.dart';
@@ -46,10 +46,10 @@ class Login extends StatefulWidget {
   }
 
 
-    void loginUser(BuildContext context){
+    void loginUser(BuildContext context, User user){
       Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => const BottomNavBarPage()));
+      MaterialPageRoute(builder: (context) => BottomNavBarPage(user: User.loggedUser!)));
     }
 
     void forgotPassword(BuildContext context){
@@ -57,7 +57,7 @@ class Login extends StatefulWidget {
       context,
       MaterialPageRoute(builder: (context) => ResetPassword()));
     }
-
+      
     void registerUser(BuildContext context){
       Navigator.push(
       context,

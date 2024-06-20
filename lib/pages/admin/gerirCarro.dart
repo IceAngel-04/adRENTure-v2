@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 import 'package:adrenture/models/car.dart';
+import 'package:adrenture/models/user.dart';
 import 'package:adrenture/pages/home/carpage.dart';
 import 'package:adrenture/pages/home/profile.dart';
 import 'package:adrenture/pages/home/rentyourcar.dart';
@@ -14,7 +15,7 @@ class GerirCarroPage extends StatelessWidget {
    void goBack(BuildContext context){
       Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const BottomNavBarPage()));
+      MaterialPageRoute(builder: (context) => BottomNavBarPage(user: User.loggedUser!)));
     }
 
   @override

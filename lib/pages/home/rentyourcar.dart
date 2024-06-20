@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:adrenture/data/car_data.dart';
 import 'package:adrenture/models/car.dart';
+import 'package:adrenture/models/user.dart';
 import 'package:adrenture/widgets/button.dart';
 import 'package:adrenture/widgets/navbar.dart';
 import 'package:flutter/material.dart';
@@ -251,7 +252,7 @@ class _RentYourCarPageState extends State<RentYourCarPage> {
       );
       Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => BottomNavBarPage()), // Replace with your desired destination
+      MaterialPageRoute(builder: (context) => BottomNavBarPage(user: User.loggedUser!)), // Replace with your desired destination
     );
     }).catchError((error) {
       ScaffoldMessenger.of(context).showSnackBar(

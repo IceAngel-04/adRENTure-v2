@@ -1,15 +1,16 @@
-import 'package:flutter/material.dart';
-
+import 'package:adrenture/models/user.dart';
 import 'package:adrenture/pages/home/profile.dart';
+import 'package:flutter/material.dart';
 import 'package:adrenture/pages/home/wallet.dart';
 import 'package:adrenture/pages/home/home.dart';
 import 'package:adrenture/pages/home/activecarspage.dart';
 
 class BottomNavBarPage extends StatefulWidget {
-  const BottomNavBarPage({super.key});
+  final User user;
+
+  const BottomNavBarPage({Key? key, required this.user}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
   _BottomNavBarPageState createState() => _BottomNavBarPageState();
 }
 
@@ -25,15 +26,15 @@ class _BottomNavBarPageState extends State<BottomNavBarPage> {
   Widget _getPage(int index) {
     switch (index) {
       case 0:
-        return const HomePage();
+        return HomePage(); // HomePage is not const unless defined so in its class
       case 1:
-        return const ActiveCarsPage();
+        return ActiveCarsPage(); // ActiveCarsPage is not const unless defined so in its class
       case 2:
-        return const WalletPage();
+        return WalletPage(); // WalletPage is not const unless defined so in its class
       case 3:
-        return const ProfilePage();
+        return ProfilePage(user: widget.user); // ProfilePage is not const unless defined so in its class
       default:
-        return const HomePage();
+        return HomePage();
     }
   }
 
@@ -70,9 +71,31 @@ class _BottomNavBarPageState extends State<BottomNavBarPage> {
     );
   }
 }
-
 void main() {
-  runApp(const MaterialApp(
-    home: BottomNavBarPage(),
-  ));
+  User.loggedUser = User(
+    userID: 1,
+    userType: 'user',
+    nomeUtilizador: 'John Doe',
+    email: 'john.doe@example.com',
+    password: 'password123',
+    nif: 123456789,
+    datanascimento: DateTime(1990, 1, 1),
+    cartaConducao: 987654321,
+  );
+
+  runApp(MaterialApp(
+    home: BottomNavBarPage(
+      user: User.loggedUser 
+      ?? User(
+        userID: 1, 
+        nomeUtilizador: 'John Doe', 
+        email: 'john.doe@example.com', 
+        password: 'password123', 
+        nif: 123456789, 
+        datanascimento: DateTime(1990, 1, 1),
+        cartaConducao: 987654321
+        )
+        )
+    ),
+  );
 }

@@ -1,26 +1,51 @@
-// ignore_for_file: file_names
+import 'package:adrenture/data/profile_data.dart';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+import 'package:adrenture/models/user.dart';
 import 'package:adrenture/pages/profile/profileEdit.dart';
 import 'package:adrenture/widgets/button.dart';
 import 'package:adrenture/widgets/textfield.dart';
-import 'package:flutter/material.dart';
 
-class UpdateNumber extends StatelessWidget {
+class UpdateNumber extends StatefulWidget {
+  final User user;
 
-  UpdateNumber({super.key});
+  UpdateNumber({Key? key, required this.user}) : super(key: key);
 
-    final numberController = TextEditingController();
-  
+  @override
+  _UpdateNumberState createState() => _UpdateNumberState();
+}
 
-   void goBack(BuildContext context){
-    Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => const ProfileEditPage()));
+class _UpdateNumberState extends State<UpdateNumber> {
+  final TextEditingController _telemovelController = TextEditingController();
+
+  void _updateNumber() {
+    User user = User.forUpdateNumber(
+      userID: widget.user.userID, // Passa o userID do usuário
+      telefone: _telemovelController.text,
+    );
+
+    ProfileData.updateEmail(user, context).then((_) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Email alterado com sucesso!')),
+      );
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => ProfileEditPage(user: widget.user)),
+      );
+    }).catchError((error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Falha ao alterar o email. $error')),
+      );
+    });
   }
 
-    void confirmar(BuildContext context){
-    Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => const ProfileEditPage()));
+  void goBack(BuildContext context) {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => ProfileEditPage(user: widget.user)),
+    );
   }
 
   @override
@@ -41,7 +66,7 @@ class UpdateNumber extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.symmetric(vertical: 16.0),
               child: Text(
-                'Alterar o número de telemóvel',
+                'Alterar o email',
                 style: TextStyle(
                   color: Color(0xFF059D02),
                   fontSize: 25,
@@ -49,7 +74,7 @@ class UpdateNumber extends StatelessWidget {
                 ),
               ),
             ),
-            
+
             // Body content
             Expanded(
               child: Center(
@@ -61,28 +86,29 @@ class UpdateNumber extends StatelessWidget {
                     ),
                     const SizedBox(height: 150),
 
-            //username textfield
-            MyTextField(
-              controller: numberController,
-              hintText: 'Número de telemóvel',
-              obscureText: false,
+                    // Novo email textfield
+                    MyTextField(
+                      controller: _novoEmailController,
+                      hintText: 'Novo Email',
+                      obscureText: false,
+                    ),
+
+                    const SizedBox(height: 150),
+
+                    // Confirm button
+                    MyButton(
+                      onTap: () => _updateEmail(),
+                      text: "Confirmar",
+                    ),
+
+                    const SizedBox(height: 20),
+                  ],
+                ),
+              ),
             ),
-
-            const SizedBox(height: 150),
-
-            //Registar button
-            MyButton(
-              onTap:() => confirmar(context),
-              text: "Confirmar",
-            ),
-
-            const SizedBox(height: 25),
-          ],),
+          ],
         ),
-      )
-      ]
-      )
-      )
+      ),
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:adrenture/models/user.dart';
 import 'package:adrenture/pages/admin/gerirCarro.dart';
 import 'package:adrenture/pages/admin/gerirUser.dart';
 import 'package:adrenture/pages/admin/stats.dart';
@@ -26,7 +27,7 @@ void logout(BuildContext context) {
 
 void goBack(BuildContext context) {
   Navigator.push(context,
-      MaterialPageRoute(builder: (context) => const BottomNavBarPage()));
+      MaterialPageRoute(builder: (context) => BottomNavBarPage(user: User.loggedUser!)));
 }
 
 class DashboardPage extends StatelessWidget {
