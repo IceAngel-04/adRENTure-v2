@@ -32,11 +32,11 @@ import 'package:flutter/material.dart';
       MaterialPageRoute(builder: (context) => UpdateEmail(user: user,)));
     }
 
- void updateNumber(BuildContext context, User user){
+ /*void updateNumber(BuildContext context, User user){
       Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => UpdateNumber(user: user)));
-    }
+    }*/
 
  void updateAddress(BuildContext context,User user){
       Navigator.push(
@@ -104,11 +104,11 @@ class ProfileEditPage extends StatelessWidget {
               title: const Text('Alterar email'),
               onTap: () => updateEmail(context, user),
             ),
-            ListTile(
+            /*ListTile(
               leading: const Icon(Icons.settings_outlined,color: Color(0xFF3C9096)),
               title: const Text('Alterar número de telemóvel'),
               onTap: () => updateNumber(context, user),
-            ),
+            ),*/
             ListTile(
               leading: const Icon(Icons.settings_outlined,color: Color(0xFF3C9096)),
               title: const Text('Alterar morada'),
