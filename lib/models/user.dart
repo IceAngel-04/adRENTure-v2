@@ -17,7 +17,6 @@ class User {
   int cartaConducao;
   String? morada;
   String? moradaAntiga;
-  String? lastPassword;
   bool notificacoes = true;
   DateTime dataAdesao = DateTime.now();
   bool verificado = false;
@@ -27,6 +26,9 @@ class User {
   int notaApp = 0;
   bool ativo = true;
   double nota = 0;
+  String? newPassword;
+  String? newPasswordConfirm;
+  String? lastPassword;
 
     factory User.currentUser({
         required int userID,
@@ -49,18 +51,6 @@ class User {
     );
   }
 
-  /*factory User.fromJson(Map<String, dynamic> json)  {
-    return User(
-        userID: json['userID'],
-        userType : json['userType'],
-        nomeUtilizador: json['nomeUtilizador'],
-        email: json['email'],
-        cartaConducao: json['cartaConducao'],
-        nif: json['nif'],
-        password: json['password'],
-        datanascimento: json['datanascimento'],
-    );
-  }*/
   factory User.forLogin({
     required String email,
     required String password,
@@ -109,6 +99,43 @@ class User {
     );
   }
 
+    factory User.forUpdateAddress({
+    required int userID,
+    required String morada,
+  }) {
+    return User(
+      userID: userID,
+      email: '',
+      novoEmail: '',
+      password: '',
+      nomeUtilizador: '', // Provide default or empty values
+      nif: 0,
+      cartaConducao: 0,
+      datanascimento: DateTime(1900),
+      morada: morada,
+    );
+  }
+
+   factory User.forUpdatePassword({
+    required int userID,
+    required String password,
+    required String newPassword,
+    required String newPasswordConfirm
+  }) {
+    return User(
+      userID: userID,
+      email: '',
+      novoEmail: '',
+      password: password,
+      nomeUtilizador: '', // Provide default or empty values
+      nif: 0,
+      cartaConducao: 0,
+      datanascimento: DateTime(1900),
+      newPassword: newPassword,
+      newPasswordConfirm: newPasswordConfirm,
+    );
+  }
+
   factory User.forResetPassword({
     required String email,
     required String password,
@@ -153,6 +180,8 @@ class User {
     required this.password,
     required this.nif,
     required this.datanascimento,
+    this.newPassword = '',
+    this.newPasswordConfirm = '',
     this.notificacoes = true,
     required this.cartaConducao,
     this.verificado = false,

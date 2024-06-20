@@ -31,7 +31,8 @@ void goBack(BuildContext context) {
 }
 
 class DashboardPage extends StatelessWidget {
-  const DashboardPage({super.key});
+  final User user;
+  const DashboardPage({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {

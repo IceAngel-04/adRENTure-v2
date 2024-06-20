@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:adrenture/models/user.dart';
-import 'package:adrenture/pages/home/profile.dart';
 import 'package:adrenture/pages/login/login.dart';
 import 'package:adrenture/widgets/navbar.dart';
 import 'package:flutter/material.dart';

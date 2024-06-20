@@ -1,6 +1,5 @@
 // ignore_for_file: file_names
 import 'package:adrenture/models/user.dart';
-import 'package:adrenture/pages/admin/dashboard.dart';
 import 'package:adrenture/pages/home/profile.dart';
 import 'package:adrenture/pages/profile/updateAddress.dart';
 import 'package:adrenture/pages/profile/updateEmail.dart';
@@ -15,12 +14,6 @@ import 'package:flutter/material.dart';
       MaterialPageRoute(builder: (context) => ProfilePage(user: user)));
  }
 
- void adminTest(BuildContext context){
-    Navigator.push(
-      context, 
-      MaterialPageRoute(builder: (context) => const DashboardPage()));
- }
-
  void updatePassword(BuildContext context, User user){
       Navigator.push(
       context,
@@ -32,11 +25,11 @@ import 'package:flutter/material.dart';
       MaterialPageRoute(builder: (context) => UpdateEmail(user: user,)));
     }
 
- /*void updateNumber(BuildContext context, User user){
+ void updateNumber(BuildContext context, User user){
       Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => UpdateNumber(user: user)));
-    }*/
+    }
 
  void updateAddress(BuildContext context,User user){
       Navigator.push(
@@ -91,11 +84,6 @@ class ProfileEditPage extends StatelessWidget {
             const SizedBox(height: 32),
             ListTile(
               leading: const Icon(Icons.settings_outlined,color: Color(0xFF3C9096)),
-              title: const Text('Admin TEST'),
-              onTap: () => adminTest(context),
-            ),
-            ListTile(
-              leading: const Icon(Icons.settings_outlined,color: Color(0xFF3C9096)),
               title: const Text('Alterar palavra-passe'),
               onTap: () => updatePassword(context, user),
             ),
@@ -104,11 +92,11 @@ class ProfileEditPage extends StatelessWidget {
               title: const Text('Alterar email'),
               onTap: () => updateEmail(context, user),
             ),
-            /*ListTile(
+            ListTile(
               leading: const Icon(Icons.settings_outlined,color: Color(0xFF3C9096)),
               title: const Text('Alterar número de telemóvel'),
               onTap: () => updateNumber(context, user),
-            ),*/
+            ),
             ListTile(
               leading: const Icon(Icons.settings_outlined,color: Color(0xFF3C9096)),
               title: const Text('Alterar morada'),

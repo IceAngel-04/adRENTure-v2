@@ -1,11 +1,9 @@
 import 'package:adrenture/data/user_data.dart';
 import 'package:adrenture/models/user.dart';
 import 'package:adrenture/pages/login/resetPasswordNew.dart';
-import 'package:adrenture/pages/profile/profileEdit.dart';
 import 'package:adrenture/widgets/button.dart';
 import 'package:adrenture/widgets/textfield.dart';
 import 'package:adrenture/pages/login/register.dart';
-import 'package:adrenture/pages/login/resetPasswordEmail.dart';
 import 'package:adrenture/widgets/navbar.dart';
 import 'package:flutter/material.dart';
 

@@ -1,5 +1,4 @@
 // ignore_for_file: file_names
-import 'package:adrenture/data/user_data.dart';
 import 'package:adrenture/models/user.dart';
 import 'package:adrenture/widgets/button.dart';
 import 'package:adrenture/widgets/textfield.dart';

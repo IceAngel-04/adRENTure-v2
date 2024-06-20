@@ -1,4 +1,5 @@
 import 'package:adrenture/models/user.dart';
+import 'package:adrenture/pages/admin/dashboard.dart';
 import 'package:adrenture/pages/home/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:adrenture/pages/home/wallet.dart';
@@ -26,13 +27,17 @@ class _BottomNavBarPageState extends State<BottomNavBarPage> {
   Widget _getPage(int index) {
     switch (index) {
       case 0:
-        return HomePage(); // HomePage is not const unless defined so in its class
+        return HomePage(); 
       case 1:
-        return ActiveCarsPage(); // ActiveCarsPage is not const unless defined so in its class
+        return ActiveCarsPage(); 
       case 2:
-        return WalletPage(); // WalletPage is not const unless defined so in its class
+        return WalletPage();
       case 3:
-        return ProfilePage(user: widget.user); // ProfilePage is not const unless defined so in its class
+        if (widget.user.userType == 'admin') {
+          return DashboardPage(user: widget.user);
+        } else {
+          return ProfilePage(user: widget.user);
+        }
       default:
         return HomePage();
     }

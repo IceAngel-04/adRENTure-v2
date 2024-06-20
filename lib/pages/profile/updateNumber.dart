@@ -1,8 +1,5 @@
 import 'package:adrenture/data/profile_data.dart';
-/*import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-
+import 'package:flutter/material.dart';
 import 'package:adrenture/models/user.dart';
 import 'package:adrenture/pages/profile/profileEdit.dart';
 import 'package:adrenture/widgets/button.dart';
@@ -23,12 +20,12 @@ class _UpdateNumberState extends State<UpdateNumber> {
   void _updateNumber() {
     User user = User.forUpdateNumber(
       userID: widget.user.userID, // Passa o userID do usuário
-      telefone: _telemovelController.text,
+      telefone: int.parse(_telemovelController.text)
     );
 
-    ProfileData.updateEmail(user, context).then((_) {
+    ProfileData.updateNumber(user, context).then((_) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Email alterado com sucesso!')),
+        SnackBar(content: Text('Numero de telemovel alterado com sucesso!')),
       );
       Navigator.pushReplacement(
         context,
@@ -36,7 +33,7 @@ class _UpdateNumberState extends State<UpdateNumber> {
       );
     }).catchError((error) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Falha ao alterar o email. $error')),
+        SnackBar(content: Text('Falha ao alterar o numero de telemovel. $error')),
       );
     });
   }
@@ -66,7 +63,7 @@ class _UpdateNumberState extends State<UpdateNumber> {
             const Padding(
               padding: EdgeInsets.symmetric(vertical: 16.0),
               child: Text(
-                'Alterar o email',
+                'Alterar o numero de telemovel',
                 style: TextStyle(
                   color: Color(0xFF059D02),
                   fontSize: 25,
@@ -88,8 +85,8 @@ class _UpdateNumberState extends State<UpdateNumber> {
 
                     // Novo email textfield
                     MyTextField(
-                      controller: _novoEmailController,
-                      hintText: 'Novo Email',
+                      controller: _telemovelController,
+                      hintText: 'Novo numero de telemovel',
                       obscureText: false,
                     ),
 
@@ -97,7 +94,7 @@ class _UpdateNumberState extends State<UpdateNumber> {
 
                     // Confirm button
                     MyButton(
-                      onTap: () => _updateEmail(),
+                      onTap: () => _updateNumber(),
                       text: "Confirmar",
                     ),
 
@@ -111,4 +108,4 @@ class _UpdateNumberState extends State<UpdateNumber> {
       ),
     );
   }
-}*/
+}

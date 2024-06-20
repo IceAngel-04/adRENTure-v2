@@ -1,8 +1,8 @@
 // ignore_for_file: file_names
 import 'package:adrenture/models/car.dart';
 import 'package:adrenture/models/user.dart';
+import 'package:adrenture/pages/admin/dashboard.dart';
 import 'package:adrenture/pages/home/carpage.dart';
-import 'package:adrenture/pages/home/profile.dart';
 import 'package:adrenture/pages/home/rentyourcar.dart';
 import 'package:adrenture/widgets/navbar.dart';
 import 'package:adrenture/widgets/smallCardAdmin.dart';
