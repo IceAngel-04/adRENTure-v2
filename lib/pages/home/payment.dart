@@ -14,7 +14,11 @@ class _PaymentPageState extends State<PaymentPage> {
 
   void selectPaymentMethod(String method) {
     setState(() {
-      selectedPaymentMethod = method;
+      if (selectedPaymentMethod == method) {
+        selectedPaymentMethod = '';
+      } else {
+        selectedPaymentMethod = method;
+      }
     });
   }
 
@@ -54,30 +58,38 @@ class _PaymentPageState extends State<PaymentPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ElevatedButton(
-                  onPressed: () {
-                    selectPaymentMethod('PayPal');
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.transparent,
-                    padding: EdgeInsets.zero,
-                  ),
-                  child: Image.asset(
-                    'assets/images/paypal.png',
-                    height: 25,
+                SizedBox(
+                  width: 120, // Set a fixed width
+                  height: 50, // Set a fixed height
+                  child: ElevatedButton(
+                    onPressed: () {
+                      selectPaymentMethod('PayPal');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: selectedPaymentMethod == 'PayPal' ? Colors.green : Colors.blue,
+                      padding: EdgeInsets.zero,
+                    ),
+                    child: Image.asset(
+                      'assets/images/paypal.png',
+                      height: 25,
+                    ),
                   ),
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    selectPaymentMethod('MB WAY');
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.transparent,
-                    padding: EdgeInsets.zero,
-                  ),
-                  child: Image.asset(
-                    'assets/images/mbway.png',
-                    height: 25,
+                SizedBox(
+                  width: 120, // Set a fixed width
+                  height: 50, // Set a fixed height
+                  child: ElevatedButton(
+                    onPressed: () {
+                      selectPaymentMethod('MB WAY');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: selectedPaymentMethod == 'MB WAY' ? Colors.green : Colors.blue,
+                      padding: EdgeInsets.zero,
+                    ),
+                    child: Image.asset(
+                      'assets/images/mbway.png',
+                      height: 25,
+                    ),
                   ),
                 ),
               ],
@@ -85,15 +97,17 @@ class _PaymentPageState extends State<PaymentPage> {
             const SizedBox(height: 50),
             Center(
               child: ElevatedButton(
-                onPressed: () {
-                  // Navigate to payment page
-                },
+                onPressed: selectedPaymentMethod.isEmpty
+                    ? null
+                    : () {
+                        // Navigate to payment page
+                      },
                 child: Text(
                   'Continuar com $selectedPaymentMethod',
                   style: const TextStyle(color: Colors.white),
                 ),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF3C90C1),
+                  backgroundColor: selectedPaymentMethod.isEmpty ? Colors.grey : const Color(0xFF3C90C1),
                   padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
                 ),
               ),
