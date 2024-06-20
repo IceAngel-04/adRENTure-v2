@@ -40,7 +40,7 @@ class DashboardPage extends StatelessWidget {
             onPressed: () => goBack(context),
             icon: const Icon(Icons.arrow_back, color: Color(0xFF3C9096))),
         title: const Text(
-          'ADMIN DASHBOARD',
+          'Painel do ADMIN',
           style:
               TextStyle(color: Color(0xFF059D02), fontWeight: FontWeight.bold),
         ),

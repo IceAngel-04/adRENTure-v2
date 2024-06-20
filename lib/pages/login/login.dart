@@ -1,6 +1,7 @@
 // import 'dart:js';
 import 'package:adrenture/data/user_data.dart';
 import 'package:adrenture/models/user.dart';
+import 'package:adrenture/pages/login/resetPasswordNew.dart';
 import 'package:adrenture/widgets/button.dart';
 import 'package:adrenture/widgets/textfield.dart';
 import 'package:adrenture/pages/login/register.dart';
@@ -54,7 +55,7 @@ class Login extends StatefulWidget {
     void forgotPassword(BuildContext context){
       Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => ResetPasswordEmail()));
+      MaterialPageRoute(builder: (context) => ResetPassword()));
     }
 
     void registerUser(BuildContext context){
