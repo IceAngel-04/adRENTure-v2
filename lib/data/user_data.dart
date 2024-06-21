@@ -54,13 +54,13 @@ static Future<Map<String, dynamic>> loginUser(User user, BuildContext context) a
     // User logged in successfully
     Map<String, dynamic> jsonResponse = json.decode(login.body);
     print('Raw JSON Response: ${jsonResponse}');
-print('userID: ${jsonResponse['user']['userID']}');
-print('userType: ${jsonResponse['user']['userType']}');
-print('nomeUtilizador: ${jsonResponse['user']['nomeUtilizador']}');
-print('email: ${jsonResponse['user']['email']}');
-print('cartaConducao: ${jsonResponse['user']['cartaConducao']}');
-print('nif: ${jsonResponse['user']['nif']}');
-print('datanascimento: ${jsonResponse['user']['datanascimento']}');
+    print('userID: ${jsonResponse['user']['userID']}');
+    print('userType: ${jsonResponse['user']['userType']}');
+    print('nomeUtilizador: ${jsonResponse['user']['nomeUtilizador']}');
+    print('email: ${jsonResponse['user']['email']}');
+    print('cartaConducao: ${jsonResponse['user']['cartaConducao']}');
+    print('nif: ${jsonResponse['user']['nif']}');
+    print('datanascimento: ${jsonResponse['user']['datanascimento']}');
     
     // Parsing integers from strings if needed
     int userID = int.parse(jsonResponse['user']['userID'].toString());
@@ -81,20 +81,21 @@ print('datanascimento: ${jsonResponse['user']['datanascimento']}');
       context,
       MaterialPageRoute(builder: (context) => BottomNavBarPage(user: User.loggedUser!)),
     );
+    
     return jsonResponse;
-  } else {
-    // Login failed
-    print('Falha ao iniciar-sessão. Status code: ${login.statusCode}');
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Falha ao iniciar-sessão.')),
-    );
-    throw Exception('Failed to login');
+    
+    } else {
+      // Login failed
+      print('Falha ao iniciar-sessão. Status code: ${login.statusCode}');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Falha ao iniciar-sessão.')),
+      );
+      throw Exception('Failed to login');
+    }
   }
-}
 
 
-
-   static Future<void> resetPasswordUser(User user,BuildContext context) async {
+  static Future<void> resetPasswordUser(User user,BuildContext context) async {
     // Exemplo de função de registrar
     final url = Uri.parse('http://localhost:5000/api/auth/resetPassword'); // O vosso url da api para registrar
     //final url = Uri.parse('https://adrentureapi.onrender.com/api/auth/login'); // O vosso url da api para registrar
@@ -122,6 +123,33 @@ print('datanascimento: ${jsonResponse['user']['datanascimento']}');
       // Login failed
       print('Falha ao redefinir a palavra-passe. Status code: ${resetPassword.statusCode}');
       SnackBar(content: Text('Falha ao redefinir a palavra-passe.'));
+    }
+  }
+  
+  static Future<void> updateNotifications(User user, BuildContext context) async {
+    final url = Uri.parse('http://localhost:5000/api/user/updateNotifications');
+
+    final response = await http.post(
+      url,
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode(<String, dynamic>{
+        'userID': user.userID,
+        'notifications': user.notificacoes,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Notificações atualizadas com sucesso!')),
+      );
+    } else {
+      print('Falha ao atualizar as notificações. Status code: ${response.statusCode}');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Falha ao atualizar as notificações.')),
+      );
+      throw Exception('Failed to update notifications');
     }
   }
 }
