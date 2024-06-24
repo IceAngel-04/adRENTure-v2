@@ -55,15 +55,6 @@ static Future<Map<String, dynamic>> loginUser(User user, BuildContext context) a
   if (login.statusCode == 200) {
     // User logged in successfully
     Map<String, dynamic> jsonResponse = json.decode(login.body);
-    print('Raw JSON Response: ${jsonResponse}');
-    print('userID: ${jsonResponse['user']['userID']}');
-    print('userType: ${jsonResponse['user']['userType']}');
-    print('nomeUtilizador: ${jsonResponse['user']['nomeUtilizador']}');
-    print('email: ${jsonResponse['user']['email']}');
-    print('cartaConducao: ${jsonResponse['user']['cartaConducao']}');
-    print('nif: ${jsonResponse['user']['nif']}');
-    print('datanascimento: ${jsonResponse['user']['datanascimento']}');
-    
     // Parsing integers from strings if needed
     int userID = int.parse(jsonResponse['user']['userID'].toString());
     int cartaConducao = int.parse(jsonResponse['user']['cartaConducao'].toString());
@@ -78,7 +69,7 @@ static Future<Map<String, dynamic>> loginUser(User user, BuildContext context) a
       nif: nif,
       datanascimento: DateTime.parse(jsonResponse['user']['datanascimento']),
     );
-    print(login.body);
+    //print(login.body);
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => BottomNavBarPage(user: User.loggedUser!)),

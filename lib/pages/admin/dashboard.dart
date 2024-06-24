@@ -13,7 +13,7 @@ void gerirCarro(BuildContext context) {
 
 void gerirUsers(BuildContext context) {
   Navigator.push(
-      context, MaterialPageRoute(builder: (context) => const GerirUsersPage()));
+      context, MaterialPageRoute(builder: (context) => GerirUser()));
 }
 
 void verStats(BuildContext context) {

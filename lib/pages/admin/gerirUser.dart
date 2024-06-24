@@ -1,90 +1,59 @@
-// ignore_for_file: file_names
-import 'package:adrenture/models/user.dart';
-import 'package:adrenture/pages/admin/gerirUser2.dart';
-import 'package:adrenture/pages/home/home.dart';
-import 'package:adrenture/pages/home/userPage.dart';
-import 'package:adrenture/widgets/navbar.dart';
-import 'package:adrenture/widgets/smallCardAdmin.dart';
 import 'package:flutter/material.dart';
+import 'package:adrenture/data/admin_data.dart';
+import 'package:adrenture/pages/home/userPage.dart';
+import 'package:adrenture/widgets/smallCardAdmin.dart';
+import 'gerirUser2.dart';
+import 'package:adrenture/models/user.dart';
 
-class GerirUserPage extends StatelessWidget {
-  const GerirUserPage({super.key});
+class GerirUser extends StatefulWidget {
+  GerirUser({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: HomePage(),
-      debugShowCheckedModeBanner: false,
-    );
+  _GerirUserState createState() => _GerirUserState();
+}
+
+class _GerirUserState extends State<GerirUser> {
+  List<User> _users = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _getAllUsers();
   }
-}
 
-class GerirUsersPage extends StatefulWidget {
-  const GerirUsersPage({super.key});
+  void _getAllUsers() async {
+    List<User> users = await AdminData.getAllUsers();
+    setState(() {
+      _users = users;
+    });
+  }
 
-  @override
-  // ignore: library_private_types_in_public_api
-  _GerirUsersPageState createState() => _GerirUsersPageState();
-}
+  void deleteUser(User user) async {
+    try {
+      await AdminData.deleteUser(user);
+      setState(() {
+        _users.removeWhere((u) => u.userID == user.userID);
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Utilizador apagado com sucesso!')),
+      );
+    } catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Falha ao apagar o utilizador. $error')),
+      );
+    }
+  }
 
-class _GerirUsersPageState extends State<GerirUsersPage> {
-  final int _selectedIndex = 0;
-
-  static const List<Widget> _widgetOptions = <Widget>[
-    GerirUserContent(title: 'Gerir Users'),
-  ];
-
-  void goBack(BuildContext context) {
+  void editUser(BuildContext context, User user) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => BottomNavBarPage(user: User.loggedUser!)),
+      MaterialPageRoute(builder: (context) => GerirUser2(user: user)),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () => goBack(context),
-          icon: const Icon(Icons.arrow_back, color: Color(0xFF3C9096)),
-        ),
-        title: const Text(
-          'GERIR User',
-          style: TextStyle(
-            color: Color(0xFF059D02),
-            fontWeight: FontWeight.bold,
-          ),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      body: _widgetOptions.elementAt(_selectedIndex),
-    );
-  }
-}
-
-class GerirUserContent extends StatelessWidget {
-  final String title;
-
-  void editUser(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => GerirUser2()),
-    );
-  }
-
-  const GerirUserContent({super.key, required this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    List<User> userList = [
-      user1,
-      user2,
-      user3,
-      user4,
-      user5,
-    ];
-    List<Widget> items = userList.map((user) {
+    List<Widget> items = _users.map((user) {
       return GestureDetector(
         onTap: () {
           Navigator.push(
@@ -95,25 +64,28 @@ class GerirUserContent extends StatelessWidget {
           );
         },
         child: SmallCustomCardAdmin(
-            title: user.nomeUtilizador,
-            subtitle: user.dataAdesao.toString(),
-            image: Image.asset(
-              user.userImage,
-              height: 120,
-            ),
-            backgroundColor: const Color.fromRGBO(5, 157, 2, 70),
-            icon: IconButton(
-                icon: Icon(Icons.edit),
-                color: Colors.white,
-                onPressed: () => editUser(context)),
-            icon2: IconButton(
-                icon: Icon(Icons.delete),
-                color: Colors.white,
-                onPressed: () {})),
+          title: '${user.nomeUtilizador}',
+          subtitle: user.dataAdesao.toString(),
+          image: Image.asset(user.userImage, height: 120,),
+          backgroundColor: const Color.fromRGBO(5, 157, 2, 70),
+          icon: IconButton(
+            icon: Icon(Icons.edit),
+            color: Colors.white,
+            onPressed: () => editUser(context, user),
+          ), 
+          icon2: IconButton(
+            icon: Icon(Icons.delete),
+            color: Colors.white,
+            onPressed: () => deleteUser(user), // Pass user object to deleteUser function
+          ),
+        ),
       );
     }).toList();
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Manage Users'),
+      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -122,10 +94,10 @@ class GerirUserContent extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               child: Row(
                 children: [
-                  const Expanded(
+                  Expanded(
                     child: TextField(
                       decoration: InputDecoration(
-                        hintText: 'Pesquisar',
+                        hintText: 'Search',
                         border: OutlineInputBorder(),
                       ),
                     ),
@@ -133,20 +105,20 @@ class GerirUserContent extends StatelessWidget {
                   IconButton(
                     icon: const Icon(Icons.filter_list),
                     onPressed: () {
-                      // Implemente a ação do botão de filtro aqui
+                      // Implement filter action here
                     },
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.9,
               child: ListView(
                 children: items,
               ),
             ),
-            const SizedBox(height: 50),
+            SizedBox(height: 50),
           ],
         ),
       ),

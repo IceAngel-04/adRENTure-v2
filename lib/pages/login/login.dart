@@ -18,7 +18,7 @@ class Login extends StatefulWidget {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-   void _login() {
+  void _login() {
   final user = User.forLogin(
     password: _passwordController.text,
     email: _emailController.text,
