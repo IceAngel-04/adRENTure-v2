@@ -30,7 +30,20 @@ class User {
   String? newPasswordConfirm;
   String? lastPassword;
 
-    factory User.currentUser({
+  factory User.fromJson(Map<String, dynamic> json) {
+  return User(
+    userID: json['userID'],
+    userType: json['userType'],
+    nomeUtilizador: json['nomeUtilizador'],
+    email: json['email'],
+    cartaConducao: int.parse(json['cartaConducao']),
+    nif: int.parse(json['nif']),
+    datanascimento: DateTime.parse(json['dataNascimento']), // Ensure this matches JSON key
+    userImage: json['imagemPerfil'] ?? 'assets/images/user.png',
+    // Handle other fields similarly
+  );
+}
+   factory User.currentUser({
         required int userID,
         required String userType,
         required String nomeUtilizador,
@@ -177,7 +190,7 @@ class User {
     this.userType = "utilizador",
     required this.nomeUtilizador,
     required this.email,
-    required this.password,
+    this.password,
     required this.nif,
     required this.datanascimento,
     this.newPassword = '',
