@@ -1,5 +1,4 @@
 // ignore_for_file: file_names
-import 'package:adrenture/models/user.dart';
 import 'package:adrenture/widgets/button.dart';
 import 'package:adrenture/widgets/textfield.dart';
 import 'package:adrenture/pages/login/login.dart';
@@ -19,11 +18,6 @@ class _ResetPasswordState extends State<ResetPassword> {
   final _confirmPassworController = TextEditingController();
 
     void _resetPassword() {
-    final user = User.forResetPassword(
-      email: _emailController.text ,
-      password: _passwordController.text,
-      lastPassword: _confirmPassworController.text,
-    );
 
     /*UserData.resetPasswordUser(user, context).then((_) {
       ScaffoldMessenger.of(context).showSnackBar(
