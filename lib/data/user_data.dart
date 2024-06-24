@@ -2,12 +2,14 @@ import 'dart:convert';
 import 'package:adrenture/models/user.dart';
 import 'package:adrenture/pages/login/login.dart';
 import 'package:adrenture/widgets/navbar.dart';
+import 'package:adrenture/main.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+
 abstract class UserData {
   static Future<void> registerUser(User user, BuildContext context) async {
     // Exemplo de função de registrar
-    final url = Uri.parse('http://localhost:5000/api/auth/register'); // O vosso url da api para registrar
+    final url = Uri.parse('http://' + servidor + ':' + porta + '/api/auth/register'); // O vosso url da api para registrar
     //final url = Uri.parse('https://adrentureapi.onrender.com/api/auth/register'); // O vosso url da api para registrar
 
     final register = await http.post(
@@ -38,7 +40,7 @@ abstract class UserData {
   }
 
 static Future<Map<String, dynamic>> loginUser(User user, BuildContext context) async {
-  final url = Uri.parse('http://localhost:5000/api/auth/login');
+  final url = Uri.parse('http://' + servidor + ':' + porta + '/api/auth/login');
   final login = await http.post(
     url,
     headers: <String, String>{
@@ -97,7 +99,7 @@ static Future<Map<String, dynamic>> loginUser(User user, BuildContext context) a
 
   static Future<void> resetPasswordUser(User user,BuildContext context) async {
     // Exemplo de função de registrar
-    final url = Uri.parse('http://localhost:5000/api/auth/resetPassword'); // O vosso url da api para registrar
+    final url = Uri.parse('http://' + servidor + ':' + porta + '/api/auth/resetPassword'); // O vosso url da api para registrar
     //final url = Uri.parse('https://adrentureapi.onrender.com/api/auth/login'); // O vosso url da api para registrar
 
     final resetPassword = await http.post(
@@ -126,30 +128,4 @@ static Future<Map<String, dynamic>> loginUser(User user, BuildContext context) a
     }
   }
   
-  static Future<void> updateNotifications(User user, BuildContext context) async {
-    final url = Uri.parse('http://localhost:5000/api/user/updateNotifications');
-
-    final response = await http.post(
-      url,
-      headers: <String, String>{
-        'Content-Type': 'application/json',
-      },
-      body: jsonEncode(<String, dynamic>{
-        'userID': user.userID,
-        'notifications': user.notificacoes,
-      }),
-    );
-
-    if (response.statusCode == 200) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Notificações atualizadas com sucesso!')),
-      );
-    } else {
-      print('Falha ao atualizar as notificações. Status code: ${response.statusCode}');
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Falha ao atualizar as notificações.')),
-      );
-      throw Exception('Failed to update notifications');
-    }
-  }
 }

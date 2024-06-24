@@ -2,11 +2,13 @@ import 'dart:convert';
 import 'package:adrenture/models/car.dart';
 import 'package:adrenture/models/user.dart';
 import 'package:adrenture/widgets/navbar.dart';
+import 'package:adrenture/main.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+
 abstract class CarData {
   static Future<void> registerCar(Car car, BuildContext context) async {
-    final url = Uri.parse('http://localhost:5000/api/car/register'); // Replace with your API URL
+    final url = Uri.parse('http://' + servidor + ':' + porta + '/api/car/register'); // Replace with your API URL
 
     try {
       final register = await http.post(
@@ -42,13 +44,17 @@ abstract class CarData {
         );
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => BottomNavBarPage(user: User.loggedUser!)), // Navigate to success page or home
+          MaterialPageRoute(
+              builder: (context) => BottomNavBarPage(
+                  user: User.loggedUser!)), // Navigate to success page or home
         );
       } else {
         // Registration failed
         print('Falha ao registar o carro. Status code: ${register.statusCode}');
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Falha ao registar o carro. Status code: ${register.statusCode}')),
+          SnackBar(
+              content: Text(
+                  'Falha ao registar o carro. Status code: ${register.statusCode}')),
         );
       }
     } catch (error) {
@@ -59,4 +65,6 @@ abstract class CarData {
       );
     }
   }
+
+
 }
