@@ -2,13 +2,13 @@ import 'dart:io';
 import 'package:adrenture/data/car_data.dart';
 import 'package:adrenture/models/car.dart';
 import 'package:adrenture/models/user.dart';
+import 'package:adrenture/models/marcas.dart';
 import 'package:adrenture/widgets/button.dart';
 import 'package:adrenture/widgets/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
-import 'package:adrenture/models/marcas.dart';
 
 List<Brand> marcas = [
   Brand(id: 1, nomeMarca: 'BMW'),
