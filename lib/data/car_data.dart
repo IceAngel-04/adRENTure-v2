@@ -73,27 +73,23 @@ static Future<void> registerCar(Car car, BuildContext context) async {
 }
 
   static Future<List<Car>> getAllCars() async {
-    final url = Uri.parse('http://localhost:5000/api/car/getCars'); // Adjust the URL as needed
+    final url = Uri.parse('http://localhost:5000/api/car/getCars'); // Adjust URL as needed
 
-    final getAllCars = await http.get(
-      url,
-      headers: <String, String>{
+    try {
+      final response = await http.get(url, headers: <String, String>{
         'Content-Type': 'application/json',
-      },
-    );
+      });
 
-    if (getAllCars.statusCode == 200) {
-      print(getAllCars.body);
-      List<dynamic> jsonResponse = json.decode(getAllCars.body);
-      
-      // Convert the JSON response to a list of User objects
-      return jsonResponse.map((car) => Car.fromJson(car)).toList();
-      
-    } else {
-      // Fetching users failed
-      print('Failed to fetch users. Status code: ${getAllCars.statusCode}');
-      throw Exception('Failed to fetch Cars');
+      if (response.statusCode == 200) {
+        List<dynamic> jsonResponse = json.decode(response.body);
+        List<Car> cars = jsonResponse.map((carJson) => Car.fromJson(carJson)).toList();
+        return cars;
+      } else {
+        throw Exception('Failed to fetch cars');
+      }
+    } catch (e) {
+      print('Error fetching cars: $e');
+      throw Exception('Failed to fetch cars: $e');
     }
   }
-
 }

@@ -56,8 +56,9 @@ class Car {
     this.imagens = const [],
     this.nota = 0,
   });
+  
 
-    factory Car.fromJson(Map<String, dynamic> json) {
+    /*factory Car.fromJson(Map<String, dynamic> json) {
     return Car(
     id: json['carroID'],
     dono: json['locador'],
@@ -76,7 +77,65 @@ class Car {
     preco: double.parse(json['preco']),
     imagemPrincipal: json['imagemPrincipal'] ?? 'assets/images/car.png',
   );
+  }*/
+
+
+  /*factory Car.fromJson(Map<String, dynamic> json) {
+    return Car(
+      id: json['carroID'],
+      dono: json['locador'], // Assuming 'locador' maps to 'dono'
+      marca: json['marca'],
+      modelo: json['modelo'],
+      combustivel: json['combustivel'],
+      imagemPrincipal: json['imagemPrincipal'] ?? 'assets/images/car.png',
+      numeroPortas: json['nPortas'],
+      numeroLugares: json['nLugares'],
+      categoria: json['categoria'],
+      totalMudancas: json['totalMudancas'],
+      velocidadeMax: json['velocidadeMax'],
+      totalQuilometros: json['totalQuilometros'],
+      transmissao: json['transmissao'],
+      cilindrada: json['cilindrada'],
+      ano: json['ano'],
+      cor: json['cor'],
+      matricula: json['matricula'],
+      seguro: json['seguro'],
+      politicaCombustivel: json['politicaCombustivel'],
+      preco: json['preco'],
+      disponivel: json['disponivel'],
+      ativo: json['ativo'],
+      descricao: json['descricao'], // Assuming 'descricao' is nullable
+    );
+  }*/
+
+    factory Car.fromJson(Map<String, dynamic> json) {
+    return Car(
+      id: json['carroID'] ?? 0,
+      totalMudancas: json['totalMudancas'],
+      imagemPrincipal: json['imagemPrincipal'],
+      dono: json['locador'],
+      marca: json['marca'] ?? '',
+      modelo: json['modelo'] ?? '',
+      combustivel: json['combustivel'] ?? '',
+      numeroPortas: json['nPortas'] ?? '',
+      numeroLugares: json['nLugares'] ?? '',
+      categoria: json['categoria'] ?? '',
+      velocidadeMax: json['velocidadeMax'] ?? 0,
+      totalQuilometros: json['totalQuilometros'] ?? 0,
+      transmissao: json['transmissao'] ?? '',
+      cilindrada: json['cilindrada'] ?? '',
+      ano: json['ano'] ?? '',
+      cor: json['cor'] ?? '',
+      matricula: json['matricula'] ?? '',
+      seguro: json['seguro'] ?? '',
+      politicaCombustivel: json['politicaCombustivel'] ?? '',
+      preco: json['preco'] ?? 0,
+      disponivel: json['disponivel'] ?? false,
+      ativo: json['ativo'] ?? false,
+      descricao: json['descricao'],
+    );
   }
+
 
     factory Car.forRent({
     required String marca,

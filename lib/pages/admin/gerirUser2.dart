@@ -1,5 +1,6 @@
 import 'package:adrenture/data/admin_data.dart';
 import 'package:adrenture/models/user.dart';
+import 'package:adrenture/pages/admin/gerirUser.dart';
 import 'package:adrenture/widgets/button.dart';
 import 'package:adrenture/widgets/textfield.dart';
 import 'package:flutter/material.dart';
@@ -53,8 +54,11 @@ class _GerirUserState extends State<GerirUser2> {
     });
   }
 
-  void goBack(BuildContext context) {
-    Navigator.pop(context);
+   void goBack(BuildContext context) {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => GerirUser()),
+    );
   }
 
   bool _passwordObscured = true;
@@ -84,7 +88,7 @@ class _GerirUserState extends State<GerirUser2> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
+         leading: IconButton(
           onPressed: () => goBack(context),
           icon: const Icon(Icons.arrow_back, color: Color(0xFF3C9096)),
         ),

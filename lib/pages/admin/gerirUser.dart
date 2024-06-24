@@ -1,3 +1,4 @@
+import 'package:adrenture/pages/admin/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:adrenture/data/admin_data.dart';
 import 'package:adrenture/pages/home/userPage.dart';
@@ -51,6 +52,7 @@ class _GerirUserState extends State<GerirUser> {
     );
   }
 
+
   @override
   Widget build(BuildContext context) {
     List<Widget> items = _users.map((user) {
@@ -84,6 +86,10 @@ class _GerirUserState extends State<GerirUser> {
 
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () => goBack(context),
+          icon: const Icon(Icons.arrow_back, color: Color(0xFF3C9096)),
+        ),
         title: Text('Manage Users'),
       ),
       body: SingleChildScrollView(
