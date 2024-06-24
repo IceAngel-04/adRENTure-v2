@@ -40,14 +40,6 @@ class _HomePageState extends State<HomePage> {
     carList = [
       carro1,
       carro2,
-      carro3,
-      carro4,
-      carro5,
-      carro6,
-      carro7,
-      carro8,
-      carro9,
-      carro10,
     ];
 
     _widgetOptions = <Widget>[

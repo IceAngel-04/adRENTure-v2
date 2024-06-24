@@ -2,11 +2,8 @@ import 'package:adrenture/data/car_data.dart';
 import 'package:adrenture/models/car.dart';
 import 'package:adrenture/pages/home/carpage.dart';
 import 'package:flutter/material.dart';
-import 'package:adrenture/data/admin_data.dart';
-import 'package:adrenture/pages/home/userPage.dart';
 import 'package:adrenture/widgets/smallCardAdmin.dart';
-import 'gerirUser2.dart';
-import 'package:adrenture/models/user.dart';
+
 
 class GerirCar extends StatefulWidget {
   const GerirCar({super.key});
