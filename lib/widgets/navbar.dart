@@ -1,5 +1,4 @@
 import 'package:adrenture/models/user.dart';
-import 'package:adrenture/pages/admin/dashboard.dart';
 import 'package:adrenture/pages/home/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:adrenture/pages/home/wallet.dart';
@@ -27,17 +26,13 @@ class _BottomNavBarPageState extends State<BottomNavBarPage> {
   Widget _getPage(int index) {
     switch (index) {
       case 0:
-        return HomePage(); 
+        return HomePage();
       case 1:
-        return ActiveCarsPage(); 
+        return ActiveCarsPage();
       case 2:
         return WalletPage();
       case 3:
-        if (widget.user.userType == 'admin') {
-          return DashboardPage(user: widget.user);
-        } else {
-          return ProfilePage(user: widget.user);
-        }
+        return ProfilePage(user: widget.user);
       default:
         return HomePage();
     }
@@ -76,6 +71,7 @@ class _BottomNavBarPageState extends State<BottomNavBarPage> {
     );
   }
 }
+
 void main() {
   User.loggedUser = User(
     userID: 1,
@@ -88,19 +84,17 @@ void main() {
     cartaConducao: 987654321,
   );
 
-  runApp(MaterialApp(
-    home: BottomNavBarPage(
-      user: User.loggedUser 
-      ?? User(
-        userID: 1, 
-        nomeUtilizador: 'John Doe', 
-        email: 'john.doe@example.com', 
-        password: 'password123', 
-        nif: 123456789, 
-        datanascimento: DateTime(1990, 1, 1),
-        cartaConducao: 987654321
-        )
-        )
-    ),
+  runApp(
+    MaterialApp(
+        home: BottomNavBarPage(
+            user: User.loggedUser ??
+                User(
+                    userID: 1,
+                    nomeUtilizador: 'John Doe',
+                    email: 'john.doe@example.com',
+                    password: 'password123',
+                    nif: 123456789,
+                    datanascimento: DateTime(1990, 1, 1),
+                    cartaConducao: 987654321))),
   );
 }

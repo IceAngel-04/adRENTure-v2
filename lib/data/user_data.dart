@@ -2,12 +2,14 @@ import 'dart:convert';
 import 'package:adrenture/models/user.dart';
 import 'package:adrenture/pages/login/login.dart';
 import 'package:adrenture/widgets/navbar.dart';
+import 'package:adrenture/main.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+
 abstract class UserData {
   static Future<void> registerUser(User user, BuildContext context) async {
     // Exemplo de função de registrar
-    final url = Uri.parse('http://localhost:5000/api/auth/register'); // O vosso url da api para registrar
+    final url = Uri.parse('http://' + servidor + ':' + porta + '/api/auth/register'); // O vosso url da api para registrar
     //final url = Uri.parse('https://adrentureapi.onrender.com/api/auth/register'); // O vosso url da api para registrar
 
     final register = await http.post(
@@ -38,7 +40,7 @@ abstract class UserData {
   }
 
 static Future<Map<String, dynamic>> loginUser(User user, BuildContext context) async {
-  final url = Uri.parse('http://localhost:5000/api/auth/login');
+  final url = Uri.parse('http://' + servidor + ':' + porta + '/api/auth/login');
   final login = await http.post(
     url,
     headers: <String, String>{
@@ -72,22 +74,23 @@ static Future<Map<String, dynamic>> loginUser(User user, BuildContext context) a
       context,
       MaterialPageRoute(builder: (context) => BottomNavBarPage(user: User.loggedUser!)),
     );
+    
     return jsonResponse;
-  } else {
-    // Login failed
-    print('Falha ao iniciar-sessão. Status code: ${login.statusCode}');
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Falha ao iniciar-sessão.')),
-    );
-    throw Exception('Failed to login');
+    
+    } else {
+      // Login failed
+      print('Falha ao iniciar-sessão. Status code: ${login.statusCode}');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Falha ao iniciar-sessão.')),
+      );
+      throw Exception('Failed to login');
+    }
   }
-}
 
 
-
-   static Future<void> resetPasswordUser(User user,BuildContext context) async {
+  static Future<void> resetPasswordUser(User user,BuildContext context) async {
     // Exemplo de função de registrar
-    final url = Uri.parse('http://localhost:5000/api/auth/resetPassword'); // O vosso url da api para registrar
+    final url = Uri.parse('http://' + servidor + ':' + porta + '/api/auth/resetPassword'); // O vosso url da api para registrar
     //final url = Uri.parse('https://adrentureapi.onrender.com/api/auth/login'); // O vosso url da api para registrar
 
     final resetPassword = await http.post(
@@ -115,4 +118,5 @@ static Future<Map<String, dynamic>> loginUser(User user, BuildContext context) a
       SnackBar(content: Text('Falha ao redefinir a palavra-passe.'));
     }
   }
+  
 }

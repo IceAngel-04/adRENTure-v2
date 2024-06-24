@@ -1,54 +1,40 @@
-import 'package:adrenture/models/user.dart';
+import 'package:adrenture/pages/admin/dashboard.dart';
 import 'package:adrenture/pages/login/login.dart';
 import 'package:adrenture/pages/profile/profileEdit.dart';
 import 'package:adrenture/widgets/navbar.dart';
 import 'package:flutter/material.dart';
+import 'package:adrenture/models/user.dart';
 
 class ProfilePage extends StatefulWidget {
   final User user;
-  final notifications;
 
-  ProfilePage({Key? key, required this.user, this.notifications}) : super(key: key);
+  ProfilePage({Key? key, required this.user}) : super(key: key);
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  bool notificationsEnabled = true;
+  bool darkModeEnabled = false;
 
-/*void _updateNotifications(bool newValue){
-    try {
-    ProfileData.updateNotifications(widget.user, newValue); // Assuming your updateNotifications method needs user ID and new value
-      setState(() {
-        notificationsEnabled = newValue;
-      });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Notificações atualizadas com sucesso!')),
-      );
-    } catch (error) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Falha ao atualizar as notificações: $error')),
-      );
-    }
-  }
-  void _updateNotifications() {
-    ProfileData.updateNotifications(user)
-        .then((_) {
-      setState(() {
-        notificationsEnabled = newValue;
-      });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Notificações atualizadas com sucesso!')),
-      );
-    })
-        .catchError((error) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Falha ao atualizar as notificações: $error')),
-      );
+  void _updateNotifications(bool newValue) {
+    setState(() {
+      notificationsEnabled = newValue;
     });
-  }*/
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Notificações atualizadas com sucesso!')),
+    );
+  }
 
-  void forgotPassword() {
+  void goToDashboard() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => DashboardPage(user: widget.user)),
+    );
+  }
+
+  void goToEditProfile() {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => ProfileEditPage(user: widget.user)),
@@ -56,7 +42,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   void logout() {
-    Navigator.push(
+    Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => Login()),
     );
@@ -74,7 +60,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () => goBack(),
+          onPressed: goBack,
           icon: const Icon(Icons.arrow_back, color: Color(0xFF3C9096)),
         ),
         title: const Text(
@@ -100,7 +86,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(widget.user.nomeUtilizador,
+                    Text(
+                      widget.user.nomeUtilizador,
                       style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -117,47 +104,43 @@ class _ProfilePageState extends State<ProfilePage> {
               ],
             ),
             const SizedBox(height: 32),
+            if (widget.user.userType == 'admin')
+              ListTile(
+                leading: const Icon(Icons.dashboard, color: Color(0xFF3C9096)),
+                title: const Text('Ir para o Dashboard'),
+                onTap: goToDashboard,
+              ),
             ListTile(
               leading: const Icon(Icons.settings_outlined, color: Color(0xFF3C9096)),
               title: const Text('Alterar informações pessoais'),
-              onTap: forgotPassword,
+              onTap: goToEditProfile,
             ),
             SwitchListTile(
               title: const Text('Notificações'),
               secondary: const Icon(Icons.notifications_outlined, color: Color(0xFF3C9096)),
-              value: true,
-              onChanged: (bool value) {
-                // Ação ao alternar
-              },
+              value: notificationsEnabled,
+              onChanged: _updateNotifications,
             ),
             SwitchListTile(
               title: const Text('Modo escuro'),
               secondary: const Icon(Icons.dark_mode_outlined, color: Color(0xFF3C9096)),
-              value: true,
-              onChanged: (bool value) {
-                // Ação ao alternar
-              },
+              value: darkModeEnabled,
+              onChanged: null,
             ),
             ListTile(
               leading: const Icon(Icons.info_outline, color: Color(0xFF3C9096)),
               title: const Text('Sobre nós'),
-              onTap: () {
-                // Ação ao clicar
-              },
+              onTap: () {},
             ),
             ListTile(
               leading: const Icon(Icons.info_outline, color: Color(0xFF3C9096)),
               title: const Text('Política de privacidade'),
-              onTap: () {
-                // Ação ao clicar
-              },
+              onTap: () {},
             ),
             ListTile(
               leading: const Icon(Icons.info_outline, color: Color(0xFF3C9096)),
               title: const Text('Termos de serviço'),
-              onTap: () {
-                // Ação ao clicar
-              },
+              onTap: () {},
             ),
             ListTile(
               leading: const Icon(Icons.logout, color: Color(0xFF3C9096)),

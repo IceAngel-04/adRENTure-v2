@@ -185,6 +185,22 @@ class User {
       );
   }
 
+  factory User.forUpdateNotifications({
+    required int userID,
+    required bool notifications,
+  }) {
+    return User(
+      userID: userID,
+      email: '',
+      password: '',
+      nomeUtilizador: '', // Forneça valores padrão ou vazios
+      nif: 0,
+      cartaConducao: 0,
+      datanascimento: DateTime(1900),
+      notificacoes: notifications,
+    );
+  }
+
   User({
     required this.userID,
     this.userType = "utilizador",

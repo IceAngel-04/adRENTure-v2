@@ -2,8 +2,8 @@ import 'package:adrenture/models/user.dart';
 import 'package:adrenture/pages/admin/gerirCarro.dart';
 import 'package:adrenture/pages/admin/gerirUser.dart';
 import 'package:adrenture/pages/admin/stats.dart';
+import 'package:adrenture/pages/home/profile.dart';
 import 'package:adrenture/pages/login/login.dart';
-import 'package:adrenture/widgets/navbar.dart';
 import 'package:flutter/material.dart';
 
 void gerirCarro(BuildContext context) {
@@ -27,7 +27,7 @@ void logout(BuildContext context) {
 
 void goBack(BuildContext context) {
   Navigator.push(context,
-      MaterialPageRoute(builder: (context) => BottomNavBarPage(user: User.loggedUser!)));
+      MaterialPageRoute(builder: (context) => ProfilePage(user: User.loggedUser!)));
 }
 
 class DashboardPage extends StatelessWidget {
@@ -42,7 +42,7 @@ class DashboardPage extends StatelessWidget {
             onPressed: () => goBack(context),
             icon: const Icon(Icons.arrow_back, color: Color(0xFF3C9096))),
         title: const Text(
-          'Painel do ADMIN',
+          'Painel do Administrador',
           style:
               TextStyle(color: Color(0xFF059D02), fontWeight: FontWeight.bold),
         ),
@@ -51,16 +51,16 @@ class DashboardPage extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CircleAvatar(radius: 40, child: Icon(Icons.person)),
-                SizedBox(width: 16),
+                const CircleAvatar(radius: 40, child: Icon(Icons.person)),
+                const SizedBox(width: 16),
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'ADMIN',
-                      style: TextStyle(
+                    Text('Administrador' +  ' ' + user.nomeUtilizador,
+                      style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
