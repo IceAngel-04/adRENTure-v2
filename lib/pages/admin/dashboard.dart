@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 
 void gerirCarro(BuildContext context) {
   Navigator.push(
-      context, MaterialPageRoute(builder: (context) => const GerirCarroPage()));
+      context, MaterialPageRoute(builder: (context) => const GerirCar()));
 }
 
 void gerirUsers(BuildContext context) {

@@ -1,121 +1,101 @@
-// ignore_for_file: file_names
+import 'package:adrenture/data/car_data.dart';
 import 'package:adrenture/models/car.dart';
-import 'package:adrenture/models/user.dart';
-import 'package:adrenture/pages/admin/dashboard.dart';
 import 'package:adrenture/pages/home/carpage.dart';
-import 'package:adrenture/pages/home/rentyourcar.dart';
-import 'package:adrenture/widgets/navbar.dart';
-import 'package:adrenture/widgets/smallCardAdmin.dart';
 import 'package:flutter/material.dart';
+import 'package:adrenture/data/admin_data.dart';
+import 'package:adrenture/pages/home/userPage.dart';
+import 'package:adrenture/widgets/smallCardAdmin.dart';
+import 'gerirUser2.dart';
+import 'package:adrenture/models/user.dart';
 
-class GerirCarroPage extends StatelessWidget {
-  const GerirCarroPage({super.key});
+class GerirCar extends StatefulWidget {
+  const GerirCar({super.key});
 
+  @override
+  _GerirCarState createState() => _GerirCarState();
+}
 
-   void goBack(BuildContext context){
-      Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => BottomNavBarPage(user: User.loggedUser!)));
+class _GerirCarState extends State<GerirCar> {
+  List<Car> _cars = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _getAllCars();
+  }
+
+ void _getAllCars() async {
+  try {
+    List<Car> cars = await CarData.getAllCars();
+    setState(() {
+      _cars = cars;
+    });
+  } catch (error) {
+    print('Failed to fetch cars: $error');
+    // Handle error, show snackbar, retry option, etc.
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Failed to fetch cars: $error')),
+    );
+  }
+}
+
+  /*void deleteUser(User user) async {
+    try {
+      await AdminData.deleteUser(user);
+      setState(() {
+        _users.removeWhere((u) => u.userID == user.userID);
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Utilizador apagado com sucesso!')),
+      );
+    } catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Falha ao apagar o utilizador. $error')),
+      );
     }
+  }*/
 
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: HomePage(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}
-
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
-  @override
-  // ignore: library_private_types_in_public_api
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  final int _selectedIndex = 0;
-
-  static const List<Widget> _widgetOptions = <Widget>[
-    GerirCarrosContent(title: ''),
-  ];
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(       
-        leading: IconButton(onPressed: () => goBack(context) , icon: const Icon(Icons.arrow_back,color: Color(0xFF3C9096))),
-        title: const Text('GERIR CARROS',
-          style: TextStyle(
-            color: Color(0xFF059D02),
-            fontWeight: FontWeight.bold),
-          ),
-      ),
-      body: _widgetOptions.elementAt(_selectedIndex),
-    );
-  }
-}
-
-class GerirCarrosContent extends StatelessWidget {
-  final String title;
-
-
-     void editCar(BuildContext context) {
+  /*void editUser(BuildContext context, User user) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const RentYourCarPage()),
+      MaterialPageRoute(builder: (context) => GerirUser2(user: user)),
     );
-  }
-  const GerirCarrosContent({super.key, required this.title});
+  }*/
 
   @override
   Widget build(BuildContext context) {
-    List<Car> carList = [
-      carro1,
-      carro2,
-      carro3,
-      carro4,
-      carro5,
-      carro6,
-      carro7,
-      carro8,
-      carro9,
-      carro10
-    ];
-
-    List<Widget> items = [
-      ...carList.map((car) {
-        return GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => CarPage(carId: car.id, car: car,),
-              ),
-            );
-          },
-          child: SmallCustomCardAdmin(
-            title: '${car.marca} ${car.modelo}',
-            subtitle: car.descricao,
-            image: Image.asset(car.imagemPrincipal, height: 120,),
-            backgroundColor: const Color.fromRGBO(5, 157, 2, 70),
-            icon: IconButton(icon: Icon(Icons.edit), color: Colors.white, onPressed: () => editCar(context)), 
-            icon2: IconButton(icon: Icon(Icons.delete), color: Colors.white, onPressed: () {})
+    List<Widget> items = _cars.map((cars) {
+      return GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CarPage(car: cars, carId: cars.id,),
+            ),
+          );
+        },
+        child: SmallCustomCardAdmin(
+          title: '${cars.marca}',
+          subtitle: cars.modelo,
+          image: Image.asset(cars.imagemPrincipal, height: 120,),
+          backgroundColor: const Color.fromRGBO(5, 157, 2, 70),
+          icon: IconButton(
+            icon: Icon(Icons.edit),
+            color: Colors.white,
+            onPressed: () => {},
+          ), 
+          icon2: IconButton(
+            icon: Icon(Icons.delete),
+            color: Colors.white,
+            onPressed: () => {},
           ),
-        );
-      }),
-    ];
+        ),
+      );
+    }).toList();
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          title,
-          textAlign: TextAlign.center,
-        ),
-        centerTitle: true,
+        title: Text('Manage Cars'),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -125,10 +105,10 @@ class GerirCarrosContent extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               child: Row(
                 children: [
-                  const Expanded(
+                  Expanded(
                     child: TextField(
                       decoration: InputDecoration(
-                        hintText: 'Pesquisar',
+                        hintText: 'Search',
                         border: OutlineInputBorder(),
                       ),
                     ),
@@ -136,20 +116,20 @@ class GerirCarrosContent extends StatelessWidget {
                   IconButton(
                     icon: const Icon(Icons.filter_list),
                     onPressed: () {
-                      // Implemente a ação do botão de filtro aqui
+                      // Implement filter action here
                     },
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.9,
               child: ListView(
                 children: items,
               ),
             ),
-            const SizedBox(height: 50),
+            SizedBox(height: 50),
           ],
         ),
       ),

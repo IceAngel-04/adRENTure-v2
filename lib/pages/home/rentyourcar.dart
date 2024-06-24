@@ -131,7 +131,10 @@ const List<String> seguros = ['Fidelidade', 'Allianz'];
 const List<String> politicaCombustivel = ['Cheio', 'Vazio', 'Metade'];
 
 class RentYourCarPage extends StatefulWidget {
-  const RentYourCarPage({super.key});
+  final User user;
+
+
+  const RentYourCarPage({Key? key, required this.user}) : super(key: key);
 
   @override
   _RentYourCarPageState createState() => _RentYourCarPageState();
@@ -148,6 +151,7 @@ class _RentYourCarPageState extends State<RentYourCarPage> {
   String? _selectedCor;
   String? _selectedSeguro;
   String? _selectedPoliticaCombustivel;
+
 
   TextEditingController _controllerVelocidadeMaxima = TextEditingController();
   TextEditingController _controllerMatricula = TextEditingController();
@@ -183,7 +187,7 @@ class _RentYourCarPageState extends State<RentYourCarPage> {
     }
   }
 
-  void _Alugar() {
+  void _Alugar(User user) {
     if (_selectedMarca == null ||
       _selectedCombustivel == null ||
       _selectedNumeroPortas == null ||
@@ -227,6 +231,7 @@ class _RentYourCarPageState extends State<RentYourCarPage> {
   }
 
     final car = Car.forRent(
+      dono: widget.user.userID,
       marca: _selectedMarca!,
       modelo: _controllerModelo.text,
       combustivel: _selectedCombustivel!,
@@ -246,13 +251,13 @@ class _RentYourCarPageState extends State<RentYourCarPage> {
       descricao: _controllerDescricao.text
     );
     
-    CarData.registerCar(car, context).then((_) {
+    CarData.registerCar(car,context).then((_) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Utilizador registado com sucesso!')),
       );
       Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => BottomNavBarPage(user: User.loggedUser!)), // Replace with your desired destination
+      MaterialPageRoute(builder: (context) => BottomNavBarPage(user: widget.user)), // Replace with your desired destination
     );
     }).catchError((error) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -472,10 +477,10 @@ class _RentYourCarPageState extends State<RentYourCarPage> {
                 const SizedBox(height: 16),
                 Center(
                   child: MyButton(
-                   onTap: () {
-                  _Alugar();
-                  },
-                text: "Alugar",
+                   onTap: () =>
+                  _Alugar(widget.user)
+                  ,
+                  text: "Alugar",
                   ),
                 ),
               ],

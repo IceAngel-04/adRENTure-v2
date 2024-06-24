@@ -26,7 +26,7 @@ class _BottomNavBarPageState extends State<BottomNavBarPage> {
   Widget _getPage(int index) {
     switch (index) {
       case 0:
-        return HomePage();
+        return HomePage(user: widget.user);
       case 1:
         return ActiveCarsPage();
       case 2:
@@ -34,7 +34,7 @@ class _BottomNavBarPageState extends State<BottomNavBarPage> {
       case 3:
         return ProfilePage(user: widget.user);
       default:
-        return HomePage();
+        return HomePage(user: widget.user);
     }
   }
 
@@ -73,17 +73,6 @@ class _BottomNavBarPageState extends State<BottomNavBarPage> {
 }
 
 void main() {
-  User.loggedUser = User(
-    userID: 1,
-    userType: 'user',
-    nomeUtilizador: 'John Doe',
-    email: 'john.doe@example.com',
-    password: 'password123',
-    nif: 123456789,
-    datanascimento: DateTime(1990, 1, 1),
-    cartaConducao: 987654321,
-  );
-
   runApp(
     MaterialApp(
         home: BottomNavBarPage(
@@ -95,6 +84,8 @@ void main() {
                     password: 'password123',
                     nif: 123456789,
                     datanascimento: DateTime(1990, 1, 1),
-                    cartaConducao: 987654321))),
+                    cartaConducao: 987654321)
+                  )
+                ),
   );
 }

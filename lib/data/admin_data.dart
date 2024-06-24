@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:adrenture/models/user.dart';
 import 'package:adrenture/pages/admin/gerirUser.dart';
-import 'package:adrenture/pages/login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -19,7 +18,7 @@ abstract class AdminData {
       body: jsonEncode(<String, dynamic>{
         'userID': user.userID,
         'nomeUtilizador': user.nomeUtilizador,
-        'password': user.password,
+        'password': user.password != null ?user.password : '',
         'email': user.email,
         'nif': user.nif,
         'dataNascimento': user.datanascimento.toString(),
@@ -74,7 +73,6 @@ abstract class AdminData {
     if (getAllUsers.statusCode == 200) {
       List<dynamic> jsonResponse = json.decode(getAllUsers.body);
       // Convert the JSON response to a list of User objects
-      print(getAllUsers.body);
       return jsonResponse.map((user) => User.fromJson(user)).toList();
       
     } else {

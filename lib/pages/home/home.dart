@@ -3,53 +3,41 @@ import 'package:adrenture/pages/home/carpage.dart';
 import 'package:adrenture/pages/home/rentyourcar.dart';
 import 'package:adrenture/models/car.dart';
 import 'package:adrenture/widgets/smallCard.dart';
+import 'package:adrenture/models/user.dart';
 
-void main() => runApp(const MyApp());
+/*void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: HomePage(),
+    User user = User(); // Initialize your User object here
+    return MaterialApp(
+      home: HomePage(user: user),
       debugShowCheckedModeBanner: false,
     );
   }
-}
+}*/
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final User user;
+  const HomePage({Key? key, required this.user}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  final int _selectedIndex = 0;
-
-  static const List<Widget> _widgetOptions = <Widget>[
-    HomePageContent(title: 'Carros em Destaque'),
-  ];
-
+  int _selectedIndex = 0;
+  late List<Widget> _widgetOptions;
+  List<Car> carList = []; // Initialize as an empty list
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: _widgetOptions.elementAt(_selectedIndex),
-    );
-  }
-}
-
-class HomePageContent extends StatelessWidget {
-  final String title;
-
-  const HomePageContent({super.key, required this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    List<Car> carList = [
+  void initState() {
+    super.initState();
+    // Initialize the car list
+    carList = [
       carro1,
       carro2,
       carro3,
@@ -59,50 +47,83 @@ class HomePageContent extends StatelessWidget {
       carro7,
       carro8,
       carro9,
-      carro10
+      carro10,
     ];
 
+    _widgetOptions = <Widget>[
+      HomePageContent(title: 'Carros em Destaque', user: widget.user, carList: carList),
+    ];
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: _widgetOptions.elementAt(_selectedIndex),
+    );
+  }
+}
+
+class HomePageContent extends StatefulWidget {
+  final String title;
+  final User user;
+  final List<Car> carList;
+
+  const HomePageContent({Key? key, required this.title, required this.user, required this.carList}) : super(key: key);
+
+  @override
+  _HomePageContentState createState() => _HomePageContentState();
+}
+
+class _HomePageContentState extends State<HomePageContent> {
+  @override
+  Widget build(BuildContext context) {
     List<Widget> items = [
       GestureDetector(
         onTap: () {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const RentYourCarPage(),
+              builder: (context) => RentYourCarPage(user: widget.user),
             ),
           );
         },
         child: SmallCustomCard(
           title: 'Alugue já o seu Carro',
           subtitle: 'Alugue já o seu Carro para ganhar um dinheiro extra!!!',
-          image: Image.asset('assets/images/car.png', height: 120,),
+          image: Image.asset(
+            'assets/images/car.png',
+            height: 120,
+          ),
           backgroundColor: const Color(0xFF3C9096),
         ),
       ),
-      ...carList.map((car) {
+      ...widget.carList.map((car) {
         return GestureDetector(
           onTap: () {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => CarPage(carId: car.id, car: car,),
+                builder: (context) => CarPage(
+                  carId: car.id,
+                  car: car,
+                ),
               ),
             );
           },
           child: SmallCustomCard(
             title: '${car.marca} ${car.modelo}',
             subtitle: car.descricao,
-            image: Image.asset(car.imagemPrincipal, height: 120,),
+            image: Image.asset(car.imagemPrincipal, height: 120),
             backgroundColor: const Color.fromRGBO(5, 157, 2, 70),
           ),
         );
-      }),
+      }).toList(),
     ];
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          title,
+          widget.title,
           textAlign: TextAlign.center,
         ),
         centerTitle: true,
@@ -115,7 +136,7 @@ class HomePageContent extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               child: Row(
                 children: [
-                  const Expanded(
+                  Expanded(
                     child: TextField(
                       decoration: InputDecoration(
                         hintText: 'Pesquisar',
@@ -126,7 +147,7 @@ class HomePageContent extends StatelessWidget {
                   IconButton(
                     icon: const Icon(Icons.filter_list),
                     onPressed: () {
-                      // Implemente a ação do botão de filtro aqui
+                      // Implement filter action here
                     },
                   ),
                 ],

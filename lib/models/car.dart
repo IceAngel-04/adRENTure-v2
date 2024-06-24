@@ -1,3 +1,5 @@
+import 'package:adrenture/models/user.dart';
+
 class Car {
   int id;
   int dono;
@@ -55,6 +57,27 @@ class Car {
     this.nota = 0,
   });
 
+    factory Car.fromJson(Map<String, dynamic> json) {
+    return Car(
+    id: json['carroID'],
+    dono: json['locador'],
+    marca: json['marca'],
+    modelo: json['modelo'],
+    combustivel: json['combustivel'],
+    numeroPortas: int.parse(json['nPortas']),
+    numeroLugares: int.parse(json['nLugares']),
+    totalMudancas: int.parse(json['totalMudancas']),
+    ano: int.parse(json['ano']),
+    cor: json['cor'],
+    matricula: json['matricula'],
+    totalQuilometros: int.parse(json['totalQuilometros']),
+    seguro: json['seguro'],
+    descricao: json['descricao'],
+    preco: double.parse(json['preco']),
+    imagemPrincipal: json['imagemPrincipal'] ?? 'assets/images/car.png',
+  );
+  }
+
     factory Car.forRent({
     required String marca,
     required String modelo,
@@ -73,10 +96,11 @@ class Car {
     required String politicaCombustivel,
     required double preco,
     required String descricao,
+    required int dono,
   }) {
     return Car(
       id: 0,
-      dono: 0,
+      dono: dono,
       totalMudancas: 0,
       descricao: descricao,
       imagemPrincipal: '',
@@ -112,7 +136,7 @@ Car alugarCarro = Car(
   numeroPortas: 0,
   numeroLugares: 0,
   totalMudancas: 0,
-  ano: 0,
+  ano: 2000,
   cor: '',
   matricula: '',
   totalQuilometros: 0,

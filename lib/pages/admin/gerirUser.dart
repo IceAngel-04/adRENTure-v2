@@ -6,7 +6,7 @@ import 'gerirUser2.dart';
 import 'package:adrenture/models/user.dart';
 
 class GerirUser extends StatefulWidget {
-  GerirUser({Key? key}) : super(key: key);
+  const GerirUser({super.key});
 
   @override
   _GerirUserState createState() => _GerirUserState();

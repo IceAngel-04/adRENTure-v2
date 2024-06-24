@@ -1,9 +1,7 @@
 import 'package:adrenture/data/admin_data.dart';
 import 'package:adrenture/models/user.dart';
-import 'package:adrenture/pages/admin/gerirUser.dart';
 import 'package:adrenture/widgets/button.dart';
 import 'package:adrenture/widgets/textfield.dart';
-import 'package:adrenture/pages/login/login.dart';
 import 'package:flutter/material.dart';
 
 class GerirUser2 extends StatefulWidget {
@@ -202,7 +200,6 @@ class _GerirUserState extends State<GerirUser2> {
                     onTap: () => _updateUser(),
                     text: "Alterar",
                   ),
-
                   const SizedBox(height: 25),
                 ],
               ),
