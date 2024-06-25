@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 
 class CarPage extends StatelessWidget {
   final Car car;
-
-  const CarPage({super.key, required this.car, required int carId});
+  
+  const CarPage({Key? key, required this.car, required int carId}) : super(key: key);
 
   void goBack(BuildContext context) {
     Navigator.pushReplacement(
@@ -251,7 +251,7 @@ class CarPage extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => PaymentPage()),
+                                    builder: (context) => PaymentPage(carId: car.id, car: car,)),
                               );
                             },
                             style: ElevatedButton.styleFrom(
