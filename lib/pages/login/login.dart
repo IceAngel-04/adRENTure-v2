@@ -6,7 +6,6 @@ import 'package:adrenture/widgets/textfield.dart';
 import 'package:adrenture/pages/login/register.dart';
 import 'package:adrenture/widgets/navbar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 class Login extends StatefulWidget {
   Login({super.key});
@@ -15,37 +14,26 @@ class Login extends StatefulWidget {
   _LoginState createState() => _LoginState();
 }
 
-class _LoginState extends State<Login> {
+ class _LoginState extends State<Login> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  void _login() {
-    final email = _emailController.text;
-    final password = _passwordController.text;
+   void _login() {
+  final user = User.forLogin(
+    password: _passwordController.text,
+    email: _emailController.text,
+  );
 
-    if (email.isEmpty || password.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Por favor, preencha todos os campos.')),
-      );
-      return;
-    }
-
-    final user = User.forLogin(
-      email: email,
-      password: password,
+  UserData.loginUser(user, context).then((_) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Bem-vindo à adRENTure!')),
     );
-
-    UserData.loginUser(user, context).then((_) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Bem-vindo à adRENTure!')),
-      );
-    }).catchError((error) {
-      print('Error: $error');
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Falha ao iniciar-sessão. $error')),
-      );
-    });
-  }
+  }).catchError((error) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Falha ao iniciar-sessão. $error')),
+    );
+  });
+}
 
   bool _passwordObscured = true;
 
@@ -55,46 +43,50 @@ class _LoginState extends State<Login> {
     });
   }
 
-  void loginUser(BuildContext context, User user) {
-    Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-            builder: (context) => BottomNavBarPage(user: User.loggedUser!)));
-  }
 
-  void forgotPassword(BuildContext context) {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => ResetPassword()));
-  }
+    void loginUser(BuildContext context, User user){
+      Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => BottomNavBarPage(user: User.loggedUser!)));
+    }
 
-  void registerUser(BuildContext context) {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => Register()));
-  }
+    void forgotPassword(BuildContext context){
+      Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ResetPassword()));
+    }
+      
+    void registerUser(BuildContext context){
+      Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => Register()));
+    }
+    
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const SizedBox(height: 50),
-            const Text(
-              'Bem-Vindo!',
-              style: TextStyle(
-                color: Color(0xFF059D02),
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(height: 50),
+              const Text(
+                'Bem-Vindo!',
+                style: TextStyle(
+                  color: Color(0xFF059D02),
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            const SizedBox(height: 25),
+              const SizedBox(height: 25),
 
             //username textfield
             MyTextField(
               controller: _emailController,
               hintText: 'Email',
+
               obscureText: false,
             ),
 
@@ -106,17 +98,18 @@ class _LoginState extends State<Login> {
                 obscureText: _passwordObscured,
                 decoration: InputDecoration(
                   suffixIcon: IconButton(
-                    icon: Icon(_passwordObscured
-                        ? Icons.visibility_outlined
-                        : Icons.visibility_off_outlined),
-                    color: Color(0xFF3C9096),
-                    onPressed: togglePasswordVisibility,
+                      icon : Icon(_passwordObscured 
+                      ? Icons.visibility_outlined 
+                      : Icons.visibility_off_outlined)
+                      , color: Color(0xFF3C9096),
+                      onPressed: togglePasswordVisibility,
+                    ),
+                  enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.grey
                   ),
-                  enabledBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey),
                   ),
                   focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey.shade900)),
+                    borderSide: BorderSide(color: Colors.grey.shade900)
+                  ),
                   hintText: "Palavra-passe",
                   hintStyle: TextStyle(color: Colors.grey[500]),
                 ),
@@ -132,15 +125,15 @@ class _LoginState extends State<Login> {
                 children: [
                   GestureDetector(
                     onTap: () => forgotPassword(context),
-                    child: const Text(
-                      'Esqueceu-se da palavra-passe?',
-                      style: TextStyle(
-                        color: Color(0xFF3C9096),
-                        fontWeight: FontWeight.bold,
-                        decoration: TextDecoration.underline,
-                        decorationColor: Color(0xFF3C9096),
-                      ),
+                  child: const Text(
+                    'Esqueceu-se da palavra-passe?',
+                    style: TextStyle(
+                      color: Color(0xFF3C9096),
+                      fontWeight: FontWeight.bold,
+                      decoration: TextDecoration.underline,
+                      decorationColor: Color(0xFF3C9096),
                     ),
+                  ),
                   ),
                 ],
               ),
@@ -168,17 +161,17 @@ class _LoginState extends State<Login> {
                     style: TextStyle(
                       color: Color(0xFF3C9096),
                       fontWeight: FontWeight.bold,
-                      decoration: TextDecoration.underline,
-                      decorationColor: Color(0xFF3C9096),
+                      decoration:TextDecoration.underline,
+                     decorationColor: Color(0xFF3C9096),
                     ),
                   ),
                 ),
                 const SizedBox(width: 4),
               ],
             )
-          ],
+          ],),
         ),
-      ),
-    ));
+      )
+    );
   }
 }

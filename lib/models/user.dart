@@ -102,7 +102,7 @@ class User {
       nomeUtilizador: '', // Provide default or empty values
       nif: 0,
       cartaConducao: 0,
-      datanascimento: DateTime(1900),
+      datanascimento: DateTime(1900)
     );
   }
 

@@ -44,58 +44,64 @@ abstract class UserData {
     }
   }
 
-  static Future<Map<String, dynamic>> loginUser(
-      User user, BuildContext context) async {
-    final url =
-        Uri.parse('http://' + servidor + ':' + porta + '/api/auth/login');
+  static Future<Map<String, dynamic>> loginUser(User user, BuildContext context) async {
+  final url = Uri.parse('http://' +
+        servidor +
+        ':' +
+        porta +
+        '/api/auth/login');
+  final login = await http.post(
+    url,
+    headers: <String, String>{
+      'Content-Type': 'application/json',
+    },
+    body: jsonEncode(<String, dynamic>{
+      'email': user.email,
+      'password': user.password,
+    }),
+  );
 
-    final login = await http.post(
-      url,
-      headers: <String, String>{
-        'Content-Type': 'application/json',
-      },
-      body: jsonEncode(<String, dynamic>{
-        'email': user.email,
-        'password': user.password,
-      }),
+  if (login.statusCode == 200) {
+    // User logged in successfully
+    Map<String, dynamic> jsonResponse = json.decode(login.body);
+    print('Raw JSON Response: ${jsonResponse}');
+    print('userID: ${jsonResponse['user']['userID']}');
+    print('userType: ${jsonResponse['user']['userType']}');
+    print('nomeUtilizador: ${jsonResponse['user']['nomeUtilizador']}');
+    print('email: ${jsonResponse['user']['email']}');
+    print('cartaConducao: ${jsonResponse['user']['cartaConducao']}');
+    print('nif: ${jsonResponse['user']['nif']}');
+    print('datanascimento: ${jsonResponse['user']['datanascimento']}');
+    
+    // Parsing integers from strings if needed
+    int userID = int.parse(jsonResponse['user']['userID'].toString());
+    int cartaConducao = int.parse(jsonResponse['user']['cartaConducao'].toString());
+    int nif = int.parse(jsonResponse['user']['nif'].toString());
+
+    User.loggedUser = User.currentUser(
+      userID: userID,
+      userType: jsonResponse['user']['userType'],
+      nomeUtilizador: jsonResponse['user']['nomeUtilizador'],
+      email: jsonResponse['user']['email'],
+      cartaConducao: cartaConducao,
+      nif: nif,
+      datanascimento: DateTime.parse(jsonResponse['user']['datanascimento']),
     );
-
-    if (login.statusCode == 200) {
-      // User logged in successfully
-      Map<String, dynamic> jsonResponse = json.decode(login.body);
-
-      int userID = int.parse(jsonResponse['user']['userID'].toString());
-      int cartaConducao =
-          int.parse(jsonResponse['user']['cartaConducao'].toString());
-      int nif = int.parse(jsonResponse['user']['nif'].toString());
-
-      User.loggedUser = User.currentUser(
-        userID: userID,
-        userType: jsonResponse['user']['userType'],
-        nomeUtilizador: jsonResponse['user']['nomeUtilizador'],
-        email: jsonResponse['user']['email'],
-        cartaConducao: cartaConducao,
-        nif: nif,
-        datanascimento: DateTime.parse(jsonResponse['user']['dataNascimento']),
-      );
-
-      print(login.body);
-
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-            builder: (context) => BottomNavBarPage(user: User.loggedUser!)),
-      );
-
-      return jsonResponse;
-    } else {
-      print('Falha ao iniciar-sessão. Status code: ${login.statusCode}');
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Falha ao iniciar-sessão.')),
-      );
-      throw Exception('Failed to login');
-    }
+    print(login.body);
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => BottomNavBarPage(user: User.loggedUser!)),
+    );
+    return jsonResponse;
+  } else {
+    // Login failed
+    print('Falha ao iniciar-sessão. Status code: ${login.statusCode}');
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Falha ao iniciar-sessão.')),
+    );
+    throw Exception('Failed to login');
   }
+}
 
   static Future<void> resetPasswordUser(User user, BuildContext context) async {
     final url = Uri.parse(
