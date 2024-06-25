@@ -1,24 +1,10 @@
+import 'package:adrenture/data/car_data.dart';
 import 'package:flutter/material.dart';
 import 'package:adrenture/pages/home/carpage.dart';
 import 'package:adrenture/pages/home/rentyourcar.dart';
 import 'package:adrenture/models/car.dart';
 import 'package:adrenture/widgets/smallCard.dart';
 import 'package:adrenture/models/user.dart';
-
-/*void main() => runApp(const MyApp());
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key});
-
-  @override
-  Widget build(BuildContext context) {
-    User user = User(); // Initialize your User object here
-    return MaterialApp(
-      home: HomePage(user: user),
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}*/
 
 class HomePage extends StatefulWidget {
   final User user;
@@ -31,36 +17,52 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   late List<Widget> _widgetOptions;
-  List<Car> carList = []; // Initialize as an empty list
+  List<Car> carList = [];
+  bool _loading = true;
+  String _error = '';
 
   @override
   void initState() {
     super.initState();
-    // Initialize the car list
-    carList = [
-      carro1,
-      carro2,
-    ];
+    _fetchCars();
+  }
 
-    _widgetOptions = <Widget>[
-      HomePageContent(title: 'Carros em Destaque', user: widget.user, carList: carList),
-    ];
+  Future<void> _fetchCars() async {
+    try {
+      List<Car> cars = await CarData.getAllCars();
+      setState(() {
+        carList = cars;
+        _loading = false;
+      });
+    } catch (e) {
+      setState(() {
+        _loading = false;
+        _error = e.toString();
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    _widgetOptions = <Widget>[
+      HomePageContent(title: 'Carros em Destaque', user: widget.user, carList: carList, loading: _loading, error: _error),
+    ];
+
     return Scaffold(
       body: _widgetOptions.elementAt(_selectedIndex),
     );
   }
 }
 
+
 class HomePageContent extends StatefulWidget {
   final String title;
   final User user;
   final List<Car> carList;
+  final bool loading;
+  final String error;
 
-  const HomePageContent({Key? key, required this.title, required this.user, required this.carList}) : super(key: key);
+  const HomePageContent({Key? key, required this.title, required this.user, required this.carList, required this.loading, required this.error}) : super(key: key);
 
   @override
   _HomePageContentState createState() => _HomePageContentState();
@@ -69,6 +71,30 @@ class HomePageContent extends StatefulWidget {
 class _HomePageContentState extends State<HomePageContent> {
   @override
   Widget build(BuildContext context) {
+    if (widget.loading) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(widget.title, textAlign: TextAlign.center),
+          centerTitle: true,
+        ),
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+
+    if (widget.error.isNotEmpty) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(widget.title, textAlign: TextAlign.center),
+          centerTitle: true,
+        ),
+        body: Center(
+          child: Text('Failed to load cars: ${widget.error}'),
+        ),
+      );
+    }
+
     List<Widget> items = [
       GestureDetector(
         onTap: () {
@@ -114,10 +140,7 @@ class _HomePageContentState extends State<HomePageContent> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          widget.title,
-          textAlign: TextAlign.center,
-        ),
+        title: Text(widget.title, textAlign: TextAlign.center),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
