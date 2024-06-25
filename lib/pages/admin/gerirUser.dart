@@ -1,7 +1,6 @@
 import 'package:adrenture/pages/admin/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:adrenture/data/admin_data.dart';
-import 'package:adrenture/pages/home/userPage.dart';
 import 'package:adrenture/widgets/smallCardAdmin.dart';
 import 'gerirUser2.dart';
 import 'package:adrenture/models/user.dart';
@@ -61,7 +60,7 @@ class _GerirUserState extends State<GerirUser> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => UserPage(userID: user.userID),
+              builder: (context) => GerirUser2(user: user),
             ),
           );
         },

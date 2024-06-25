@@ -43,6 +43,30 @@ class _UpdatePasswordState extends State<UpdatePassword> {
     });
   }
 
+  bool _passwordObscured = true;
+
+  void togglePasswordVisibility() {
+    setState(() {
+      _passwordObscured = !_passwordObscured;
+    });
+  }
+      bool _newPasswordObscured = true;
+
+    void toggleNewPasswordVisibility() {
+    setState(() {
+      _newPasswordObscured = !_newPasswordObscured;
+    });
+  }
+
+    bool _confirmNewPasswordObscured = true;
+
+    void toggleConfirmNewPasswordVisibility() {
+    setState(() {
+      _confirmNewPasswordObscured = !_confirmNewPasswordObscured;
+    });
+  }
+
+
   void goBack(BuildContext context) {
     Navigator.pushReplacement(
       context,
@@ -89,29 +113,87 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                     const SizedBox(height: 100),
 
                     // Novo email textfield
-                    MyTextField(
+                   Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                      child: TextField(
                       controller: _passwordController,
-                      hintText: 'Palavra-passe atual',
-                      obscureText: false,
+                      obscureText: _passwordObscured,
+                      decoration: InputDecoration(
+                      suffixIcon: IconButton(
+                      icon: Icon(_passwordObscured
+                          ? Icons.visibility_off_outlined
+                          : Icons.visibility_outlined),
+                      color: Color(0xFF3C9096),
+                      onPressed: togglePasswordVisibility,
                     ),
+                    enabledBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey.shade900),
+                    ),
+                    hintText: "Palavra-passe atual",
+                    hintStyle: TextStyle(color: Colors.grey[500]),
+                  ),
+                ),
+              ),
                     
                     const SizedBox(height: 20),
                          // Novo email textfield
-                    MyTextField(
+                       Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                      child: TextField(
                       controller: _newPasswordController,
-                      hintText: 'Nova palavra-passe',
-                      obscureText: false,
+                      obscureText: _newPasswordObscured,
+                      decoration: InputDecoration(
+                      suffixIcon: IconButton(
+                      icon: Icon(_newPasswordObscured
+                          ? Icons.visibility_off_outlined
+                          : Icons.visibility_outlined),
+                      color: Color(0xFF3C9096),
+                      onPressed: toggleNewPasswordVisibility,
                     ),
+                    enabledBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey.shade900),
+                    ),
+                    hintText: "Nova Palavra-passe",
+                    hintStyle: TextStyle(color: Colors.grey[500]),
+                  ),
+                ),
+              ),
+                    
                     
                     const SizedBox(height: 20),
 
                          // Novo email textfield
-                    MyTextField(
+                       Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                      child: TextField(
                       controller: _newPasswordConfirmController,
-                      hintText: 'Confirma nova palavra-passe',
-                      obscureText: false,
+                      obscureText: _confirmNewPasswordObscured,
+                      decoration: InputDecoration(
+                      suffixIcon: IconButton(
+                      icon: Icon(_confirmNewPasswordObscured
+                          ? Icons.visibility_off_outlined
+                          : Icons.visibility_outlined),
+                      color: Color(0xFF3C9096),
+                      onPressed: toggleConfirmNewPasswordVisibility,
                     ),
-
+                    enabledBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey.shade900),
+                    ),
+                    hintText: "Confirma a nova Palavra-passe",
+                    hintStyle: TextStyle(color: Colors.grey[500]),
+                  ),
+                ),
+              ),
+                    
                     const SizedBox(height: 100),
 
                     // Confirm button

@@ -1,11 +1,15 @@
+import 'package:adrenture/data/admin_data.dart';
+import 'package:adrenture/models/user.dart';
+import 'package:adrenture/pages/admin/dashboard.dart';
+import 'package:adrenture/pages/admin/gerirCarro2.dart';
 import 'package:flutter/material.dart';
 import 'package:adrenture/models/car.dart';
-import 'package:adrenture/pages/home/carpage.dart';
 import 'package:adrenture/widgets/smallCardAdmin.dart';
 import 'package:adrenture/data/car_data.dart';
 
 class GerirCar extends StatefulWidget {
-  const GerirCar({super.key});
+  final User user;
+  const GerirCar({super.key, required this.user});
 
   @override
   _GerirCarState createState() => _GerirCarState();
@@ -32,6 +36,36 @@ class _GerirCarState extends State<GerirCar> {
     }
   }
 
+    void goBack(BuildContext context) {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => DashboardPage(user: User.loggedUser!)),
+    );
+  }
+
+void deleteCar(Car car) async {
+  try {
+    await AdminData.deleteCar(car);
+    setState(() {
+      _cars.removeWhere((c) => c.id == car.id);
+    });
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Carro apagado com sucesso!')),
+    );
+  } catch (error) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Falha ao apagar o carro. $error')),
+    );
+  }
+}
+  
+  void editCar(BuildContext context, User user, Car car) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => GerirCar2(car: car,user: user)),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     List<Widget> items = _cars.map((car) {
@@ -40,7 +74,7 @@ class _GerirCarState extends State<GerirCar> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => CarPage(car: car, carId: car.id),
+              builder: (context) => GerirCar2(car: car, user: widget.user),
             ),
           );
         },
@@ -59,9 +93,7 @@ class _GerirCarState extends State<GerirCar> {
           icon2: IconButton(
             icon: Icon(Icons.delete),
             color: Colors.white,
-            onPressed: () {
-              // Implement delete action
-            },
+            onPressed: () => deleteCar(car),
           ),
         ),
       );
@@ -69,6 +101,10 @@ class _GerirCarState extends State<GerirCar> {
 
     return Scaffold(
       appBar: AppBar(
+         leading: IconButton(
+          onPressed: () => goBack(context),
+          icon: const Icon(Icons.arrow_back, color: Color(0xFF3C9096)),
+        ),
         title: Text('Manage Cars'),
       ),
       body: SingleChildScrollView(
