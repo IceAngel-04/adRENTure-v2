@@ -68,7 +68,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
             const Padding(
               padding: EdgeInsets.symmetric(vertical: 16.0),
               child: Text(
-                'Alterar o numero de telemovel',
+                'Alterar a Palavra-Passe',
                 style: TextStyle(
                   color: Color(0xFF059D02),
                   fontSize: 25,

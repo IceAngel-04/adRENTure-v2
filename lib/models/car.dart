@@ -8,10 +8,9 @@ class Car {
   int numeroLugares;
   late String categoria;
   late int velocidadeMax;
-  int totalMudancas;
   String transmissao;
   late int cilindrada;
-  int ano;
+  DateTime ano;
   String cor;
   String matricula;
   int totalQuilometros;
@@ -34,7 +33,6 @@ class Car {
     required this.combustivel,
     required this.numeroPortas,
     required this.numeroLugares,
-    required this.totalMudancas,
     required this.ano,
     required this.cor,
     required this.matricula,
@@ -54,36 +52,34 @@ class Car {
     this.imagens = const [],
     this.nota = 0,
   });
-  
 
+  
   factory Car.fromJson(Map<String, dynamic> json) {
     return Car(
-      id: json['carroID'],
-      dono: json['locador'],
+      id: json['carroID'] is int ? json['carroID'] : int.parse(json['carroID']),
+      dono: json['locador'] is int ? json['locador'] : int.parse(json['locador']),
       marca: json['marca'],
       modelo: json['modelo'],
       combustivel: json['combustivel'],
-      numeroPortas: int.parse(json['nPortas']),
-      numeroLugares: int.parse(json['nLugares']),
+      numeroPortas: json['nPortas'] is int ? json['nPortas'] : int.parse(json['nPortas']),
+      numeroLugares: json['nLugares'] is int ? json['nLugares'] : int.parse(json['nLugares']),
       categoria: json['categoria'] ?? '',
-      velocidadeMax: int.parse(json['velocidadeMax'] ?? '0'),
-      totalMudancas: int.parse(json['totalMudancas']),
+      velocidadeMax: json['velocidadeMax'] is int ? json['velocidadeMax'] : int.parse(json['velocidadeMax'] ?? '0'),
+      totalQuilometros: json['totalKilometros'] is int ? json['totalKilometros'] : int.parse(json['totalKilometros'] ?? '0'),
       transmissao: json['transmissao'] ?? '',
-      cilindrada: int.parse(json['cilindrada'] ?? '0'),
-      ano: int.parse(json['ano']),
-      cor: json['cor'],
-      matricula: json['matricula'],
-      totalQuilometros: int.parse(json['totalQuilometros']),
-      seguro: json['seguro'],
+      cilindrada: json['cilindrada'] is int ? json['cilindrada'] : int.parse(json['cilindrada'] ?? '0'),
+      ano: json['ano'] is DateTime ? json['ano'] : DateTime.parse(json['ano'] ?? '0'),
+      cor: json['cor'] ?? '',
+      matricula: json['matricula'] ?? '',
+      seguro: json['seguro'] ?? '',
       politicaCombustivel: json['politicaCombustivel'] ?? '',
-      descricao: json['descricao'],
-      preco: double.parse(json['preco']),
+      preco: json['preco'] is String ? double.parse(json['preco']) : json['preco'].toDouble(),
       disponivel: json['disponivel'] == 1,
       ativo: json['ativo'] == 1,
+      descricao: json['descricao'] ?? '',
       imagemPrincipal: json['imagemPrincipal'] ?? 'assets/images/car.png',
     );
   }
-
 
   factory Car.forRent({
     required String marca,
@@ -95,7 +91,7 @@ class Car {
     required int velocidadeMax,
     required String transmissao,
     required int cilindrada,
-    required int ano,
+    required DateTime ano,
     required String cor,
     required String matricula,
     required int totalQuilometros,
@@ -108,7 +104,6 @@ class Car {
     return Car(
       id: 0,
       dono: dono,
-      totalMudancas: 0,
       descricao: descricao,
       imagemPrincipal: '',
       marca: marca,
@@ -120,7 +115,7 @@ class Car {
       velocidadeMax: velocidadeMax,
       transmissao: transmissao,
       cilindrada: cilindrada,
-      ano: ano,
+      ano: DateTime(2023),
       cor: cor,
       matricula: matricula,
       totalQuilometros: totalQuilometros,
@@ -140,8 +135,7 @@ Car alugarCarro = Car(
   combustivel: '',
   numeroPortas: 0,
   numeroLugares: 0,
-  totalMudancas: 0,
-  ano: 2000,
+  ano: DateTime(2020),
   cor: '',
   matricula: '',
   totalQuilometros: 0,
@@ -167,8 +161,7 @@ Car carro1 = Car(
   combustivel: 'Gasolina',
   numeroPortas: 5,
   numeroLugares: 5,
-  totalMudancas: 6,
-  ano: 1850,
+  ano: DateTime(1850),
   cor: 'Roxo',
   matricula: '99-PP-99',
   totalQuilometros: 10000,
@@ -194,8 +187,7 @@ Car carro2 = Car(
   combustivel: 'Gasolina',
   numeroPortas: 2,
   numeroLugares: 2,
-  totalMudancas: 7,
-  ano: 2023,
+  ano: DateTime(1950),
   cor: 'Vermelho',
   matricula: '12-AB-34',
   totalQuilometros: 5000,

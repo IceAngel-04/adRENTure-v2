@@ -10,8 +10,10 @@ class CarPage extends StatelessWidget {
   const CarPage({super.key, required this.car, required int carId});
 
   void goBack(BuildContext context) {
-    Navigator.pushReplacement(context,
-        MaterialPageRoute(builder: (context) => BottomNavBarPage(user: User.loggedUser!)));
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => BottomNavBarPage(user: User.loggedUser!)));
   }
 
   @override
@@ -248,7 +250,8 @@ class CarPage extends StatelessWidget {
                             onPressed: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => PaymentPage()),
+                                MaterialPageRoute(
+                                    builder: (context) => PaymentPage()),
                               );
                             },
                             style: ElevatedButton.styleFrom(

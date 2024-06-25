@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:adrenture/models/car.dart';
 import 'package:adrenture/pages/home/carpage.dart';
 import 'package:adrenture/widgets/smallCardAdmin.dart';
-import 'package:adrenture/data/car_data.dart'; // Assume this contains a method to fetch cars
+import 'package:adrenture/data/car_data.dart';
 
 class GerirCar extends StatefulWidget {
   const GerirCar({super.key});
@@ -21,10 +21,15 @@ class _GerirCarState extends State<GerirCar> {
   }
 
   void _getAllCars() async {
-    List<Car> cars = await CarData.getAllCars();
-    setState(() {
-      _cars = cars;
-    });
+    try {
+      List<Car> cars = await CarData.getAllCars();
+      setState(() {
+        _cars = cars;
+      });
+    } catch (e) {
+      // Handle the exception, possibly set an error state
+      print('Failed to load cars: $e');
+    }
   }
 
   @override
@@ -50,7 +55,7 @@ class _GerirCarState extends State<GerirCar> {
             onPressed: () {
               // Implement edit action
             },
-          ), 
+          ),
           icon2: IconButton(
             icon: Icon(Icons.delete),
             color: Colors.white,

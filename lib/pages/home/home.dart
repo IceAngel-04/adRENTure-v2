@@ -1,5 +1,5 @@
-import 'package:adrenture/data/car_data.dart';
 import 'package:flutter/material.dart';
+import 'package:adrenture/data/car_data.dart';
 import 'package:adrenture/pages/home/carpage.dart';
 import 'package:adrenture/pages/home/rentyourcar.dart';
 import 'package:adrenture/models/car.dart';
@@ -45,7 +45,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     _widgetOptions = <Widget>[
-      HomePageContent(title: 'Carros em Destaque', user: widget.user, carList: carList, loading: _loading, error: _error),
+      HomePageContent(
+        title: 'Carros em Destaque',
+        user: widget.user,
+        carList: carList,
+        loading: _loading,
+        error: _error,
+      ),
     ];
 
     return Scaffold(
@@ -62,7 +68,14 @@ class HomePageContent extends StatefulWidget {
   final bool loading;
   final String error;
 
-  const HomePageContent({Key? key, required this.title, required this.user, required this.carList, required this.loading, required this.error}) : super(key: key);
+  const HomePageContent({
+    Key? key,
+    required this.title,
+    required this.user,
+    required this.carList,
+    required this.loading,
+    required this.error,
+  }) : super(key: key);
 
   @override
   _HomePageContentState createState() => _HomePageContentState();
@@ -77,7 +90,7 @@ class _HomePageContentState extends State<HomePageContent> {
           title: Text(widget.title, textAlign: TextAlign.center),
           centerTitle: true,
         ),
-        body: Center(
+        body: const Center(
           child: CircularProgressIndicator(),
         ),
       );
@@ -153,7 +166,7 @@ class _HomePageContentState extends State<HomePageContent> {
                 children: [
                   Expanded(
                     child: TextField(
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: 'Pesquisar',
                         border: OutlineInputBorder(),
                       ),

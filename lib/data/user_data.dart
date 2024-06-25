@@ -87,7 +87,7 @@ abstract class UserData {
       nif: nif,
       datanascimento: DateTime.parse(jsonResponse['user']['datanascimento']),
     );
-    print(login.body);
+    
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => BottomNavBarPage(user: User.loggedUser!)),

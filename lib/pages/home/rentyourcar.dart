@@ -241,7 +241,7 @@ class _RentYourCarPageState extends State<RentYourCarPage> {
       velocidadeMax: int.parse(_controllerVelocidadeMaxima.text),
       transmissao: _selectedTransmissao!,
       cilindrada: int.parse(_controllerCilindrada.text),
-      ano: _selectedAno!,
+      ano: DateTime(_selectedAno!),
       cor: _selectedCor!,
       matricula: _controllerMatricula.text,
       totalQuilometros: int.parse(_controllerTotalQuilometros.text),

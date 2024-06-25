@@ -45,7 +45,7 @@ class _ActiveCarsPageState extends State<ActiveCarsPage> {
           return SmallCustomCard(
             title: '${car.marca} ${car.modelo}',
             subtitle:
-                'Tempo Restante: ${car.totalMudancas} Horas e ${car.totalQuilometros} minutos',
+                'Tempo Restante: ${car.preco} Horas e ${car.totalQuilometros} minutos',
             image: Image.asset(
                 car.imagemPrincipal), // Use the car image from assets
             backgroundColor: const Color.fromRGBO(5, 157, 2, 70),

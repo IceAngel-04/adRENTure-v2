@@ -7,21 +7,26 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 abstract class CarData {
+  static Future<List<Car>> getAllCars() async {
+    final response = await http.get(
+        Uri.parse('http://' + servidor + ':' + porta + '/api/car/getCars'));
 
-static Future<List<Car>> getAllCars() async {
-  final response = await http.get(Uri.parse('http://yourapiurl.com/getCars'));
-  
-  if (response.statusCode == 200) {
-    List<dynamic> jsonData = json.decode(response.body);
-    List<Car> cars = jsonData.map((item) => Car.fromJson(item)).toList();
-    return cars;
-  } else {
-    throw Exception('Failed to load cars');
+    if (response.statusCode == 200) {
+      List<dynamic> jsonData = json.decode(response.body);
+      List<Car> cars = jsonData.map((item) => Car.fromJson(item)).toList();
+      print(response.body);
+      return cars;
+    } else {
+      throw Exception('Failed to load cars');
+    }
   }
-}
 
   static Future<void> registerCar(Car car, BuildContext context) async {
-    final url = Uri.parse('http://' + servidor + ':' + porta + '/api/car/addCar'); // Replace with your API URL
+    final url = Uri.parse('http://' +
+        servidor +
+        ':' +
+        porta +
+        '/api/car/addCar'); // Replace with your API URL
 
     try {
       print('Sending POST request to $url');
@@ -43,7 +48,7 @@ static Future<List<Car>> getAllCars() async {
           'transmissao': car.transmissao,
           'totalQuilometros': car.totalQuilometros,
           'cilindrada': car.cilindrada,
-          'ano': car.ano,
+          'ano': car.ano.year,
           'cor': car.cor,
           'matricula': car.matricula,
           'seguro': car.seguro,
@@ -84,5 +89,4 @@ static Future<List<Car>> getAllCars() async {
       );
     }
   }
-
 }
