@@ -8,7 +8,7 @@ import 'package:adrenture/pages/login/login.dart';
 
 void gerirCarro(BuildContext context) {
   Navigator.push(
-      context, MaterialPageRoute(builder: (context) => const GerirCar()));
+      context, MaterialPageRoute(builder: (context) => GerirCar(user: User.loggedUser!)));
 }
 
 void gerirUsers(BuildContext context) {

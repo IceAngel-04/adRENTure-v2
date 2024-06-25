@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'package:adrenture/models/car.dart';
 import 'package:adrenture/models/user.dart';
+import 'package:adrenture/pages/admin/gerirCarro.dart';
 import 'package:adrenture/pages/admin/gerirUser.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -82,5 +84,74 @@ abstract class AdminData {
     }
   }
 
-  
+     static Future<void> updateCar(Car car, BuildContext context) async {
+    final url = Uri.parse('http://localhost:5000/api/car/updateCar'); // Adjust the URL as needed
+
+    final updateCar = await http.put(
+      url,
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode(<String, dynamic>{
+          'carroID': car.id,
+          'locador': car.dono, // Ensure this is the user ID
+          'descricao': car.descricao,
+          'marca': car.marca,
+          'modelo': car.modelo,
+          'combustivel': car.combustivel,
+          'nPortas': car.numeroPortas,
+          'nLugares': car.numeroLugares,
+          'categoria': car.categoria,
+          'velocidadeMax': car.velocidadeMax,
+          'transmissao': car.transmissao,
+          'totalQuilometros': car.totalQuilometros,
+          'cilindrada': car.cilindrada,
+          'ano': car.ano.year,
+          'cor': car.cor,
+          'matricula': car.matricula,
+          'seguro': car.seguro,
+          'politicaCombustivel': car.politicaCombustivel,
+          'preco': car.preco,
+          'ativo': car.ativo
+      }),
+    );
+    print(updateCar.body);
+    if (updateCar.statusCode == 200) {
+      // User registered successfully
+      print('Carro atualizado com sucesso!');
+      Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => GerirCar(user: User.loggedUser!)),
+    );
+    } else {
+      // Registration failed
+      print('Falha ao atualizar o carro. Status code: ${updateCar.statusCode}');
+    }
+  }
+
+  static Future<void> deleteCar(Car car) async {
+    final url = Uri.parse('http://localhost:5000/api/car/deleteCar'); // Replace with your actual API endpoint
+    try {
+      final response = await http.delete(
+        url,
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(<String, dynamic>{
+          'carroID': car.id,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        print('Carro apagado com sucesso!');
+      } else {
+        print('Falha ao apagar o carro. Status code: ${response.statusCode}');
+        print('Response body: ${response.body}');
+        throw Exception('Falha ao apagar o carro. Status code: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Erro durante a requisição HTTP: $e');
+      throw Exception('Falha ao apagar o carro: $e');
+    }
+  }
 }
