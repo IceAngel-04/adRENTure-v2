@@ -9,7 +9,11 @@ import 'package:http/http.dart' as http;
 abstract class UserData {
   static Future<void> registerUser(User user, BuildContext context) async {
     // Exemplo de função de registrar
-    final url = Uri.parse('http://' + servidor + ':' + porta + '/api/auth/register'); // O vosso url da api para registrar
+    final url = Uri.parse('http://' +
+        servidor +
+        ':' +
+        porta +
+        '/api/auth/register'); // O vosso url da api para registrar
     //final url = Uri.parse('https://adrentureapi.onrender.com/api/auth/register'); // O vosso url da api para registrar
 
     final register = await http.post(
@@ -30,55 +34,61 @@ abstract class UserData {
       // User registered successfully
       print('Utilizador registado com sucesso!');
       Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => Login()),
-    );
+        context,
+        MaterialPageRoute(builder: (context) => Login()),
+      );
     } else {
       // Registration failed
-      print('Falha ao registar o utilizador. Status code: ${register.statusCode}');
+      print(
+          'Falha ao registar o utilizador. Status code: ${register.statusCode}');
     }
   }
 
-static Future<Map<String, dynamic>> loginUser(User user, BuildContext context) async {
-  final url = Uri.parse('http://' + servidor + ':' + porta + '/api/auth/login');
-  final login = await http.post(
-    url,
-    headers: <String, String>{
-      'Content-Type': 'application/json',
-    },
-    body: jsonEncode(<String, dynamic>{
-      'email': user.email,
-      'password': user.password,
-    }),
-  );
+  static Future<Map<String, dynamic>> loginUser(
+      User user, BuildContext context) async {
+    final url =
+        Uri.parse('http://' + servidor + ':' + porta + '/api/auth/login');
 
-  if (login.statusCode == 200) {
-    // User logged in successfully
-    Map<String, dynamic> jsonResponse = json.decode(login.body);
-    // Parsing integers from strings if needed
-    int userID = int.parse(jsonResponse['user']['userID'].toString());
-    int cartaConducao = int.parse(jsonResponse['user']['cartaConducao'].toString());
-    int nif = int.parse(jsonResponse['user']['nif'].toString());
+    final login = await http.post(
+      url,
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode(<String, dynamic>{
+        'email': user.email,
+        'password': user.password,
+      }),
+    );
 
-    User.loggedUser = User.currentUser(
-      userID: userID,
-      userType: jsonResponse['user']['userType'],
-      nomeUtilizador: jsonResponse['user']['nomeUtilizador'],
-      email: jsonResponse['user']['email'],
-      cartaConducao: cartaConducao,
-      nif: nif,
-      datanascimento: DateTime.parse(jsonResponse['user']['datanascimento']),
-    );
-    //print(login.body);
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => BottomNavBarPage(user: User.loggedUser!)),
-    );
-    
-    return jsonResponse;
-    
+    if (login.statusCode == 200) {
+      // User logged in successfully
+      Map<String, dynamic> jsonResponse = json.decode(login.body);
+
+      int userID = int.parse(jsonResponse['user']['userID'].toString());
+      int cartaConducao =
+          int.parse(jsonResponse['user']['cartaConducao'].toString());
+      int nif = int.parse(jsonResponse['user']['nif'].toString());
+
+      User.loggedUser = User.currentUser(
+        userID: userID,
+        userType: jsonResponse['user']['userType'],
+        nomeUtilizador: jsonResponse['user']['nomeUtilizador'],
+        email: jsonResponse['user']['email'],
+        cartaConducao: cartaConducao,
+        nif: nif,
+        datanascimento: DateTime.parse(jsonResponse['user']['dataNascimento']),
+      );
+
+      print(login.body);
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => BottomNavBarPage(user: User.loggedUser!)),
+      );
+
+      return jsonResponse;
     } else {
-      // Login failed
       print('Falha ao iniciar-sessão. Status code: ${login.statusCode}');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Falha ao iniciar-sessão.')),
@@ -87,11 +97,9 @@ static Future<Map<String, dynamic>> loginUser(User user, BuildContext context) a
     }
   }
 
-
-  static Future<void> resetPasswordUser(User user,BuildContext context) async {
-    // Exemplo de função de registrar
-    final url = Uri.parse('http://' + servidor + ':' + porta + '/api/auth/resetPassword'); // O vosso url da api para registrar
-    //final url = Uri.parse('https://adrentureapi.onrender.com/api/auth/login'); // O vosso url da api para registrar
+  static Future<void> resetPasswordUser(User user, BuildContext context) async {
+    final url = Uri.parse(
+        'http://' + servidor + ':' + porta + '/api/auth/resetPassword');
 
     final resetPassword = await http.post(
       url,
@@ -100,23 +108,25 @@ static Future<Map<String, dynamic>> loginUser(User user, BuildContext context) a
       },
       body: jsonEncode(<String, dynamic>{
         'email': user.email,
-        'newPassword': user.password,
-        'confirmPassword': user.lastPassword
+        'password': user.password,
+        'lastPassword': user.lastPassword,
       }),
     );
-    
+
     if (resetPassword.statusCode == 200) {
-      // User logged successfully
-      print('Palavra-passe redefinida com sucesso!');
-      SnackBar(content: Text('Palavra-passe redefinida com sucesso!'));
+      print('Password alterada com sucesso');
+      print(resetPassword.body);
+
       Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => Login()));
+        context,
+        MaterialPageRoute(builder: (context) => Login()),
+      );
     } else {
-      // Login failed
-      print('Falha ao redefinir a palavra-passe. Status code: ${resetPassword.statusCode}');
-      SnackBar(content: Text('Falha ao redefinir a palavra-passe.'));
+      print(
+          'Falha ao alterar a password. Status code: ${resetPassword.statusCode}');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Falha ao alterar a password.')),
+      );
     }
   }
-  
 }

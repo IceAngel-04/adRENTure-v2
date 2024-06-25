@@ -3,8 +3,7 @@ class User {
 
   int userID;
   String userType;
-  late String
-      userImage; // Alterado para String para representar o caminho da imagem
+  String userImage;
   String? username;
   String nomeUtilizador;
   String email;
@@ -12,45 +11,73 @@ class User {
   String? password;
   String novoEmail;
   int nif;
-  DateTime
-      datanascimento; // Alterado para DateTime para representar uma data de nascimento
+  DateTime datanascimento;
   int cartaConducao;
   String? morada;
   String? moradaAntiga;
-  bool notificacoes = true;
-  DateTime dataAdesao = DateTime.now();
-  bool verificado = false;
-  String?
-      localizacao; // Alterado para String para representar a localização GPS
-  DateTime dataUltimaAtualizacao = DateTime.now();
-  int notaApp = 0;
-  bool ativo = true;
-  double nota = 0;
+  bool notificacoes;
+  DateTime dataAdesao;
+  bool verificado;
+  String? localizacao;
+  DateTime dataUltimaAtualizacao;
+  int notaApp;
+  bool ativo;
+  double nota;
   String? newPassword;
   String? newPasswordConfirm;
   String? lastPassword;
 
+  User({
+    required this.userID,
+    this.userType = "utilizador",
+    required this.nomeUtilizador,
+    required this.email,
+    this.password,
+    required this.nif,
+    required this.datanascimento,
+    this.newPassword,
+    this.newPasswordConfirm,
+    this.notificacoes = true,
+    required this.cartaConducao,
+    this.verificado = false,
+    this.ativo = true,
+    this.notaApp = 0,
+    this.userImage = 'assets/images/user.png',
+    this.nota = 0.0,
+    this.username,
+    this.telefone,
+    this.morada,
+    this.moradaAntiga,
+    this.lastPassword,
+    this.localizacao,
+    this.novoEmail = '',
+    DateTime? dataAdesao,
+    DateTime? dataUltimaAtualizacao,
+  })  : this.dataAdesao = dataAdesao ?? DateTime.now(),
+        this.dataUltimaAtualizacao = dataUltimaAtualizacao ?? DateTime.now();
+
   factory User.fromJson(Map<String, dynamic> json) {
-  return User(
-    userID: json['userID'],
-    userType: json['userType'],
-    nomeUtilizador: json['nomeUtilizador'],
-    email: json['email'],
-    cartaConducao: int.parse(json['cartaConducao']),
-    nif: int.parse(json['nif']),
-    datanascimento: DateTime.parse(json['dataNascimento']), // Ensure this matches JSON key
-    userImage: json['imagemPerfil'] ?? 'assets/images/user.png',
-    // Handle other fields similarly
-  );
-}
-   factory User.currentUser({
-        required int userID,
-        required String userType,
-        required String nomeUtilizador,
-        required String email,
-        required int cartaConducao,
-        required int nif,
-        required DateTime datanascimento,
+    return User(
+      userID: json['userID'],
+      userType: json['userType'],
+      nomeUtilizador: json['nomeUtilizador'],
+      email: json['email'],
+      cartaConducao: int.parse(json['cartaConducao'].toString()),
+      nif: int.parse(json['nif'].toString()),
+      datanascimento: DateTime.parse(json['dataNascimento']), // Ensure this matches JSON key
+      userImage: json['imagemPerfil'] ?? 'assets/images/user.png',
+      // Handle other fields similarly
+    );
+  }
+
+  factory User.currentUser({
+    required int userID,
+    required String userType,
+    required String nomeUtilizador,
+    required String email,
+    required int cartaConducao,
+    required int nif,
+    required DateTime datanascimento,
   }) {
     return User(
       userID: userID,
@@ -75,7 +102,7 @@ class User {
       nomeUtilizador: '', // Provide default or empty values
       nif: 0,
       cartaConducao: 0,
-      datanascimento: DateTime(1900)
+      datanascimento: DateTime(1900),
     );
   }
 
@@ -91,7 +118,7 @@ class User {
       nomeUtilizador: '', // Provide default or empty values
       nif: 0,
       cartaConducao: 0,
-      datanascimento: DateTime(1900)
+      datanascimento: DateTime(1900),
     );
   }
 
@@ -108,11 +135,11 @@ class User {
       nif: 0,
       cartaConducao: 0,
       datanascimento: DateTime(1900),
-      telefone: telefone
+      telefone: telefone,
     );
   }
 
-    factory User.forUpdateAddress({
+  factory User.forUpdateAddress({
     required int userID,
     required String morada,
   }) {
@@ -129,11 +156,11 @@ class User {
     );
   }
 
-   factory User.forUpdatePassword({
+  factory User.forUpdatePassword({
     required int userID,
     required String password,
     required String newPassword,
-    required String newPasswordConfirm
+    required String newPasswordConfirm,
   }) {
     return User(
       userID: userID,
@@ -162,7 +189,7 @@ class User {
       nomeUtilizador: '', // Provide default or empty values
       nif: 0,
       cartaConducao: 0,
-      datanascimento: DateTime(1900)
+      datanascimento: DateTime(1900),
     );
   }
 
@@ -181,8 +208,8 @@ class User {
       nomeUtilizador: nomeUtilizador, // Provide default or empty values
       nif: nif,
       cartaConducao: cartaConducao,
-      datanascimento: datanascimento
-      );
+      datanascimento: datanascimento,
+    );
   }
 
   factory User.forUpdateNotifications({
@@ -200,31 +227,4 @@ class User {
       notificacoes: notifications,
     );
   }
-
-  User({
-    required this.userID,
-    this.userType = "utilizador",
-    required this.nomeUtilizador,
-    required this.email,
-    this.password,
-    required this.nif,
-    required this.datanascimento,
-    this.newPassword = '',
-    this.newPasswordConfirm = '',
-    this.notificacoes = true,
-    required this.cartaConducao,
-    this.verificado = false,
-    this.ativo = true,
-    this.notaApp = 0,
-    this.userImage = 'assets/images/user.png',
-    this.nota = 0,
-    this.username = '',
-    this.telefone = 0,
-    this.morada = '',
-    this.moradaAntiga = '',
-    this.lastPassword = '',
-    this.localizacao = '',
-    this.novoEmail = '',
-  });
-
 }
