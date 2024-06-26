@@ -134,8 +134,8 @@ class GerirCar2 extends StatefulWidget {
   final Car car;
   final User user;
 
-
-  const GerirCar2({Key? key, required this.user, required this.car}) : super(key: key);
+  const GerirCar2({Key? key, required this.user, required this.car})
+      : super(key: key);
 
   @override
   _GerirCar2PageState createState() => _GerirCar2PageState();
@@ -154,8 +154,6 @@ class _GerirCar2PageState extends State<GerirCar2> {
   String? _selectedPoliticaCombustivel;
   bool _ativo = true;
 
-
-
   TextEditingController _controllerVelocidadeMaxima = TextEditingController();
   TextEditingController _controllerMatricula = TextEditingController();
   TextEditingController _controllerTotalQuilometros = TextEditingController();
@@ -164,8 +162,7 @@ class _GerirCar2PageState extends State<GerirCar2> {
   TextEditingController _controllerModelo = TextEditingController();
   TextEditingController _controllerCilindrada = TextEditingController();
 
-
- @override
+  @override
   void initState() {
     super.initState();
     _selectedMarca = widget.car.marca;
@@ -186,15 +183,14 @@ class _GerirCar2PageState extends State<GerirCar2> {
     _controllerModelo.text = widget.car.modelo.toString();
     _controllerCilindrada.text = widget.car.cilindrada.toString();
   }
+
   List<String> _imagens = [];
 
-  void _updateAtivo(bool value){
+  void _updateAtivo(bool value) {
     setState(() {
       _ativo = value;
     });
   }
-
-
 
   Future<void> _adicionarImagem() async {
     final picker = ImagePicker();
@@ -220,7 +216,7 @@ class _GerirCar2PageState extends State<GerirCar2> {
     }
   }
 
-    void goBack(BuildContext context) {
+  void goBack(BuildContext context) {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => GerirCar(user: User.loggedUser!)),
@@ -229,28 +225,27 @@ class _GerirCar2PageState extends State<GerirCar2> {
 
   void _updateCar() {
     final car = Car(
-      id: widget.car.id,
-      imagemPrincipal: '',
-      dono: widget.car.dono,
-      marca: _selectedMarca!,
-      modelo: _controllerModelo.text,
-      combustivel: _selectedCombustivel!,
-      numeroPortas: _selectedNumeroPortas!,
-      numeroLugares: _selectedNumeroLugares!,
-      categoria: _selectedCategoria!,
-      velocidadeMax: int.parse(_controllerVelocidadeMaxima.text),
-      transmissao: _selectedTransmissao!,
-      cilindrada: int.parse(_controllerCilindrada.text),
-      ano: DateTime(_selectedAno!),
-      cor: _selectedCor!,
-      matricula: _controllerMatricula.text,
-      totalQuilometros: int.parse(_controllerTotalQuilometros.text),
-      seguro: _selectedSeguro!,
-      politicaCombustivel: _selectedPoliticaCombustivel!,
-      preco: double.parse(_controllerPreco.text),
-      descricao: _controllerDescricao.text,
-      ativo: _ativo
-    );
+        id: widget.car.id,
+        imagemPrincipal: '',
+        dono: widget.car.dono,
+        marca: _selectedMarca!,
+        modelo: _controllerModelo.text,
+        combustivel: _selectedCombustivel!,
+        numeroPortas: _selectedNumeroPortas!,
+        numeroLugares: _selectedNumeroLugares!,
+        categoria: _selectedCategoria!,
+        velocidadeMax: int.parse(_controllerVelocidadeMaxima.text),
+        transmissao: _selectedTransmissao!,
+        cilindrada: int.parse(_controllerCilindrada.text),
+        ano: DateTime(_selectedAno!),
+        cor: _selectedCor!,
+        matricula: _controllerMatricula.text,
+        totalQuilometros: int.parse(_controllerTotalQuilometros.text),
+        seguro: _selectedSeguro!,
+        politicaCombustivel: _selectedPoliticaCombustivel!,
+        preco: double.parse(_controllerPreco.text),
+        descricao: _controllerDescricao.text,
+        ativo: _ativo);
 
     AdminData.updateCar(car, context).then((_) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -262,12 +257,12 @@ class _GerirCar2PageState extends State<GerirCar2> {
       );
     });
   }
-  
-   @override
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-         leading: IconButton(
+        leading: IconButton(
           onPressed: () => goBack(context),
           icon: const Icon(Icons.arrow_back, color: Color(0xFF3C9096)),
         ),
@@ -329,7 +324,8 @@ class _GerirCar2PageState extends State<GerirCar2> {
                 ),
                 TextFormField(
                   controller: _controllerVelocidadeMaxima,
-                  decoration: const InputDecoration(labelText: 'Velocidade Máxima'),
+                  decoration:
+                      const InputDecoration(labelText: 'Velocidade Máxima'),
                 ),
                 TextFormField(
                   controller: _controllerDescricao,
@@ -456,11 +452,12 @@ class _GerirCar2PageState extends State<GerirCar2> {
                     );
                   }).toList(),
                   onChanged: (value) {
-                     _selectedSeguro = value;
+                    _selectedSeguro = value;
                   },
                 ),
                 DropdownButtonFormField<String>(
-                  decoration: const InputDecoration(labelText: 'Política de Combustível'),
+                  decoration: const InputDecoration(
+                      labelText: 'Política de Combustível'),
                   value: _selectedPoliticaCombustivel,
                   items: politicaCombustivel.map((politica) {
                     return DropdownMenuItem(
@@ -483,10 +480,8 @@ class _GerirCar2PageState extends State<GerirCar2> {
                 const SizedBox(height: 16),
                 Center(
                   child: MyButton(
-                   onTap: () =>
-                  _updateCar()
-                  ,
-                  text: "Atualizar",
+                    onTap: () => _updateCar(),
+                    text: "Atualizar",
                   ),
                 ),
               ],

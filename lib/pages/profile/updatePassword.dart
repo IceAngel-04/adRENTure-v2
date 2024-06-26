@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:adrenture/models/user.dart';
 import 'package:adrenture/pages/profile/profileEdit.dart';
 import 'package:adrenture/widgets/button.dart';
-import 'package:adrenture/widgets/textfield.dart';
 
 class UpdatePassword extends StatefulWidget {
   final User user;

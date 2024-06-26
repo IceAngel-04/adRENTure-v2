@@ -6,7 +6,6 @@ import 'package:adrenture/widgets/textfield.dart';
 import 'package:adrenture/pages/login/register.dart';
 import 'package:adrenture/widgets/navbar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 class Login extends StatefulWidget {
   Login({super.key});
