@@ -1,3 +1,4 @@
+import 'package:adrenture/models/user.dart';
 import 'package:adrenture/pages/home/activecarspage.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart'; // Importar para formatação de datas
@@ -6,7 +7,8 @@ import 'package:adrenture/widgets/smallCard.dart'; // Importe o widget SmallCust
 
 class PaymentPage extends StatefulWidget {
   final Car car;
-  const PaymentPage({Key? key, required this.car, required int carId}) : super(key: key);
+  final User user;
+  const PaymentPage({Key? key, required this.car,required this.user, required int carId}) : super(key: key);
 
   @override
   _PaymentPageState createState() => _PaymentPageState();
@@ -147,7 +149,7 @@ class _PaymentPageState extends State<PaymentPage> {
                         }
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => ActiveCarsPage()),
+                          MaterialPageRoute(builder: (context) => ActiveCarsPage(user: widget.user)),
                         );
                       },
                 child: Text(

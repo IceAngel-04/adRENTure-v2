@@ -251,7 +251,7 @@ class CarPage extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => PaymentPage(carId: car.id, car: car,)),
+                                    builder: (context) => PaymentPage(carId: car.id, car: car, user: User.loggedUser!)),
                               );
                             },
                             style: ElevatedButton.styleFrom(
