@@ -26,6 +26,8 @@ class User {
   String? newPassword;
   String? newPasswordConfirm;
   String? lastPassword;
+  double? valorGasto;
+  double? valorGanho;
 
   User({
     required this.userID,
@@ -53,6 +55,8 @@ class User {
     this.novoEmail = '',
     DateTime? dataAdesao,
     DateTime? dataUltimaAtualizacao,
+    this.valorGasto,
+    this.valorGanho,
   })  : this.dataAdesao = dataAdesao ?? DateTime.now(),
         this.dataUltimaAtualizacao = dataUltimaAtualizacao ?? DateTime.now();
 
@@ -228,3 +232,7 @@ class User {
     );
   }
 }
+
+
+
+

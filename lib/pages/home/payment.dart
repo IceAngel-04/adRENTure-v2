@@ -1,5 +1,6 @@
 import 'package:adrenture/models/user.dart';
 import 'package:adrenture/pages/home/activecarspage.dart';
+import 'package:adrenture/widgets/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart'; // Importar para formatação de datas
 import 'package:adrenture/models/car.dart'; // Supondo que 'car.dart' contém a definição da classe Car
@@ -147,9 +148,9 @@ class _PaymentPageState extends State<PaymentPage> {
                         } else if (selectedPaymentMethod == 'MB WAY') {
                           // Implemente a lógica para MB WAY
                         }
-                        Navigator.push(
+                        Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(builder: (context) => ActiveCarsPage(user: widget.user)),
+                          MaterialPageRoute(builder: (context) => BottomNavBarPage(user: widget.user)),
                         );
                       },
                 child: Text(
