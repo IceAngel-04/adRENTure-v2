@@ -249,7 +249,7 @@ class _GerirCar2PageState extends State<GerirCar2> {
 
     AdminData.updateCar(car, context).then((_) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Utilizador atualizado com sucesso')),
+        SnackBar(content: Text('Carro atualizado com sucesso')),
       );
     }).catchError((error) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -266,7 +266,7 @@ class _GerirCar2PageState extends State<GerirCar2> {
           onPressed: () => goBack(context),
           icon: const Icon(Icons.arrow_back, color: Color(0xFF3C9096)),
         ),
-        title: const Text('Alugue o Carro'),
+        title: const Text('Alterar Carro'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
