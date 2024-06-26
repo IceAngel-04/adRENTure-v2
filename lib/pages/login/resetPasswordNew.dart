@@ -14,8 +14,8 @@ class ResetPassword extends StatefulWidget {
 class _ResetPasswordState extends State<ResetPassword> {
 
   final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final _confirmPassworController = TextEditingController();
+  final _newPasswordController = TextEditingController();
+  final _confirmNewPassworController = TextEditingController();
 
     void _resetPassword() {
 
@@ -41,6 +41,24 @@ class _ResetPasswordState extends State<ResetPassword> {
     context,
     MaterialPageRoute(builder: (context) => Login()));
   }
+
+  bool _newPasswordObscured = true;
+
+  void toggleNewPasswordVisibility() {
+    setState(() {
+      _newPasswordObscured = !_newPasswordObscured;
+  });
+  }
+
+  bool _confirmNewPasswordObscured = true;
+
+  void toggleConfirmNewPasswordVisibility() {
+    setState(() {
+      _confirmNewPasswordObscured = !_confirmNewPasswordObscured;
+  });
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -74,25 +92,57 @@ class _ResetPasswordState extends State<ResetPassword> {
 
             const SizedBox(height: 30),
 
-
-            //username textfield
-            MyTextField(
-              controller: _passwordController,
-              hintText: 'Insira a palavra-passe',
-              obscureText: true,
-            ),
-
+             Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                      child: TextField(
+                      controller: _newPasswordController,
+                      obscureText: _newPasswordObscured,
+                      decoration: InputDecoration(
+                      suffixIcon: IconButton(
+                      icon: Icon(_newPasswordObscured
+                          ? Icons.visibility_off_outlined
+                          : Icons.visibility_outlined),
+                      color: Color(0xFF3C9096),
+                      onPressed: toggleNewPasswordVisibility,
+                    ),
+                    enabledBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey.shade900),
+                    ),
+                    hintText: "Nova palavra-passe",
+                    hintStyle: TextStyle(color: Colors.grey[500]),
+                  ),
+                ),
+              ),
             const SizedBox(height: 30),
 
-              MyTextField(
-              controller: _confirmPassworController,
-              hintText: 'Insira novamente a palavra-passe',
-              obscureText: true,
-            ),
-
+           Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                      child: TextField(
+                      controller: _confirmNewPassworController,
+                      obscureText: _confirmNewPasswordObscured,
+                      decoration: InputDecoration(
+                      suffixIcon: IconButton(
+                      icon: Icon(_confirmNewPasswordObscured
+                          ? Icons.visibility_off_outlined
+                          : Icons.visibility_outlined),
+                      color: Color(0xFF3C9096),
+                      onPressed: toggleConfirmNewPasswordVisibility,
+                    ),
+                    enabledBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey.shade900),
+                    ),
+                    hintText: "Cofirme a nova palavra-passe",
+                    hintStyle: TextStyle(color: Colors.grey[500]),
+                  ),
+                ),
+              ),
             const SizedBox(height: 50),
-
-            //Registar button
             MyButton(
               onTap: () {
                   _resetPassword();

@@ -1,9 +1,12 @@
+import 'package:adrenture/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:adrenture/widgets/smallCard.dart';
 import 'package:adrenture/models/car.dart';
+import 'package:adrenture/data/car_data.dart'; // Import your CarData file
 
 class ActiveCarsPage extends StatefulWidget {
-  const ActiveCarsPage({Key? key}) : super(key: key);
+  final User user;
+  const ActiveCarsPage({Key? key, required this.user}) : super(key: key);
 
   @override
   _ActiveCarsPageState createState() => _ActiveCarsPageState();
@@ -11,11 +14,65 @@ class ActiveCarsPage extends StatefulWidget {
 
 class _ActiveCarsPageState extends State<ActiveCarsPage> {
   bool showAllCars = false; // State to track toggle button
+  List<Car> _carList = [];
+  bool isLoading = true; // State to show loading indicator
 
-  List<Car> carList = [
-    carro1,
-    carro2,
-  ];
+  @override
+  void initState() {
+    super.initState();
+    fetchBoughtCars(widget.user); // Initial fetch for currently rented user cars
+  }
+
+  Future<void> fetchAllCars() async {
+    try {
+      setState(() {
+        isLoading = true;
+      });
+      final cars = await CarData.getAllCars();
+      setState(() {
+        _carList = cars;
+        isLoading = false;
+      });
+    } catch (e) {
+      print('Error fetching all cars: $e');
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  Future<void> fetchBoughtCars(User user) async {
+    try {
+      setState(() {
+        isLoading = true;
+      });
+      final cars = await CarData.getBoughtUserCars();
+      setState(() {
+        _carList = cars;
+        isLoading = false;
+      });
+    } catch (e) {
+      print('Error fetching rented cars: $e');
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  Future<void> fetchRentedUserCars(User user) async {
+    try {
+      final cars = await CarData.getAllCars();
+      setState(() {
+        _carList = cars;
+        isLoading = false;
+      });
+    } catch (e) {
+      print('Error fetching rented user cars: $e');
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,26 +89,31 @@ class _ActiveCarsPageState extends State<ActiveCarsPage> {
                 setState(() {
                   showAllCars = value;
                 });
+                if (showAllCars) {
+                  fetchBoughtCars(widget.user);
+                } else {
+                  fetchRentedUserCars(widget.user);
+                }
               },
             ),
           ],
         ),
       ),
-      body: ListView.builder(
-        padding: const EdgeInsets.all(8.0),
-        itemCount: showAllCars ? carList.length : 5, // Display all or first 5 cars
-        itemBuilder: (context, index) {
-          final car = carList[index];
-          return SmallCustomCard(
-            title: '${car.marca} ${car.modelo}',
-            subtitle:
-                'Tempo Restante: ${car.preco} Horas e ${car.totalQuilometros} minutos',
-            image: Image.asset(
-                car.imagemPrincipal), // Use the car image from assets
-            backgroundColor: const Color.fromRGBO(5, 157, 2, 70),
-          );
-        },
-      ),
+      body: isLoading
+          ? Center(child: CircularProgressIndicator())
+          : ListView.builder(
+              padding: const EdgeInsets.all(8.0),
+              itemCount: showAllCars ? _carList.length : (_carList.length > 5 ? 5 : _carList.length), // Display all or first 5 cars
+              itemBuilder: (context, index) {
+                final car = _carList[index];
+                return SmallCustomCard(
+                  title: '${car.marca} ${car.modelo}',
+                  subtitle: 'Tempo Restante: ${car.preco} Horas e ${car.totalQuilometros} minutos',
+                  image: Image.asset(car.imagemPrincipal), // Use the car image from assets
+                  backgroundColor: const Color.fromRGBO(5, 157, 2, 70),
+                );
+              },
+            ),
     );
   }
 }

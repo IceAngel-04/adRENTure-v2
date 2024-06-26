@@ -110,8 +110,6 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                       padding: EdgeInsets.symmetric(horizontal: 28),
                     ),
                     const SizedBox(height: 100),
-
-                    // Novo email textfield
                    Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 25.0),
                       child: TextField(
@@ -136,10 +134,8 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                   ),
                 ),
               ),
-                    
                     const SizedBox(height: 20),
-                         // Novo email textfield
-                       Padding(
+                    Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 25.0),
                       child: TextField(
                       controller: _newPasswordController,
@@ -167,8 +163,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                     
                     const SizedBox(height: 20),
 
-                         // Novo email textfield
-                       Padding(
+                    Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 25.0),
                       child: TextField(
                       controller: _newPasswordConfirmController,
@@ -195,7 +190,6 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                     
                     const SizedBox(height: 100),
 
-                    // Confirm button
                     MyButton(
                       onTap: () => _updatePassword(),
                       text: "Confirmar",
