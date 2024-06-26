@@ -70,8 +70,6 @@ class User {
       nif: int.parse(json['nif'].toString()),
       datanascimento: DateTime.parse(json['dataNascimento']), // Ensure this matches JSON key
       userImage: json['imagemPerfil'] ?? 'assets/images/user.png',
-      valorGanho: double.parse(json['valorInicial']),
-      valorGasto: double.parse(json['valorFinal']),
       // Handle other fields similarly
     );
   }
@@ -102,13 +100,14 @@ class User {
     required String password,
   }) {
     return User(
-        userID: 0,
-        email: email,
-        password: password,
-        nomeUtilizador: '', // Provide default or empty values
-        nif: 0,
-        cartaConducao: 0,
-        datanascimento: DateTime(1900));
+      userID: 0,
+      email: email,
+      password: password,
+      nomeUtilizador: '', // Provide default or empty values
+      nif: 0,
+      cartaConducao: 0,
+      datanascimento: DateTime(1900)
+    );
   }
 
   factory User.forUpdateEmail({
@@ -233,3 +232,7 @@ class User {
     );
   }
 }
+
+
+
+

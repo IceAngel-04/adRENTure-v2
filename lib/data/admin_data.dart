@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:adrenture/main.dart';
 import 'package:adrenture/models/car.dart';
 import 'package:adrenture/models/user.dart';
 import 'package:adrenture/pages/admin/gerirCarro.dart';
@@ -9,7 +10,7 @@ import 'package:http/http.dart' as http;
 
 abstract class AdminData {
   static Future<void> updateUser(User user, BuildContext context) async {
-    final url = Uri.parse('http://localhost:5000/api/admin/updateUser'); // O vosso url da api para registrar
+    final url = Uri.parse('http://' + servidor + ':' + porta + '/api/admin/updateUser'); // O vosso url da api para registrar
     //final url = Uri.parse('https://adrentureapi.onrender.com/api/auth/register'); // O vosso url da api para registrar
 
     final updateUser = await http.put(
@@ -41,7 +42,7 @@ abstract class AdminData {
   }
 
   static Future<void> deleteUser(User user) async {
-    final url = Uri.parse('http://localhost:5000/api/admin/deleteUser'); // O vosso url da api para registrar
+    final url = Uri.parse('http://' + servidor + ':' + porta + '/api/admin/deleteUser'); // O vosso url da api para registrar
     //final url = Uri.parse('https://adrentureapi.onrender.com/api/auth/register'); // O vosso url da api para registrar
 
     final deleteUser = await http.delete(
@@ -63,7 +64,7 @@ abstract class AdminData {
   }
 
   static Future<List<User>> getAllUsers() async {
-    final url = Uri.parse('http://localhost:5000/api/admin/getAllUsers'); // Adjust the URL as needed
+    final url = Uri.parse('http://' + servidor + ':' + porta + '/api/admin/getAllUsers'); // Adjust the URL as needed
 
     final getAllUsers = await http.get(
       url,
@@ -85,7 +86,7 @@ abstract class AdminData {
   }
 
      static Future<void> updateCar(Car car, BuildContext context) async {
-    final url = Uri.parse('http://localhost:5000/api/car/updateCar'); // Adjust the URL as needed
+    final url = Uri.parse('http://' + servidor + ':' + porta + '/api/car/updateCar'); // Adjust the URL as needed
 
     final updateCar = await http.put(
       url,
@@ -130,7 +131,7 @@ abstract class AdminData {
   }
 
   static Future<void> deleteCar(Car car) async {
-    final url = Uri.parse('http://localhost:5000/api/car/deleteCar'); // Replace with your actual API endpoint
+    final url = Uri.parse('http://' + servidor + ':' + porta + '/api/car/deleteCar'); // Replace with your actual API endpoint
     try {
       final response = await http.delete(
         url,
