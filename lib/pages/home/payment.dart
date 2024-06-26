@@ -1,3 +1,4 @@
+import 'package:adrenture/pages/home/activecarspage.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart'; // Importar para formatação de datas
 import 'package:adrenture/models/car.dart'; // Supondo que 'car.dart' contém a definição da classe Car
@@ -136,14 +137,18 @@ class _PaymentPageState extends State<PaymentPage> {
             Center(
               child: ElevatedButton(
                 onPressed: selectedPaymentMethod.isEmpty
-                    ? null
-                    : () {
+                  ? null
+                     : () {
                         // Aqui você pode implementar a navegação para a página de pagamento ou outra ação
                         if (selectedPaymentMethod == 'PayPal') {
                           // Implemente a lógica para PayPal
                         } else if (selectedPaymentMethod == 'MB WAY') {
                           // Implemente a lógica para MB WAY
                         }
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => ActiveCarsPage()),
+                        );
                       },
                 child: Text(
                   'Continuar com $selectedPaymentMethod',
