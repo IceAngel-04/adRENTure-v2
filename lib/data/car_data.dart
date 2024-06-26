@@ -89,4 +89,27 @@ abstract class CarData {
       );
     }
   }
+
+  static Future<List<Car>> getBoughtUserCars() async {
+    final response = await http.get(
+      Uri.parse('http://' + servidor + ':' + porta + '/api/car/getboughtUserCars'));
+      print(response.body);
+    if (response.statusCode == 200) {
+      final List<dynamic> carJson = json.decode(response.body);
+      return carJson.map((json) => Car.fromJson(json)).toList();
+    } else {
+      throw Exception('Failed to load rented user cars');
+    }
+  }
+
+  static Future<List<Car>> getAllUserCars() async {
+    final response = await http.get(
+      Uri.parse('http://' + servidor + ':' + porta + '/api/car/getAllUserCars')); 
+    if (response.statusCode == 200) {
+      final List<dynamic> carJson = json.decode(response.body);
+      return carJson.map((json) => Car.fromJson(json)).toList();
+    } else {
+      throw Exception('Failed to load rented cars');
+    }
+  }
 }

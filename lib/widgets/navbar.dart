@@ -28,7 +28,7 @@ class _BottomNavBarPageState extends State<BottomNavBarPage> {
       case 0:
         return HomePage(user: widget.user);
       case 1:
-        return ActiveCarsPage();
+        return ActiveCarsPage(user: widget.user);
       case 2:
         return WalletPage();
       case 3:

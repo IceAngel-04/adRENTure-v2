@@ -153,6 +153,7 @@ class _HomePageContentState extends State<HomePageContent> {
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text(widget.title, textAlign: TextAlign.center),
         centerTitle: true,
       ),
