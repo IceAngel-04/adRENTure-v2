@@ -119,6 +119,36 @@ abstract class ProfileData {
     }
   }
 
+  static Future<void> getTotalSpent(String userID) async {
+    final url = Uri.parse('http://$servidor:$porta/getTotalSpent?userID=$userID');
+
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      if (User.loggedUser != null) {
+        User.loggedUser!.valorGasto = data['totalSpent'];
+      }
+    } else {
+      throw Exception('Failed to fetch total spent. Status code: ${response.statusCode}');
+    }
+  }
+
+  static Future<void> getTotalEarned(String userID) async {
+    final url = Uri.parse('http://$servidor:$porta/getTotalEarned?userID=$userID');
+
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      if (User.loggedUser != null) {
+        User.loggedUser!.valorGanho = data['totalEarned'];
+      }
+    } else {
+      throw Exception('Failed to fetch total earned. Status code: ${response.statusCode}');
+    }
+  }
+
  static Future<bool> updateNotifications(User user, bool newValue) async {
     try {
       final url = Uri.parse('http://' + servidor + ':' + porta + '/api/profile/updateNotifications');
