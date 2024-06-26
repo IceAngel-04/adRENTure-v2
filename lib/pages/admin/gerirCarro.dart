@@ -87,7 +87,12 @@ void deleteCar(Car car) async {
             icon: Icon(Icons.edit),
             color: Colors.white,
             onPressed: () {
-              // Implement edit action
+              Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => GerirCar2(car: car, user: widget.user),
+            ),
+          );
             },
           ),
           icon2: IconButton(
