@@ -1,4 +1,6 @@
 import 'package:adrenture/models/user.dart';
+import 'package:adrenture/pages/home/home.dart';
+import 'package:adrenture/widgets/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:adrenture/widgets/smallCard.dart';
 import 'package:adrenture/models/car.dart';
@@ -59,6 +61,13 @@ class _ActiveCarsPageState extends State<ActiveCarsPage> {
     }
   }
 
+    void goBack(BuildContext context){
+    Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => BottomNavBarPage(user: widget.user)));
+  }
+
+
   Future<void> fetchRentedUserCars(User user) async {
     try {
       final cars = await CarData.getAllCars();
@@ -78,6 +87,9 @@ class _ActiveCarsPageState extends State<ActiveCarsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: 
+          IconButton(onPressed: () => goBack(context) , 
+            icon: const Icon(Icons.arrow_back, color:Color(0xFF3C9096))),
         title: Row(
           children: [
             Expanded(
